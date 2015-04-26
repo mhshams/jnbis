@@ -1,5 +1,6 @@
 #JNBIS
-Java Implementation of NIST Biometric Image Software (NBIS)
+Java Implementation of NIST Biometric Image Software (NBIS) 
+[![License](https://pypip.in/license/apache-libcloud/badge.png)]() [![Build Status](https://travis-ci.org/mhshams/jnbis.svg?branch=master)](https://travis-ci.org/mhshams/jnbis)
 
 ###About JNBIS
 JNBIS is a library, written in Java, to extract and decode NIST (National Institute of Standards and Technology) compressed files and WSQ (Wavelet Scalar Quantization) images. 
