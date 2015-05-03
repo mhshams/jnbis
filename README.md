@@ -9,19 +9,22 @@ You can find more about NIST Biometric Image Software [here](http://www.nist.gov
 
 ###Quick Start
 #####Build and Install
-Clone the source code, build it with maven. You need JDK version *1.6 or higher* to build the code. 
+JNBIS is available in [The Central Repository](http://search.maven.org/#browse), so you just need to include it to your project libraries or maven dependencies.
+[![Maven Central](https://maven-badges.herokuapp.com/maven-central/com.github.mhshams/jnbis/badge.svg)](https://maven-badges.herokuapp.com/maven-central/com.github.mhshams/jnbis)
+
+```xml
+<dependency>
+  <groupId>jnbis</groupId>
+  <artifactId>jnbis</artifactId>
+  <version>1.0.4</version>
+</dependency>
+```
+
+Alternatively, you can clone the source code and build it with maven. You need JDK version *1.6 or higher* to build the code. 
 ```bash
 $ git clone git@github.com:mhshams/jnbis.git
 $ cd jnbis
 $ mvn install
-```
-and include it to your project libraries or maven dependencies.
-```maven
-<dependency>
-  <groupId>jnbis</groupId>
-  <artifactId>jnbis</artifactId>
-  <version>1.0.4-SNAPSHOT</version>
-</dependency>
 ```
 #####WSQ Decoder 
 First of all you need to create an instance of _org.jnbis.WSqDecoder_.
