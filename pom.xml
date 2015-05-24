@@ -97,6 +97,11 @@
     </build>
     <profiles>
         <profile>
+            <!--
+            - mvn -Ddnr jgitflow:release-start
+            - mvn -Ddnr jgitflow:release-finish
+            - git push tags, master and develop
+            -->
             <id>deploy-new-release</id>
             <activation>
                 <property>
