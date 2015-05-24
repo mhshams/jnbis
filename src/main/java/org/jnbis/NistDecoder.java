@@ -175,7 +175,7 @@ public class NistDecoder {
                 byte[] data = new byte[length - (token.pos - start)];
                 System.arraycopy(token.buffer, token.pos, data, 0, data.length);
                 DecodedData.putBinary(0, format, data);
-                token.pos = token.pos + data.length + 1;
+                token.pos = token.pos + data.length;
                 break;
             }
 

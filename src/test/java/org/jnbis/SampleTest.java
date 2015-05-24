@@ -27,7 +27,7 @@ public class SampleTest {
 
     @Test
     public void wsq2jpeg() throws Exception {
-        Bitmap decoded = wsqDecoder.decode(readFile("sample.wsq"));
+        Bitmap decoded = wsqDecoder.decode(readFile("samples/sample.wsq"));
 
         Assert.assertNotNull(decoded);
 
@@ -45,7 +45,7 @@ public class SampleTest {
 
     @Test
     public void nist2jpeg() throws Exception {
-        DecodedData decoded = nistDecoder.decode(readFile("type-4-tpcard.an2"), DecodedData.Format.JPEG);
+        DecodedData decoded = nistDecoder.decode(readFile("samples/sample.an2"), DecodedData.Format.JPEG);
 
         Set<Integer> keys = decoded.getBinaryKeys();
 
@@ -60,6 +60,11 @@ public class SampleTest {
             // For local check
             //saveFile(image.getData(), "/path/to/file-" + key + ".jpeg");
         }
+    }
+
+    @Test
+    public void ansiReferences() {
+
     }
 
     private void saveFile(byte[] data, String name) throws Exception {
