@@ -33,8 +33,8 @@ public class NistHelper {
     static final char[] TAG_SEP_GSFS = {SEP_GS, SEP_FS};
 
     static class Tag {
-        int type;
-        int field;
+        final int type;
+        final int field;
 
         public Tag(int type, int field) {
             this.type = type;
@@ -43,7 +43,7 @@ public class NistHelper {
     }
 
     static class Token {
-        byte[] buffer;
+        final byte[] buffer;
         int pos;
 
         String header;

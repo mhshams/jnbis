@@ -4,8 +4,6 @@ import java.util.HashMap;
 import java.util.Set;
 
 /**
- * this class hold decoded data from a NIST file.
- *
  * @author <a href="mailto:m.h.shams@gmail.com">M. H. Shamsi</a>
  * @version 1.0.0
  * @since Oct 31, 2007
@@ -16,7 +14,7 @@ public class DecodedData {
         GIF("gif"),
         PNG("png");
 
-        private String code;
+        private final String code;
 
         public String code() {
             return code;
@@ -27,8 +25,8 @@ public class DecodedData {
         }
     }
 
-    private HashMap<Integer, String> text;
-    private HashMap<Integer, BinaryData> binary;
+    private final HashMap<Integer, String> text;
+    private final HashMap<Integer, BinaryData> binary;
 
     DecodedData() {
         text = new HashMap<Integer, String>();
@@ -60,8 +58,8 @@ public class DecodedData {
     }
 
     public static final class BinaryData {
-        private String type;
-        private byte[] data;
+        private final String type;
+        private final byte[] data;
 
         public BinaryData(String type, byte[] data) {
             this.type = type;

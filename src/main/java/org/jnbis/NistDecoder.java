@@ -232,7 +232,7 @@ public class NistDecoder {
                     String.valueOf(token.charset.decode(ByteBuffer.wrap(data))) :
                     String.valueOf(NistHelper.USASCII.decode(ByteBuffer.wrap(data)));
         } catch (CharacterCodingException e) {
-            return null;
+            throw new RuntimeException(e);
         }
     }
 

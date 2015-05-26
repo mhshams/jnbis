@@ -35,7 +35,7 @@ public class SampleTest {
         Assert.assertEquals(622, decoded.getHeight());
         Assert.assertEquals(545, decoded.getWidth());
         Assert.assertEquals(622 * 545, decoded.getLength());
-        Assert.assertEquals(1, decoded.getLossyflag());
+        Assert.assertEquals(1, decoded.getLossyFlag());
         Assert.assertEquals(-1, decoded.getPpi());
         Assert.assertEquals(622 * 545, decoded.getPixels().length);
 

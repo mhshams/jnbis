@@ -8,24 +8,24 @@ import java.io.Serializable;
  * @since Oct 6, 2007
  */
 public class Bitmap implements Serializable {
-    private int width;
-    private int height;
-    private int ppi;
-    private int depth;
-    private int lossyflag;
+    private final byte[] pixels;
+    private final int width;
+    private final int height;
+    private final int ppi;
+    private final int depth;
+    private final int lossyFlag;
 
-    private byte[] pixels;
-    private int length;
+    private final int length;
 
-    public Bitmap(byte[] pixels, int width, int height, int ppi, int depth, int lossyflag) {
+    public Bitmap(byte[] pixels, int width, int height, int ppi, int depth, int lossyFlag) {
         this.pixels = pixels;
-        this.length = pixels != null ? pixels.length : 0;
-
         this.width = width;
         this.height = height;
         this.ppi = ppi;
         this.depth = depth;
-        this.lossyflag = lossyflag;
+        this.lossyFlag = lossyFlag;
+
+        this.length = pixels != null ? pixels.length : 0;
     }
 
 
@@ -53,7 +53,7 @@ public class Bitmap implements Serializable {
         return depth;
     }
 
-    public int getLossyflag() {
-        return lossyflag;
+    public int getLossyFlag() {
+        return lossyFlag;
     }
 }

@@ -1,6 +1,7 @@
 package org.jnbis;
 
 import java.io.*;
+import java.util.Arrays;
 
 /**
  * @author <a href="mailto:m.h.shams@gmail.com">M. H. Shamsi</a>
@@ -166,7 +167,7 @@ public class WsqDecoder {
 
     private String getCComment(WsqHelper.Token token) {
         int size = token.readShort() - 2;
-        return String.valueOf(token.readBytes(size));
+        return Arrays.toString(token.readBytes(size));
     }
 
     private void getCTransformTable(WsqHelper.Token token) {
@@ -294,13 +295,13 @@ public class WsqDecoder {
 
         /* Store table into global structure list. */
         int tableId = firstHuffmanTable.tableId;
-        token.tableDHT[tableId].huffbits = (int[]) firstHuffmanTable.huffbits.clone();
-        token.tableDHT[tableId].huffvalues = (int[]) firstHuffmanTable.huffvalues.clone();
+        token.tableDHT[tableId].huffbits = firstHuffmanTable.huffbits.clone();
+        token.tableDHT[tableId].huffvalues = firstHuffmanTable.huffvalues.clone();
         token.tableDHT[tableId].tabdef = 1;
 
         int bytesLeft = firstHuffmanTable.bytesLeft;
         while (bytesLeft != 0) {
-            /* Read next table without rading table len. */
+            /* Read next table without reading table len. */
             WsqHelper.HuffmanTable huffmantable = getCHuffmanTable(token, WsqHelper.MAX_HUFFCOUNTS_WSQ, bytesLeft, false);
 
             /* If table is already defined ... */
@@ -310,8 +311,8 @@ public class WsqDecoder {
             }
 
             /* Store table into global structure list. */
-            token.tableDHT[tableId].huffbits = (int[]) huffmantable.huffbits.clone();
-            token.tableDHT[tableId].huffvalues = (int[]) huffmantable.huffvalues.clone();
+            token.tableDHT[tableId].huffbits = huffmantable.huffbits.clone();
+            token.tableDHT[tableId].huffvalues = huffmantable.huffvalues.clone();
             token.tableDHT[tableId].tabdef = 1;
             bytesLeft = huffmantable.bytesLeft;
         }

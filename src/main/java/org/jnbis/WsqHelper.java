@@ -109,10 +109,6 @@ public class WsqHelper {
     static class IntRef {
         int value;
 
-
-        public IntRef() {
-        }
-
         public IntRef(int value) {
             this.value = value;
         }

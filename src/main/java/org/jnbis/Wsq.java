@@ -8,8 +8,8 @@ import java.io.Serializable;
  * @since Apr 24, 2007
  */
 public class Wsq implements Serializable {
-    private int id;
-    private byte[] data;
+    private final int id;
+    private final byte[] data;
 
 
     public Wsq(byte[] data, int id) {
