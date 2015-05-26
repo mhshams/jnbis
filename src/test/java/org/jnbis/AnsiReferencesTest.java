@@ -259,6 +259,8 @@ public class AnsiReferencesTest {
         InputStream file = SampleTest.class.getClassLoader().getResourceAsStream(String.format(FILE_PATH, name));
         DecodedData decoded = DECODER.decode(file, DecodedData.Format.PNG);
         assertNotNull(decoded);
+        // For local check.
+//        FileUtils.saveAll(decoded, DecodedData.Format.PNG, "target/" + name);
         return decoded;
     }
 }

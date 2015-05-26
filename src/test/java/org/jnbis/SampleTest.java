@@ -4,8 +4,6 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
-import java.io.FileOutputStream;
-import java.io.InputStream;
 import java.util.Set;
 
 /**
@@ -27,7 +25,7 @@ public class SampleTest {
 
     @Test
     public void wsq2jpeg() throws Exception {
-        Bitmap decoded = wsqDecoder.decode(readFile("samples/sample.wsq"));
+        Bitmap decoded = wsqDecoder.decode(FileUtils.read("samples/sample.wsq"));
 
         Assert.assertNotNull(decoded);
 
@@ -40,12 +38,12 @@ public class SampleTest {
         Assert.assertEquals(622 * 545, decoded.getPixels().length);
 
         // For local check.
-        //saveFile(imageUtils.bitmap2jpeg(decoded), "/path/to/file.jpeg");
+        //FileUtils.save(imageUtils.bitmap2jpeg(decoded), "/path/to/file.jpeg");
     }
 
     @Test
     public void nist2jpeg() throws Exception {
-        DecodedData decoded = nistDecoder.decode(readFile("samples/sample.an2"), DecodedData.Format.JPEG);
+        DecodedData decoded = nistDecoder.decode(FileUtils.read("samples/sample.an2"), DecodedData.Format.JPEG);
 
         Set<Integer> keys = decoded.getBinaryKeys();
 
@@ -58,22 +56,7 @@ public class SampleTest {
             Assert.assertEquals(DecodedData.Format.JPEG.code(), image.getType());
 
             // For local check
-            //saveFile(image.getData(), "/path/to/file-" + key + ".jpeg");
+            //FileUtils.save(image.getData(), "/path/to/file-" + key + ".jpeg");
         }
     }
-
-    @Test
-    public void ansiReferences() {
-
-    }
-
-    private void saveFile(byte[] data, String name) throws Exception {
-        FileOutputStream bos = new FileOutputStream(name);
-        bos.write(data);
-        bos.close();
-    }
-
-    private InputStream readFile(String name) {
-        return SampleTest.class.getClassLoader().getResourceAsStream(name);
-    }
-}
+ }
