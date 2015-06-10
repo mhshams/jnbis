@@ -1,5 +1,6 @@
 package org.jnbis;
 
+import org.jnbis.record.HighResolutionGrayscaleFingerprint;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -45,18 +46,17 @@ public class SampleTest {
     public void nist2jpeg() throws Exception {
         DecodedData decoded = nistDecoder.decode(FileUtils.read("samples/sample.an2"), DecodedData.Format.JPEG);
 
-        Set<Integer> keys = decoded.getBinaryKeys();
+        Set<Integer> keys = decoded.getHiResGrayscaleFingerPrintKeys();
 
         Assert.assertEquals(14, keys.size());
 
         for (Integer key : keys) {
-            DecodedData.BinaryData image = decoded.getBinary(key);
+            HighResolutionGrayscaleFingerprint image = decoded.getHiResGrayscaleFingerprint(key);
 
             Assert.assertNotNull(image);
-            Assert.assertEquals(DecodedData.Format.JPEG.code(), image.getType());
 
             // For local check
             //FileUtils.save(image.getData(), "/path/to/file-" + key + ".jpeg");
         }
     }
- }
+}
