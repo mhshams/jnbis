@@ -3,7 +3,7 @@ package org.jnbis;
 import org.jnbis.record.HighResolutionBinaryFingerprint;
 
 /**
- * Created by ericdsoto on 6/8/15.
+ * @author ericdsoto
  */
 public class HighResolutionBinaryFingerprintReader extends RecordReader {
 

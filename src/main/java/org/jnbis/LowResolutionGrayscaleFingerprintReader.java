@@ -4,7 +4,7 @@ import org.jnbis.record.HighResolutionGrayscaleFingerprint;
 import org.jnbis.record.LowResolutionGrayscaleFingerprint;
 
 /**
- * Created by ericdsoto on 6/8/15.
+ * @author ericdsoto
  */
 public class LowResolutionGrayscaleFingerprintReader extends RecordReader {
 

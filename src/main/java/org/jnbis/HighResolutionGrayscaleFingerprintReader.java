@@ -3,7 +3,7 @@ package org.jnbis;
 import org.jnbis.record.HighResolutionGrayscaleFingerprint;
 
 /**
- * Created by ericdsoto on 6/8/15.
+ * @author ericdsoto
  */
 public class HighResolutionGrayscaleFingerprintReader extends RecordReader {
 

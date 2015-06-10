@@ -1,7 +1,7 @@
 package org.jnbis.record;
 
 /**
- * Created by ericdsoto on 6/8/15.
+ * @author ericdsoto
  */
 public abstract class BaseVariableResolutionImageRecord extends BaseImageRecord {
     // X.003 - IMP

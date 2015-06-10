@@ -3,7 +3,7 @@ package org.jnbis.record;
 import java.io.Serializable;
 
 /**
- * Created by ericdsoto on 6/8/15.
+ * @author ericdsoto
  */
 public abstract class BaseRecord implements Serializable {
 

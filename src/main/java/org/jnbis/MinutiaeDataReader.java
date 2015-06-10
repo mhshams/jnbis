@@ -4,7 +4,7 @@ import org.jnbis.record.MinutiaeData;
 import org.jnbis.record.SignatureImage;
 
 /**
- * Created by ericdsoto on 6/8/15.
+ * @author ericdsoto
  */
 public class MinutiaeDataReader extends RecordReader {
 

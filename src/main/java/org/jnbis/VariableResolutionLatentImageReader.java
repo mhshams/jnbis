@@ -3,7 +3,7 @@ package org.jnbis;
 import org.jnbis.record.VariableResolutionLatentImage;
 
 /**
- * Created by ericdsoto on 6/8/15.
+ * @author ericdsoto
  */
 public class VariableResolutionLatentImageReader extends RecordReader {
 
