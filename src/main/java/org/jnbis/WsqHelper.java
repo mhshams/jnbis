@@ -175,4 +175,16 @@ public class WsqHelper {
             return bytes;
         }
     }
+
+    static boolean isWsqFormat(byte[] bytes) {
+
+        // If the first two bytes are 0xFF and 0xA0 and the last two bytes are 0xFF and 0xA1
+        // then it is a WSQ file
+        return (bytes[0] == (byte) 0xFF
+                && bytes[1] == (byte) 0xA0
+                && bytes[bytes.length - 2] == (byte) 0xFF
+                && bytes[bytes.length - 1] == (byte) 0xA1);
+
+    }
+
 }

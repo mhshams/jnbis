@@ -17,8 +17,18 @@ public class NistHelper {
     // Logical record types (used here.)
     static final int RT_TRANSACTION_INFO = 1;
     static final int RT_USER_DEFINED_TEXT = 2;
+    static final int RT_LR_GS_FINGERPRINT = 3;
     static final int RT_HR_GS_FINGERPRINT = 4;
+    static final int RT_LR_BINARY_FINGERPRINT = 5;
+    static final int RT_HR_BINARY_FINGERPRINT = 6;
+    static final int RT_USER_DEFINED_IMAGE = 7;
+    static final int RT_SIGNATURE_IMAGE = 8;
+    static final int RT_MINUTIAE_DATA = 9;
     static final int RT_FACIAL_N_SMT_IMAGE_DATA = 10;
+    static final int RT_VR_LATENT_IMAGE = 13;
+    static final int RT_VR_FINGERPRINT = 14;
+    static final int RT_VR_PALMPRINT = 15;
+    static final int RT_IRIS_IMAGE = 17;
 
     // Information separators
     static final char SEP_US = 31;

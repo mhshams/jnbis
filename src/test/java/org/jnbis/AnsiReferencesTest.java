@@ -1,6 +1,6 @@
 package org.jnbis;
 
-import org.junit.Ignore;
+import org.jnbis.record.UserDefinedDescriptiveText;
 import org.junit.Test;
 
 import java.io.IOException;
@@ -56,203 +56,252 @@ public class AnsiReferencesTest {
     @Test
     public void type_3() throws IOException {
         DecodedData decoded = decode(FILES[0]);
+        assertEquals(1, decoded.getLowResGrayscaleFingerPrintKeys().size());
         commonAssert(decoded);
     }
 
     @Test
     public void type4_14_slaps() throws IOException {
         DecodedData decoded = decode(FILES[1]);
+        assertEquals(2, decoded.getHiResGrayscaleFingerPrintKeys().size());
+        assertEquals(1, decoded.getVariableResFingerprintKeys().size());
         commonAssert(decoded);
     }
 
     @Test
     public void type4_slaps() throws IOException {
         DecodedData decoded = decode(FILES[2]);
+        assertEquals(4, decoded.getHiResGrayscaleFingerPrintKeys().size());
         commonAssert(decoded);
     }
 
     @Test
     public void type4_tpcard() throws IOException {
         DecodedData decoded = decode(FILES[3]);
+        assertEquals(14, decoded.getHiResGrayscaleFingerPrintKeys().size());
         commonAssert(decoded);
     }
 
     @Test
     public void type5() throws IOException {
         DecodedData decoded = decode(FILES[4]);
+        assertEquals(1, decoded.getLowResBinaryFingerPrintKeys().size());
         commonAssert(decoded);
     }
 
     @Test
     public void type6() throws IOException {
         DecodedData decoded = decode(FILES[5]);
+        assertEquals(1, decoded.getHiResBinaryFingerPrintKeys().size());
         commonAssert(decoded);
     }
 
     @Test
     public void type7_latent() throws IOException {
         DecodedData decoded = decode(FILES[6]);
+        assertEquals(1, decoded.getUserDefinedImageKeys().size());
         commonAssert(decoded);
     }
 
     @Test
     public void type8_sig() throws IOException {
         DecodedData decoded = decode(FILES[7]);
+        assertEquals(1, decoded.getSignatureKeys().size());
         commonAssert(decoded);
     }
 
     @Test
     public void type8_sig_fax() throws IOException {
         DecodedData decoded = decode(FILES[8]);
+        assertEquals(1, decoded.getSignatureKeys().size());
         commonAssert(decoded);
     }
 
     @Test
     public void type8_sig_raw() throws IOException {
         DecodedData decoded = decode(FILES[9]);
+        assertEquals(1, decoded.getSignatureKeys().size());
         commonAssert(decoded);
     }
 
-    @Ignore("issue #3")
+    // Issue #3 resolved
     @Test
     public void type9_4_iafis() throws IOException {
         DecodedData decoded = decode(FILES[10]);
+        assertEquals(1, decoded.getHiResGrayscaleFingerPrintKeys().size());
+        assertEquals(1, decoded.getMinutiaeDataKeys().size());
         commonAssert(decoded);
     }
 
-    @Ignore("issue #4")
+    // Issue #4 resolved
     @Test
     public void type9_10_14() throws IOException {
         DecodedData decoded = decode(FILES[11]);
+        assertEquals(1, decoded.getMinutiaeDataKeys().size());
+        assertEquals(1, decoded.getFacialSmtKeys().size());
+        assertEquals(1, decoded.getVariableResFingerprintKeys().size());
         commonAssert(decoded);
     }
 
     @Test
     public void type9_13_9_14_m1() throws IOException {
         DecodedData decoded = decode(FILES[12]);
+        assertEquals(2, decoded.getMinutiaeDataKeys().size());
+        assertEquals(1, decoded.getVariableResLatentImageKeys().size());
+        assertEquals(1, decoded.getVariableResFingerprintKeys().size());
         commonAssert(decoded);
     }
 
     @Test
     public void type9_13_m1() throws IOException {
         DecodedData decoded = decode(FILES[13]);
+        assertEquals(1, decoded.getMinutiaeDataKeys().size());
+        assertEquals(1, decoded.getVariableResLatentImageKeys().size());
         commonAssert(decoded);
     }
 
     @Test
     public void type9_13_std() throws IOException {
         DecodedData decoded = decode(FILES[14]);
+        assertEquals(1, decoded.getMinutiaeDataKeys().size());
+        assertEquals(1, decoded.getVariableResLatentImageKeys().size());
         commonAssert(decoded);
     }
 
     @Test
     public void type9_14_m1() throws IOException {
         DecodedData decoded = decode(FILES[15]);
+        assertEquals(1, decoded.getMinutiaeDataKeys().size());
+        assertEquals(1, decoded.getVariableResFingerprintKeys().size());
         commonAssert(decoded);
     }
 
     @Test
     public void type9_14_std() throws IOException {
         DecodedData decoded = decode(FILES[16]);
+        assertEquals(1, decoded.getMinutiaeDataKeys().size());
+        assertEquals(1, decoded.getVariableResFingerprintKeys().size());
         commonAssert(decoded);
     }
 
     @Test
     public void type10_14_17_piv_index_iris() throws IOException {
         DecodedData decoded = decode(FILES[17]);
+        assertEquals(1, decoded.getFacialSmtKeys().size());
+        assertEquals(2, decoded.getVariableResFingerprintKeys().size());
+        assertEquals(1, decoded.getIrisImageKeys().size());
         commonAssert(decoded);
     }
 
     @Test
     public void type10_branded_tattoo_mark() throws IOException {
         DecodedData decoded = decode(FILES[18]);
+        assertEquals(2, decoded.getFacialSmtKeys().size());
         commonAssert(decoded);
     }
 
     @Test
     public void type10_sap10() throws IOException {
         DecodedData decoded = decode(FILES[19]);
+        assertEquals(1, decoded.getFacialSmtKeys().size());
         commonAssert(decoded);
     }
 
     @Test
     public void type10_scar_face_sap50() throws IOException {
         DecodedData decoded = decode(FILES[20]);
+        assertEquals(6, decoded.getFacialSmtKeys().size());
         commonAssert(decoded);
     }
 
     @Test
     public void type10_tattoo_face_sap20() throws IOException {
         DecodedData decoded = decode(FILES[21]);
+        assertEquals(2, decoded.getFacialSmtKeys().size());
         commonAssert(decoded);
     }
 
     @Test
     public void type10_tattoo_zoom() throws IOException {
         DecodedData decoded = decode(FILES[22]);
+        assertEquals(2, decoded.getFacialSmtKeys().size());
         commonAssert(decoded);
     }
 
     @Test
     public void type13_14_latent_match() throws IOException {
         DecodedData decoded = decode(FILES[23]);
+        assertEquals(1, decoded.getVariableResLatentImageKeys().size());
+        assertEquals(1, decoded.getVariableResFingerprintKeys().size());
         commonAssert(decoded);
     }
 
     @Test
     public void type13_tip_eji_j2l() throws IOException {
         DecodedData decoded = decode(FILES[24]);
+        assertEquals(5, decoded.getVariableResLatentImageKeys().size());
         commonAssert(decoded);
     }
 
     @Test
     public void type13_tip_eji_wsq() throws IOException {
         DecodedData decoded = decode(FILES[25]);
+        assertEquals(5, decoded.getVariableResLatentImageKeys().size());
         commonAssert(decoded);
     }
 
     @Test
     public void type14_amp_nqm_utf8() throws IOException {
         DecodedData decoded = decode(FILES[26]);
-        assertEquals("55", decoded.getText(1));
-        assertEquals("00", decoded.getText(2));
-        assertEquals("two chinese characters: 華裔", decoded.getText(3));
+        UserDefinedDescriptiveText userDefinedText = decoded.getUserDefinedText(0);
+        assertEquals("55", userDefinedText.getLogicalRecordLength());
+        assertEquals("00", userDefinedText.getImageDesignationCharacter());
+        assertEquals("two chinese characters: 華裔", userDefinedText.getDomainDefinedText());
     }
 
     @Test
     public void type14_tip_eji_j2l() throws IOException {
         DecodedData decoded = decode(FILES[27]);
+        assertEquals(5, decoded.getVariableResFingerprintKeys().size());
         commonAssert(decoded);
     }
 
     @Test
     public void type14_tip_eji_wsq() throws IOException {
         DecodedData decoded = decode(FILES[28]);
+        assertEquals(5, decoded.getVariableResFingerprintKeys().size());
         commonAssert(decoded);
     }
 
     @Test
     public void type14_tpcard_nqm() throws IOException {
         DecodedData decoded = decode(FILES[29]);
+        assertEquals(14, decoded.getVariableResFingerprintKeys().size());
         commonAssert(decoded);
     }
 
     @Test
     public void type15_palms() throws IOException {
         DecodedData decoded = decode(FILES[30]);
+        assertEquals(2, decoded.getVariableResPalmprintKeys().size());
         commonAssert(decoded);
     }
 
     @Test
     public void type17_iris() throws IOException {
         DecodedData decoded = decode(FILES[31]);
+        assertEquals(1, decoded.getIrisImageKeys().size());
         commonAssert(decoded);
     }
 
     private void commonAssert(DecodedData decoded) {
-        assertEquals("57", decoded.getText(1));
-        assertEquals("00", decoded.getText(2));
-        assertEquals("domain defined text place holder", decoded.getText(3));
+        assertEquals(1, decoded.getTransactionKeys().size());
+        assertEquals(1, decoded.getUserDefinedTextKeys().size());
+
+        UserDefinedDescriptiveText userDefinedText = decoded.getUserDefinedText(0);
+        assertEquals("57", userDefinedText.getLogicalRecordLength());
+        assertEquals("00", userDefinedText.getImageDesignationCharacter());
+        assertEquals("domain defined text place holder", userDefinedText.getDomainDefinedText());
     }
 
     private DecodedData decode(String name) throws IOException {
@@ -260,7 +309,7 @@ public class AnsiReferencesTest {
         DecodedData decoded = DECODER.decode(file, DecodedData.Format.PNG);
         assertNotNull(decoded);
         // For local check.
-//        FileUtils.saveAll(decoded, DecodedData.Format.PNG, "target/" + name);
+        //FileUtils.saveAll(decoded, DecodedData.Format.PNG, "target/" + name);
         return decoded;
     }
 }

@@ -1,5 +1,9 @@
 package org.jnbis;
 
+import org.jnbis.record.FacialAndSmtImage;
+import org.jnbis.record.HighResolutionGrayscaleFingerprint;
+import org.jnbis.record.VariableResolutionFingerprint;
+
 import java.io.*;
 
 public class FileUtils {
@@ -22,10 +26,22 @@ public class FileUtils {
         if (directory.exists()) {
             directory.mkdir();
         }
-        for (Integer key : decoded.getBinaryKeys()) {
-            DecodedData.BinaryData image = decoded.getBinary(key);
+        for (Integer key : decoded.getFacialSmtKeys()) {
+            FacialAndSmtImage image = decoded.getFacialAndSmtImage(key);
             if (image != null) {
-                save(image.getData(), path + "/" + key + "." + format.code());
+                save(image.getImageData(), path + "/" + key + "." + format.code());
+            }
+        }
+        for (Integer key : decoded.getHiResBinaryFingerPrintKeys()) {
+            HighResolutionGrayscaleFingerprint image = decoded.getHiResGrayscaleFingerprint(key);
+            if (image != null) {
+                save(image.getImageData(), path + "/" + key + "." + format.code());
+            }
+        }
+        for (Integer key : decoded.getVariableResFingerprintKeys()) {
+            VariableResolutionFingerprint image = decoded.getVariableResFingerprint(key);
+            if (image != null) {
+                save(image.getImageData(), path + "/" + key + "." + format.code());
             }
         }
     }
