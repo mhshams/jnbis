@@ -8,14 +8,8 @@ import org.jnbis.record.UserDefinedImage;
  */
 public class UserDefinedImageReader extends RecordReader {
 
-    NistHelper.Token token;
-
-    public UserDefinedImageReader(NistHelper.Token token) {
-        this.token = token;
-    }
-
     @Override
-    public UserDefinedImage read() {
+    public UserDefinedImage read(NistHelper.Token token) {
         if (token.pos >= token.buffer.length) {
             throw new RuntimeException("T7::NULL pointer to T7 record");
         }

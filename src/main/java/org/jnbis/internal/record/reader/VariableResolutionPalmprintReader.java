@@ -8,14 +8,8 @@ import org.jnbis.record.VariableResolutionPalmprint;
  */
 public class VariableResolutionPalmprintReader extends RecordReader {
 
-    NistHelper.Token token;
-
-    public VariableResolutionPalmprintReader(NistHelper.Token token) {
-        this.token = token;
-    }
-
     @Override
-    public VariableResolutionPalmprint read() {
+    public VariableResolutionPalmprint read(NistHelper.Token token) {
         if (token.pos >= token.buffer.length) {
             throw new RuntimeException("T14::NULL pointer to T14 record");
         }

@@ -8,14 +8,8 @@ import org.jnbis.record.VariableResolutionFingerprint;
  */
 public class VariableResolutionFingerprintReader extends RecordReader {
 
-    NistHelper.Token token;
-
-    public VariableResolutionFingerprintReader(NistHelper.Token token) {
-        this.token = token;
-    }
-
     @Override
-    public VariableResolutionFingerprint read() {
+    public VariableResolutionFingerprint read(NistHelper.Token token) {
         if (token.pos >= token.buffer.length) {
             throw new RuntimeException("T14::NULL pointer to T14 record");
         }

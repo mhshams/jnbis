@@ -8,14 +8,8 @@ import org.jnbis.record.TransactionInformation;
  */
 public class TransactionInfoReader extends RecordReader {
 
-    NistHelper.Token token;
-
-    public TransactionInfoReader(NistHelper.Token token) {
-        this.token = token;
-    }
-
     @Override
-    public TransactionInformation read() {
+    public TransactionInformation read(NistHelper.Token token) {
         if (token.pos >= token.buffer.length) {
             throw new RuntimeException("T1::NULL pointer to T1 record");
         }

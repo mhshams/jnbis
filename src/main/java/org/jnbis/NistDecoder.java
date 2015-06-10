@@ -12,13 +12,14 @@ import java.io.*;
  * @since Apr 29, 2007
  */
 public class NistDecoder {
-
     private WsqDecoder wsqDecoder;
     private ImageUtils imageUtils;
+    private RecordReaderFactory readerFactory;
 
     public NistDecoder() {
         wsqDecoder = new WsqDecoder();
         imageUtils = new ImageUtils();
+        readerFactory = new RecordReaderFactory();
     }
 
     public DecodedData decode(String fileName, DecodedData.Format fingerImageFormat) throws IOException {
@@ -50,15 +51,14 @@ public class NistDecoder {
 
         NistHelper.Token token = new NistHelper.Token(nist);
         DecodedData decoded = new DecodedData();
-        RecordReaderFactory recordReaderFactory = new RecordReaderFactory();;
-        BaseRecord record = recordReaderFactory.create(token).read();
+        BaseRecord record = readerFactory.read(token);
         decoded.putTransactionInfo(decoded.getTransactionKeys().size(), (TransactionInformation) record);
 
         while (nextRecord(token)) {
             if (token.crt < 2) {
                 continue;
             }
-            record = recordReaderFactory.create(token).read();
+            record = readerFactory.read(token);
 
             if (record instanceof UserDefinedDescriptiveText) {
                 decoded.putUserDefinedText(decoded.getUserDefinedTextKeys().size(), (UserDefinedDescriptiveText) record);

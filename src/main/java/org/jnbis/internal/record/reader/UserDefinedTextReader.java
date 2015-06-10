@@ -8,14 +8,8 @@ import org.jnbis.record.UserDefinedDescriptiveText;
  */
 public class UserDefinedTextReader extends RecordReader {
 
-    NistHelper.Token token;
-
-    public UserDefinedTextReader(NistHelper.Token token) {
-        this.token = token;
-    }
-
     @Override
-    public UserDefinedDescriptiveText read() {
+    public UserDefinedDescriptiveText read(NistHelper.Token token) {
         if (token.pos >= token.buffer.length) {
             throw new IllegalArgumentException("T1::NULL pointer to T2 record");
         }

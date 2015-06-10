@@ -8,14 +8,8 @@ import org.jnbis.record.MinutiaeData;
  */
 public class MinutiaeDataReader extends RecordReader {
 
-    NistHelper.Token token;
-
-    public MinutiaeDataReader(NistHelper.Token token) {
-        this.token = token;
-    }
-
     @Override
-    public MinutiaeData read() {
+    public MinutiaeData read(NistHelper.Token token) {
         if (token.pos >= token.buffer.length) {
             throw new RuntimeException("T9::NULL pointer to T9 record");
         }

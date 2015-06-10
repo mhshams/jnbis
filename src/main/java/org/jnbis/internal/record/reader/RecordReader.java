@@ -11,7 +11,7 @@ import java.nio.charset.CharacterCodingException;
  */
 public abstract class RecordReader {
 
-    abstract public BaseRecord read();
+    abstract public BaseRecord read(NistHelper.Token token);
 
     protected NistHelper.Tag getTagInfo(NistHelper.Token token) {
         String type = nextWord(token, NistHelper.TAG_SEP_DOT, 2, false);

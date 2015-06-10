@@ -8,14 +8,8 @@ import org.jnbis.record.LowResolutionGrayscaleFingerprint;
  */
 public class LowResolutionGrayscaleFingerprintReader extends RecordReader {
 
-    NistHelper.Token token;
-
-    public LowResolutionGrayscaleFingerprintReader(NistHelper.Token token) {
-        this.token = token;
-    }
-
     @Override
-    public LowResolutionGrayscaleFingerprint read() {
+    public LowResolutionGrayscaleFingerprint read(NistHelper.Token token) {
         if (token.pos >= token.buffer.length) {
             throw new RuntimeException("T3::NULL pointer to T3 record");
         }

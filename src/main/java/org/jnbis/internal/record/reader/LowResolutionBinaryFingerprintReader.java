@@ -8,14 +8,8 @@ import org.jnbis.record.LowResolutionBinaryFingerprint;
  */
 public class LowResolutionBinaryFingerprintReader extends RecordReader {
 
-    NistHelper.Token token;
-
-    public LowResolutionBinaryFingerprintReader(NistHelper.Token token) {
-        this.token = token;
-    }
-
     @Override
-    public LowResolutionBinaryFingerprint read() {
+    public LowResolutionBinaryFingerprint read(NistHelper.Token token) {
         if (token.pos >= token.buffer.length) {
             throw new RuntimeException("T3::NULL pointer to T3 record");
         }

@@ -8,14 +8,8 @@ import org.jnbis.record.FacialAndSmtImage;
  */
 public class FacialAndSmtImageReader extends RecordReader {
 
-    NistHelper.Token token;
-
-    public FacialAndSmtImageReader(NistHelper.Token token) {
-        this.token = token;
-    }
-
     @Override
-    public FacialAndSmtImage read() {
+    public FacialAndSmtImage read(NistHelper.Token token) {
         if (token.pos >= token.buffer.length) {
             throw new RuntimeException("T10::NULL pointer to T10 record");
         }
