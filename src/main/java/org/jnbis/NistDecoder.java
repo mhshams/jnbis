@@ -1,7 +1,6 @@
 package org.jnbis;
 
 import org.jnbis.internal.record.BaseRecord;
-import org.jnbis.internal.record.reader.RecordReader;
 import org.jnbis.internal.record.reader.RecordReaderFactory;
 import org.jnbis.record.*;
 
@@ -52,16 +51,14 @@ public class NistDecoder {
         NistHelper.Token token = new NistHelper.Token(nist);
         DecodedData decoded = new DecodedData();
         RecordReaderFactory recordReaderFactory = new RecordReaderFactory();;
-        RecordReader reader = recordReaderFactory.create(token);
-        BaseRecord record = reader.read();
+        BaseRecord record = recordReaderFactory.create(token).read();
         decoded.putTransactionInfo(decoded.getTransactionKeys().size(), (TransactionInformation) record);
 
         while (nextRecord(token)) {
             if (token.crt < 2) {
                 continue;
             }
-            reader = recordReaderFactory.create(token);
-            record = reader.read();
+            record = recordReaderFactory.create(token).read();
 
             if (record instanceof UserDefinedDescriptiveText) {
                 decoded.putUserDefinedText(decoded.getUserDefinedTextKeys().size(), (UserDefinedDescriptiveText) record);

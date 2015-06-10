@@ -9,11 +9,9 @@ import org.jnbis.record.VariableResolutionPalmprint;
 public class VariableResolutionPalmprintReader extends RecordReader {
 
     NistHelper.Token token;
-    VariableResolutionPalmprint palmprint;
 
-    public VariableResolutionPalmprintReader(NistHelper.Token token, VariableResolutionPalmprint palmprint) {
+    public VariableResolutionPalmprintReader(NistHelper.Token token) {
         this.token = token;
-        this.palmprint = palmprint;
     }
 
     @Override
@@ -21,6 +19,8 @@ public class VariableResolutionPalmprintReader extends RecordReader {
         if (token.pos >= token.buffer.length) {
             throw new RuntimeException("T14::NULL pointer to T14 record");
         }
+
+        VariableResolutionPalmprint palmprint = new VariableResolutionPalmprint();
 
         int start = token.pos;
 

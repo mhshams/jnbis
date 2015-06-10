@@ -9,11 +9,9 @@ import org.jnbis.record.FacialAndSmtImage;
 public class FacialAndSmtImageReader extends RecordReader {
 
     NistHelper.Token token;
-    FacialAndSmtImage facialRecord;
 
-    public FacialAndSmtImageReader(NistHelper.Token token, FacialAndSmtImage facialRecord) {
+    public FacialAndSmtImageReader(NistHelper.Token token) {
         this.token = token;
-        this.facialRecord = facialRecord;
     }
 
     @Override
@@ -22,6 +20,8 @@ public class FacialAndSmtImageReader extends RecordReader {
             throw new RuntimeException("T10::NULL pointer to T10 record");
         }
 
+        FacialAndSmtImage facialRecord = new FacialAndSmtImage();
+        
         int start = token.pos;
 
         NistHelper.Tag tag = getTagInfo(token);

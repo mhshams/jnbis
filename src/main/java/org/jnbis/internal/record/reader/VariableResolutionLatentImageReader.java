@@ -9,11 +9,9 @@ import org.jnbis.record.VariableResolutionLatentImage;
 public class VariableResolutionLatentImageReader extends RecordReader {
 
     NistHelper.Token token;
-    VariableResolutionLatentImage image;
 
-    public VariableResolutionLatentImageReader(NistHelper.Token token, VariableResolutionLatentImage image) {
+    public VariableResolutionLatentImageReader(NistHelper.Token token) {
         this.token = token;
-        this.image = image;
     }
 
     @Override
@@ -21,6 +19,8 @@ public class VariableResolutionLatentImageReader extends RecordReader {
         if (token.pos >= token.buffer.length) {
             throw new RuntimeException("T13::NULL pointer to T13 record");
         }
+
+        VariableResolutionLatentImage image = new VariableResolutionLatentImage();
 
         int start = token.pos;
 

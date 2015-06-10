@@ -9,11 +9,9 @@ import org.jnbis.record.HighResolutionGrayscaleFingerprint;
 public class HighResolutionGrayscaleFingerprintReader extends RecordReader {
 
     NistHelper.Token token;
-    HighResolutionGrayscaleFingerprint fingerprint;
 
-    public HighResolutionGrayscaleFingerprintReader(NistHelper.Token token, HighResolutionGrayscaleFingerprint fingerprint) {
+    public HighResolutionGrayscaleFingerprintReader(NistHelper.Token token) {
         this.token = token;
-        this.fingerprint = fingerprint;
     }
 
     @Override
@@ -21,6 +19,8 @@ public class HighResolutionGrayscaleFingerprintReader extends RecordReader {
         if (token.pos >= token.buffer.length) {
             throw new RuntimeException("T4::NULL pointer to T4 record");
         }
+
+        HighResolutionGrayscaleFingerprint fingerprint = new HighResolutionGrayscaleFingerprint();
 
         //Assigning t4-Header values
         int length = (int) readInt(token);

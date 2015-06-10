@@ -9,11 +9,9 @@ import org.jnbis.record.UserDefinedDescriptiveText;
 public class UserDefinedTextReader extends RecordReader {
 
     NistHelper.Token token;
-    UserDefinedDescriptiveText userDefinedText;
 
-    public UserDefinedTextReader(NistHelper.Token token, UserDefinedDescriptiveText userDefinedText) {
+    public UserDefinedTextReader(NistHelper.Token token) {
         this.token = token;
-        this.userDefinedText = userDefinedText;
     }
 
     @Override
@@ -21,6 +19,8 @@ public class UserDefinedTextReader extends RecordReader {
         if (token.pos >= token.buffer.length) {
             throw new IllegalArgumentException("T1::NULL pointer to T2 record");
         }
+
+        UserDefinedDescriptiveText userDefinedText = new UserDefinedDescriptiveText();
 
         while (true) {
             NistHelper.Tag tag = getTagInfo(token);

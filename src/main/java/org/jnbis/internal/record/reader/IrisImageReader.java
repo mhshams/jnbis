@@ -9,11 +9,9 @@ import org.jnbis.record.IrisImage;
 public class IrisImageReader extends RecordReader {
 
     NistHelper.Token token;
-    IrisImage image;
 
-    public IrisImageReader(NistHelper.Token token, IrisImage image) {
+    public IrisImageReader(NistHelper.Token token) {
         this.token = token;
-        this.image = image;
     }
 
     @Override
@@ -21,6 +19,8 @@ public class IrisImageReader extends RecordReader {
         if (token.pos >= token.buffer.length) {
             throw new RuntimeException("T17::NULL pointer to T17 record");
         }
+
+        IrisImage image = new IrisImage();
 
         int start = token.pos;
 

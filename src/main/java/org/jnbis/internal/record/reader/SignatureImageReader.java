@@ -9,11 +9,9 @@ import org.jnbis.record.SignatureImage;
 public class SignatureImageReader extends RecordReader {
 
     NistHelper.Token token;
-    SignatureImage signatureImage;
 
-    public SignatureImageReader(NistHelper.Token token, SignatureImage signatureImage) {
+    public SignatureImageReader(NistHelper.Token token) {
         this.token = token;
-        this.signatureImage = signatureImage;
     }
 
     @Override
@@ -21,6 +19,8 @@ public class SignatureImageReader extends RecordReader {
         if (token.pos >= token.buffer.length) {
             throw new RuntimeException("T8::NULL pointer to T8 record");
         }
+
+        SignatureImage signatureImage = new SignatureImage();
 
         //Assigning t8-Header values
         int length = (int) readInt(token);

@@ -9,11 +9,9 @@ import org.jnbis.record.TransactionInformation;
 public class TransactionInfoReader extends RecordReader {
 
     NistHelper.Token token;
-    TransactionInformation transaction;
 
-    public TransactionInfoReader(NistHelper.Token token, TransactionInformation transaction) {
+    public TransactionInfoReader(NistHelper.Token token) {
         this.token = token;
-        this.transaction = transaction;
     }
 
     @Override
@@ -21,6 +19,8 @@ public class TransactionInfoReader extends RecordReader {
         if (token.pos >= token.buffer.length) {
             throw new RuntimeException("T1::NULL pointer to T1 record");
         }
+
+        TransactionInformation transaction = new TransactionInformation();
 
         while (true) {
             NistHelper.Tag tag = getTagInfo(token);
