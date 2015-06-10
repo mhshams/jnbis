@@ -1,4 +1,4 @@
-package org.jnbis.record;
+package org.jnbis.internal.record;
 
 /**
  * @author ericdsoto

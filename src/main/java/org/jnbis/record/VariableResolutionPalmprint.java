@@ -1,5 +1,7 @@
 package org.jnbis.record;
 
+import org.jnbis.internal.record.BaseVariableResolutionImageRecord;
+
 /**
  * @author ericdsoto
  */

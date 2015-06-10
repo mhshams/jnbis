@@ -43,20 +43,20 @@ public class DecodedData {
     private final HashMap<Integer, IrisImage> irisImage;
 
     DecodedData() {
-        transactionInformation = new HashMap<Integer, TransactionInformation>();
-        userDefinedText = new HashMap<Integer, UserDefinedDescriptiveText>();
-        lowResolutionGrayscaleFingerprint = new HashMap<Integer, LowResolutionGrayscaleFingerprint>();
-        hiResolutionGrayscaleFingerprint = new HashMap<Integer, HighResolutionGrayscaleFingerprint>();
-        lowResolutionBinaryFingerprint = new HashMap<Integer, LowResolutionBinaryFingerprint>();
-        hiResolutionBinaryFingerprint = new HashMap<Integer, HighResolutionBinaryFingerprint>();
-        userDefinedImage = new HashMap<Integer, UserDefinedImage>();
-        signatureImage = new HashMap<Integer, SignatureImage>();
-        minutiaeData = new HashMap<Integer, MinutiaeData>();
-        facialAndSmtImage = new HashMap<Integer, FacialAndSmtImage>();
-        variableResolutionLatentImage = new HashMap<Integer, VariableResolutionLatentImage>();
-        variableResolutionFingerprint = new HashMap<Integer, VariableResolutionFingerprint>();
-        variableResolutionPalmprint = new HashMap<Integer, VariableResolutionPalmprint>();
-        irisImage = new HashMap<Integer, IrisImage>();
+        transactionInformation = new HashMap<>();
+        userDefinedText = new HashMap<>();
+        lowResolutionGrayscaleFingerprint = new HashMap<>();
+        hiResolutionGrayscaleFingerprint = new HashMap<>();
+        lowResolutionBinaryFingerprint = new HashMap<>();
+        hiResolutionBinaryFingerprint = new HashMap<>();
+        userDefinedImage = new HashMap<>();
+        signatureImage = new HashMap<>();
+        minutiaeData = new HashMap<>();
+        facialAndSmtImage = new HashMap<>();
+        variableResolutionLatentImage = new HashMap<>();
+        variableResolutionFingerprint = new HashMap<>();
+        variableResolutionPalmprint = new HashMap<>();
+        irisImage = new HashMap<>();
     }
 
     void putTransactionInfo(Integer key, TransactionInformation transactionInfo) {

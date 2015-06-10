@@ -1,6 +1,7 @@
-package org.jnbis;
+package org.jnbis.internal.record.reader;
 
-import org.jnbis.record.BaseRecord;
+import org.jnbis.NistHelper;
+import org.jnbis.internal.record.BaseRecord;
 
 import java.nio.ByteBuffer;
 import java.nio.charset.CharacterCodingException;

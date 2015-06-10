@@ -1,31 +1,32 @@
-package org.jnbis;
+package org.jnbis.internal.record.reader;
 
-import org.jnbis.record.VariableResolutionLatentImage;
+import org.jnbis.NistHelper;
+import org.jnbis.record.VariableResolutionPalmprint;
 
 /**
  * @author ericdsoto
  */
-public class VariableResolutionLatentImageReader extends RecordReader {
+public class VariableResolutionPalmprintReader extends RecordReader {
 
     NistHelper.Token token;
-    VariableResolutionLatentImage image;
+    VariableResolutionPalmprint palmprint;
 
-    public VariableResolutionLatentImageReader(NistHelper.Token token, VariableResolutionLatentImage image) {
+    public VariableResolutionPalmprintReader(NistHelper.Token token, VariableResolutionPalmprint palmprint) {
         this.token = token;
-        this.image = image;
+        this.palmprint = palmprint;
     }
 
     @Override
-    public VariableResolutionLatentImage read() {
+    public VariableResolutionPalmprint read() {
         if (token.pos >= token.buffer.length) {
-            throw new RuntimeException("T13::NULL pointer to T13 record");
+            throw new RuntimeException("T14::NULL pointer to T14 record");
         }
 
         int start = token.pos;
 
         NistHelper.Tag tag = getTagInfo(token);
         if (tag.field != 1) {
-            throw new RuntimeException("T13::Invalid Record type = " + tag.type);
+            throw new RuntimeException("T14::Invalid Record type = " + tag.type);
         }
 
         int length = Integer.parseInt(nextWord(token, NistHelper.TAG_SEP_GSFS, NistHelper.FIELD_MAX_LENGTH - 1, false));
@@ -35,79 +36,75 @@ public class VariableResolutionLatentImageReader extends RecordReader {
             token.pos++;
 
             tag = getTagInfo(token);
-
             if (tag.field == 999) {
                 byte[] data = new byte[length - (token.pos - start)];
                 System.arraycopy(token.buffer, token.pos, data, 0, data.length);
                 token.pos = token.pos + data.length;
-                image.setImageData(data);
+                palmprint.setImageData(data);
                 break;
             }
 
             String word = nextWord(token, NistHelper.TAG_SEP_GSFS, NistHelper.FIELD_MAX_LENGTH - 1, false);
             switch (tag.field) {
                 case 1:
-                    image.setLogicalRecordLength(word);
+                    palmprint.setLogicalRecordLength(word);
                     break;
                 case 2:
-                    image.setImageDesignationCharacter(word);
+                    palmprint.setImageDesignationCharacter(word);
                     break;
                 case 3:
-                    image.setImpressionType(word);
+                    palmprint.setImpressionType(word);
                     break;
                 case 4:
-                    image.setSourceAgency(word);
+                    palmprint.setSourceAgency(word);
                     break;
                 case 5:
-                    image.setCaptureDate(word);
+                    palmprint.setCaptureDate(word);
                     break;
                 case 6:
-                    image.setHorizontalLineLength(word);
+                    palmprint.setHorizontalLineLength(word);
                     break;
                 case 7:
-                    image.setVerticalLineLength(word);
+                    palmprint.setVerticalLineLength(word);
                     break;
                 case 8:
-                    image.setScaleUnits(word);
+                    palmprint.setScaleUnits(word);
                     break;
                 case 9:
-                    image.setHorizontalPixelScale(word);
+                    palmprint.setHorizontalPixelScale(word);
                     break;
                 case 10:
-                    image.setVerticalPixelScale(word);
+                    palmprint.setVerticalPixelScale(word);
                     break;
                 case 11:
-                    image.setCompressionAlgorithm(word);
+                    palmprint.setCompressionAlgorithm(word);
                     break;
                 case 12:
-                    image.setBitsPerPixel(word);
+                    palmprint.setBitsPerPixel(word);
                     break;
                 case 13:
-                    image.setFingerPalmPosition(word);
-                    break;
-                case 14:
-                    image.setSearchPositionDescriptors(word);
-                    break;
-                case 15:
-                    image.setPrintPositionCoordinates(word);
+                    palmprint.setPalmprintPosition(word);
                     break;
                 case 16:
-                    image.setScannedHorizontalPixelScale(word);
+                    palmprint.setScannedHorizontalPixelScale(word);
                     break;
                 case 17:
-                    image.setScannedVerticalPixelScale(word);
+                    palmprint.setScannedVerticalPixelScale(word);
                     break;
                 case 20:
-                    image.setComment(word);
+                    palmprint.setComment(word);
                     break;
                 case 24:
-                    image.setLatentQualityMetric(word);
+                    palmprint.setPalmprintQualityMetric(word);
+                    break;
+                case 30:
+                    palmprint.setDeviceMonitoringMode(word);
                     break;
                 default:
                     break;
             }
         }
 
-        return image;
+        return palmprint;
     }
 }

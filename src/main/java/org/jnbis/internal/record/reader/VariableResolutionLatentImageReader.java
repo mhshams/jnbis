@@ -1,31 +1,32 @@
-package org.jnbis;
+package org.jnbis.internal.record.reader;
 
-import org.jnbis.record.FacialAndSmtImage;
+import org.jnbis.NistHelper;
+import org.jnbis.record.VariableResolutionLatentImage;
 
 /**
  * @author ericdsoto
  */
-public class FacialAndSmtImageReader extends RecordReader {
+public class VariableResolutionLatentImageReader extends RecordReader {
 
     NistHelper.Token token;
-    FacialAndSmtImage facialRecord;
+    VariableResolutionLatentImage image;
 
-    public FacialAndSmtImageReader(NistHelper.Token token, FacialAndSmtImage facialRecord) {
+    public VariableResolutionLatentImageReader(NistHelper.Token token, VariableResolutionLatentImage image) {
         this.token = token;
-        this.facialRecord = facialRecord;
+        this.image = image;
     }
 
     @Override
-    public FacialAndSmtImage read() {
+    public VariableResolutionLatentImage read() {
         if (token.pos >= token.buffer.length) {
-            throw new RuntimeException("T10::NULL pointer to T10 record");
+            throw new RuntimeException("T13::NULL pointer to T13 record");
         }
 
         int start = token.pos;
 
         NistHelper.Tag tag = getTagInfo(token);
         if (tag.field != 1) {
-            throw new RuntimeException("T10::Invalid Record type = " + tag.type);
+            throw new RuntimeException("T13::Invalid Record type = " + tag.type);
         }
 
         int length = Integer.parseInt(nextWord(token, NistHelper.TAG_SEP_GSFS, NistHelper.FIELD_MAX_LENGTH - 1, false));
@@ -40,71 +41,74 @@ public class FacialAndSmtImageReader extends RecordReader {
                 byte[] data = new byte[length - (token.pos - start)];
                 System.arraycopy(token.buffer, token.pos, data, 0, data.length);
                 token.pos = token.pos + data.length;
-                facialRecord.setImageData(data);
+                image.setImageData(data);
                 break;
             }
 
             String word = nextWord(token, NistHelper.TAG_SEP_GSFS, NistHelper.FIELD_MAX_LENGTH - 1, false);
             switch (tag.field) {
                 case 1:
-                    facialRecord.setLogicalRecordLength(word);
+                    image.setLogicalRecordLength(word);
                     break;
                 case 2:
-                    facialRecord.setImageDesignationCharacter(word);
+                    image.setImageDesignationCharacter(word);
                     break;
                 case 3:
-                    facialRecord.setImageType(word);
+                    image.setImpressionType(word);
                     break;
                 case 4:
-                    facialRecord.setSourceAgency(word);
+                    image.setSourceAgency(word);
                     break;
                 case 5:
-                    facialRecord.setPhotoDate(word);
+                    image.setCaptureDate(word);
                     break;
                 case 6:
-                    facialRecord.setHorizontalLineLength(word);
+                    image.setHorizontalLineLength(word);
                     break;
                 case 7:
-                    facialRecord.setVerticalLineLength(word);
+                    image.setVerticalLineLength(word);
                     break;
                 case 8:
-                    facialRecord.setScaleUnits(word);
+                    image.setScaleUnits(word);
                     break;
                 case 9:
-                    facialRecord.setHorizontalPixelScale(word);
+                    image.setHorizontalPixelScale(word);
                     break;
                 case 10:
-                    facialRecord.setVerticalPixelScale(word);
+                    image.setVerticalPixelScale(word);
                     break;
                 case 11:
-                    facialRecord.setCompressionAlgorithm(word);
+                    image.setCompressionAlgorithm(word);
                     break;
                 case 12:
-                    facialRecord.setColorSpace(word);
+                    image.setBitsPerPixel(word);
                     break;
                 case 13:
-                    facialRecord.setSubjectAcquisitionProfile(word);
+                    image.setFingerPalmPosition(word);
+                    break;
+                case 14:
+                    image.setSearchPositionDescriptors(word);
+                    break;
+                case 15:
+                    image.setPrintPositionCoordinates(word);
                     break;
                 case 16:
-                    facialRecord.setScannedHorizontalPixelScale(word);
+                    image.setScannedHorizontalPixelScale(word);
                     break;
                 case 17:
-                    facialRecord.setScannedVerticalPixelScale(word);
+                    image.setScannedVerticalPixelScale(word);
                     break;
                 case 20:
-                    facialRecord.setSubjectPose(word);
+                    image.setComment(word);
                     break;
-                case 21:
-                    facialRecord.setPoseOffsetAngle(word);
-                    break;
-                case 22:
-                    facialRecord.setImageType(word);
+                case 24:
+                    image.setLatentQualityMetric(word);
                     break;
                 default:
                     break;
             }
         }
 
-        return facialRecord;
+        return image;
     }
 }

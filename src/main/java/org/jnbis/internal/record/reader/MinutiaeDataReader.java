@@ -1,7 +1,7 @@
-package org.jnbis;
+package org.jnbis.internal.record.reader;
 
+import org.jnbis.NistHelper;
 import org.jnbis.record.MinutiaeData;
-import org.jnbis.record.SignatureImage;
 
 /**
  * @author ericdsoto

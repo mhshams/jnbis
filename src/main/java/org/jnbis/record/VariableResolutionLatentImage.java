@@ -1,7 +1,9 @@
 package org.jnbis.record;
 
+import org.jnbis.internal.record.BaseVariableResolutionImageRecord;
+
 /**
- * Created by ericdsoto on 6/9/15.
+ * @author ericdsoto
  */
 public class VariableResolutionLatentImage extends BaseVariableResolutionImageRecord {
     // 13.013 - FGP

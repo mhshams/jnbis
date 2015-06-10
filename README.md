@@ -20,7 +20,7 @@ JNBIS is available in [The Central Repository](http://search.maven.org/#browse),
 </dependency>
 ```
 
-Alternatively, you can clone the source code and build it with maven. You need JDK version *1.6 or higher* to build the code. 
+Alternatively, you can clone the source code and build it with maven. You need JDK version *1.7 or higher* to build the code. 
 ```bash
 $ git clone git@github.com:mhshams/jnbis.git
 $ cd jnbis

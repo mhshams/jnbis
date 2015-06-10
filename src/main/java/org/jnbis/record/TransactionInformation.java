@@ -1,5 +1,7 @@
 package org.jnbis.record;
 
+import org.jnbis.internal.record.BaseRecord;
+
 /**
  * @author ericdsoto
  */

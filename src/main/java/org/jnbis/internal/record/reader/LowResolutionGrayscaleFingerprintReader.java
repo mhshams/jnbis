@@ -1,6 +1,6 @@
-package org.jnbis;
+package org.jnbis.internal.record.reader;
 
-import org.jnbis.record.HighResolutionGrayscaleFingerprint;
+import org.jnbis.NistHelper;
 import org.jnbis.record.LowResolutionGrayscaleFingerprint;
 
 /**
