@@ -56,7 +56,7 @@ public class SampleTest {
             Assert.assertNotNull(image);
 
             // For local check
-            //FileUtils.save(image.getData(), "/path/to/file-" + key + ".jpeg");
+//            FileUtils.save(image.getImageData(), "/path/to/file-" + key + ".jpeg");
         }
     }
 }
