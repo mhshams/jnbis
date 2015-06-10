@@ -10,7 +10,7 @@
 
     <groupId>com.github.mhshams</groupId>
     <artifactId>jnbis</artifactId>
-    <version>1.0.5</version>
+    <version>1.0.6</version>
     <packaging>jar</packaging>
 
     <name>JNBIS</name>
@@ -62,8 +62,8 @@
                 <artifactId>maven-compiler-plugin</artifactId>
                 <version>2.3</version>
                 <configuration>
-                    <source>1.6</source>
-                    <target>1.6</target>
+                    <source>1.7</source>
+                    <target>1.7</target>
                     <optimize>true</optimize>
                 </configuration>
             </plugin>
@@ -97,6 +97,11 @@
     </build>
     <profiles>
         <profile>
+            <!--
+            - mvn -Ddnr jgitflow:release-start
+            - mvn -Ddnr jgitflow:release-finish
+            - git push tags, master and develop
+            -->
             <id>deploy-new-release</id>
             <activation>
                 <property>
