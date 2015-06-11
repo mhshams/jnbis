@@ -1,9 +1,8 @@
 package org.jnbis.record;
 
-import org.jnbis.internal.record.BaseImageRecord;
-
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import org.jnbis.internal.record.BaseRecord;
 
 /**
  * @author ericdsoto
