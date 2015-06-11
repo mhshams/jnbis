@@ -256,7 +256,7 @@ public class AnsiReferencesTest {
         UserDefinedDescriptiveText userDefinedText = decoded.getUserDefinedText(0);
         assertEquals("55", userDefinedText.getLogicalRecordLength());
         assertEquals("00", userDefinedText.getImageDesignationCharacter());
-        assertEquals("two chinese characters: 華裔", userDefinedText.getDomainDefinedText());
+        assertEquals("two chinese characters: 華裔", userDefinedText.getField003());
     }
 
     @Test
@@ -301,7 +301,7 @@ public class AnsiReferencesTest {
         UserDefinedDescriptiveText userDefinedText = decoded.getUserDefinedText(0);
         assertEquals("57", userDefinedText.getLogicalRecordLength());
         assertEquals("00", userDefinedText.getImageDesignationCharacter());
-        assertEquals("domain defined text place holder", userDefinedText.getDomainDefinedText());
+        assertEquals("domain defined text place holder", userDefinedText.getField003());
     }
 
     private DecodedData decode(String name) throws IOException {
