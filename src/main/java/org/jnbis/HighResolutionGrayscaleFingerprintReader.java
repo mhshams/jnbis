@@ -22,7 +22,7 @@ public class HighResolutionGrayscaleFingerprintReader extends RecordReader {
         }
 
         //Assigning t4-Header values
-        int length = (int) readInt(token);
+        Integer length = (int) readInt(token);
         int fingerPrintNo = token.buffer[token.pos + 6];
 
         int dataSize = length - 18;
@@ -37,6 +37,7 @@ public class HighResolutionGrayscaleFingerprintReader extends RecordReader {
         token.pos += length;
         fingerprint.setImageDesignationCharacter(Integer.toString(fingerPrintNo));
         fingerprint.setImageData(data);
+        fingerprint.setLogicalRecordLength(length.toString());
 
         return fingerprint;
     }

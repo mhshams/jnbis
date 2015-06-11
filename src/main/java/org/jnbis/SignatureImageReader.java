@@ -22,7 +22,7 @@ public class SignatureImageReader extends RecordReader {
         }
 
         //Assigning t8-Header values
-        int length = (int) readInt(token);
+        Integer length = (int) readInt(token);
         //int fingerPrintNo = token.buffer[token.pos + 6];
 
         int dataSize = length - 12;
@@ -36,6 +36,7 @@ public class SignatureImageReader extends RecordReader {
 
         token.pos += length;
         signatureImage.setImageData(data);
+        signatureImage.setLogicalRecordLength(length.toString());
 
         return signatureImage;
     }

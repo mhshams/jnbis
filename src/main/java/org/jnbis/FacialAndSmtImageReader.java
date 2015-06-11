@@ -28,7 +28,8 @@ public class FacialAndSmtImageReader extends RecordReader {
             throw new RuntimeException("T10::Invalid Record type = " + tag.type);
         }
 
-        int length = Integer.parseInt(nextWord(token, NistHelper.TAG_SEP_GSFS, NistHelper.FIELD_MAX_LENGTH - 1, false));
+        Integer length = Integer.parseInt(nextWord(token, NistHelper.TAG_SEP_GSFS, NistHelper.FIELD_MAX_LENGTH - 1, false));
+        facialRecord.setLogicalRecordLength(length.toString());
 
         while (true) {
 
