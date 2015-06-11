@@ -86,7 +86,7 @@ Here is a sample code to extract all fingerprints and save them in separate file
 ```Java
 DecodedData decoded = new NistDecoder().decode("/path/to/nist-file", DecodedData.Format.GIF);
 
-for (Integer key : decoded.getBinaryKeys()) {
+for (Integer key : decoded.getHiResGrayscaleFingerPrintKeys()) {
   HighResolutionGrayscaleFingerprint image = decoded.getHiResGrayscaleFingerprint(key);
   FileOutputStream bos = new FileOutputStream(file + "-" + key + ".gif");
   bos.write(image.getImageData());
