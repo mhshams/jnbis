@@ -1,7 +1,9 @@
 package org.jnbis.record;
 
+import org.jnbis.internal.record.BaseImageRecord;
+
 /**
- * Created by ericdsoto on 6/8/15.
+ * @author ericdsoto
  */
 public class UserDefinedImage extends BaseImageRecord {
 

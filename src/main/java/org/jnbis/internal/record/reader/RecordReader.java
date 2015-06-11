@@ -1,16 +1,17 @@
-package org.jnbis;
+package org.jnbis.internal.record.reader;
 
-import org.jnbis.record.BaseRecord;
+import org.jnbis.NistHelper;
+import org.jnbis.internal.record.BaseRecord;
 
 import java.nio.ByteBuffer;
 import java.nio.charset.CharacterCodingException;
 
 /**
- * Created by ericdsoto on 6/8/15.
+ * @author ericdsoto
  */
 public abstract class RecordReader {
 
-    abstract public BaseRecord read();
+    abstract public BaseRecord read(NistHelper.Token token);
 
     protected NistHelper.Tag getTagInfo(NistHelper.Token token) {
         String type = nextWord(token, NistHelper.TAG_SEP_DOT, 2, false);

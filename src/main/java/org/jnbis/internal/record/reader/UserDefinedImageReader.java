@@ -1,25 +1,20 @@
-package org.jnbis;
+package org.jnbis.internal.record.reader;
 
+import org.jnbis.NistHelper;
 import org.jnbis.record.UserDefinedImage;
 
 /**
- * Created by ericdsoto on 6/8/15.
+ * @author ericdsoto
  */
 public class UserDefinedImageReader extends RecordReader {
 
-    NistHelper.Token token;
-    UserDefinedImage userDefinedImage;
-
-    public UserDefinedImageReader(NistHelper.Token token, UserDefinedImage userDefinedImage) {
-        this.token = token;
-        this.userDefinedImage = userDefinedImage;
-    }
-
     @Override
-    public UserDefinedImage read() {
+    public UserDefinedImage read(NistHelper.Token token) {
         if (token.pos >= token.buffer.length) {
             throw new RuntimeException("T7::NULL pointer to T7 record");
         }
+
+        UserDefinedImage userDefinedImage = new UserDefinedImage();
 
         //Assigning t7-Header values
         Integer length = (int) readInt(token);

@@ -1,26 +1,20 @@
-package org.jnbis;
+package org.jnbis.internal.record.reader;
 
+import org.jnbis.NistHelper;
 import org.jnbis.record.MinutiaeData;
-import org.jnbis.record.SignatureImage;
 
 /**
- * Created by ericdsoto on 6/8/15.
+ * @author ericdsoto
  */
 public class MinutiaeDataReader extends RecordReader {
 
-    NistHelper.Token token;
-    MinutiaeData minutiaeData;
-
-    public MinutiaeDataReader(NistHelper.Token token, MinutiaeData minutiaeData) {
-        this.token = token;
-        this.minutiaeData = minutiaeData;
-    }
-
     @Override
-    public MinutiaeData read() {
+    public MinutiaeData read(NistHelper.Token token) {
         if (token.pos >= token.buffer.length) {
             throw new RuntimeException("T9::NULL pointer to T9 record");
         }
+
+        MinutiaeData minutiaeData = new MinutiaeData();
 
         int start = token.pos;
 
@@ -33,19 +27,19 @@ public class MinutiaeDataReader extends RecordReader {
 
         //while (true) {
 
-            token.pos++;
+        token.pos++;
 
-            tag = getTagInfo(token);
+        tag = getTagInfo(token);
 
-            //if (tag.field == 999) {
-                byte[] data = new byte[length - (token.pos - start)];
-                System.arraycopy(token.buffer, token.pos, data, 0, data.length);
-                token.pos = token.pos + data.length;
-                //facialRecord.setImageData(data);
-                //break;
-            //}
+        //if (tag.field == 999) {
+        byte[] data = new byte[length - (token.pos - start)];
+        System.arraycopy(token.buffer, token.pos, data, 0, data.length);
+        token.pos = token.pos + data.length;
+        //facialRecord.setImageData(data);
+        //break;
+        //}
 
-            //String word = nextWord(token, NistHelper.TAG_SEP_GSFS, NistHelper.FIELD_MAX_LENGTH - 1, false);
+        //String word = nextWord(token, NistHelper.TAG_SEP_GSFS, NistHelper.FIELD_MAX_LENGTH - 1, false);
 
         //}
 

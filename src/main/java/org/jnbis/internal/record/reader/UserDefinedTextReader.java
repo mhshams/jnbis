@@ -1,25 +1,20 @@
-package org.jnbis;
+package org.jnbis.internal.record.reader;
 
+import org.jnbis.NistHelper;
 import org.jnbis.record.UserDefinedDescriptiveText;
 
 /**
- * Created by ericdsoto on 6/8/15.
+ * @author ericdsoto
  */
 public class UserDefinedTextReader extends RecordReader {
 
-    NistHelper.Token token;
-    UserDefinedDescriptiveText userDefinedText;
-
-    public UserDefinedTextReader(NistHelper.Token token, UserDefinedDescriptiveText userDefinedText) {
-        this.token = token;
-        this.userDefinedText = userDefinedText;
-    }
-
     @Override
-    public UserDefinedDescriptiveText read() {
+    public UserDefinedDescriptiveText read(NistHelper.Token token) {
         if (token.pos >= token.buffer.length) {
             throw new IllegalArgumentException("T1::NULL pointer to T2 record");
         }
+
+        UserDefinedDescriptiveText userDefinedText = new UserDefinedDescriptiveText();
 
         while (true) {
             NistHelper.Tag tag = getTagInfo(token);

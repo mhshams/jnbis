@@ -1,25 +1,20 @@
-package org.jnbis;
+package org.jnbis.internal.record.reader;
 
+import org.jnbis.NistHelper;
 import org.jnbis.record.TransactionInformation;
 
 /**
- * Created by ericdsoto on 6/8/15.
+ * @author ericdsoto
  */
 public class TransactionInfoReader extends RecordReader {
 
-    NistHelper.Token token;
-    TransactionInformation transaction;
-
-    public TransactionInfoReader(NistHelper.Token token, TransactionInformation transaction) {
-        this.token = token;
-        this.transaction = transaction;
-    }
-
     @Override
-    public TransactionInformation read() {
+    public TransactionInformation read(NistHelper.Token token) {
         if (token.pos >= token.buffer.length) {
             throw new RuntimeException("T1::NULL pointer to T1 record");
         }
+
+        TransactionInformation transaction = new TransactionInformation();
 
         while (true) {
             NistHelper.Tag tag = getTagInfo(token);

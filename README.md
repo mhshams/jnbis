@@ -16,11 +16,11 @@ JNBIS is available in [The Central Repository](http://search.maven.org/#browse),
 <dependency>
   <groupId>jnbis</groupId>
   <artifactId>jnbis</artifactId>
-  <version>1.0.5</version>
+  <version>1.0.6</version>
 </dependency>
 ```
 
-Alternatively, you can clone the source code and build it with maven. You need JDK version *1.6 or higher* to build the code. 
+Alternatively, you can clone the source code and build it with maven. You need JDK version *1.7 or higher* to build the code. 
 ```bash
 $ git clone git@github.com:mhshams/jnbis.git
 $ cd jnbis
@@ -81,34 +81,15 @@ public DecodedData decode(final byte[] data, DecodedData.Format fingerImageForma
 Second parameter in above methods is the output image format and currently JPEG, GIF and PNG are supported.
 Decoded
 
-DecodedData contains two type of data:
-- Text Data: A map (key, value) of all decoded text information.
-```Java
-// Returns all decoded keys.
-public Set<Integer> getTextKeys();
-
-// Return decoded string (Text) info, for given key.
-public String getText(Integer key);
-```
-- Binary Data: A map (key, value) of all decoded images.
-```Java
-// Returns all decoded keys
-public Set<Integer> getBinaryKeys();
-
-// Returns decoded image for given key.
-public BinaryData getBinary(Integer key);
-```
- * Index(key) 0 is used to store decoded *custom* image (usually person face)
- * Index(key) 1..14 are used to store decoded *fingerprint* images.
-
-Here is a sample code to extract all images (face and fingerprints)
+DecodedData contains different types of data, depending on file type. 
+Here is a sample code to extract all fingerprints and save them in separate files. 
 ```Java
 DecodedData decoded = new NistDecoder().decode("/path/to/nist-file", DecodedData.Format.GIF);
 
 for (Integer key : decoded.getBinaryKeys()) {
-  DecodedData.BinaryData bd = decoded.getBinary(key);
-  FileOutputStream bos = new FileOutputStream(file + "-" + key + "." + bd.getType());
-  bos.write(bd.getData());
+  HighResolutionGrayscaleFingerprint image = decoded.getHiResGrayscaleFingerprint(key);
+  FileOutputStream bos = new FileOutputStream(file + "-" + key + ".gif");
+  bos.write(image.getImageData());
   bos.close();
 }
 ```

@@ -1,26 +1,21 @@
-package org.jnbis;
+package org.jnbis.internal.record.reader;
 
+import org.jnbis.NistHelper;
 import org.jnbis.record.FacialAndSmtImage;
 
 /**
- * Created by ericdsoto on 6/8/15.
+ * @author ericdsoto
  */
 public class FacialAndSmtImageReader extends RecordReader {
 
-    NistHelper.Token token;
-    FacialAndSmtImage facialRecord;
-
-    public FacialAndSmtImageReader(NistHelper.Token token, FacialAndSmtImage facialRecord) {
-        this.token = token;
-        this.facialRecord = facialRecord;
-    }
-
     @Override
-    public FacialAndSmtImage read() {
+    public FacialAndSmtImage read(NistHelper.Token token) {
         if (token.pos >= token.buffer.length) {
             throw new RuntimeException("T10::NULL pointer to T10 record");
         }
 
+        FacialAndSmtImage facialRecord = new FacialAndSmtImage();
+        
         int start = token.pos;
 
         NistHelper.Tag tag = getTagInfo(token);

@@ -1,25 +1,20 @@
-package org.jnbis;
+package org.jnbis.internal.record.reader;
 
-import org.jnbis.record.HighResolutionGrayscaleFingerprint;
+import org.jnbis.NistHelper;
+import org.jnbis.record.HighResolutionBinaryFingerprint;
 
 /**
- * Created by ericdsoto on 6/8/15.
+ * @author ericdsoto
  */
-public class HighResolutionGrayscaleFingerprintReader extends RecordReader {
-
-    NistHelper.Token token;
-    HighResolutionGrayscaleFingerprint fingerprint;
-
-    public HighResolutionGrayscaleFingerprintReader(NistHelper.Token token, HighResolutionGrayscaleFingerprint fingerprint) {
-        this.token = token;
-        this.fingerprint = fingerprint;
-    }
+public class HighResolutionBinaryFingerprintReader extends RecordReader {
 
     @Override
-    public HighResolutionGrayscaleFingerprint read() {
+    public HighResolutionBinaryFingerprint read(NistHelper.Token token) {
         if (token.pos >= token.buffer.length) {
             throw new RuntimeException("T4::NULL pointer to T4 record");
         }
+
+        HighResolutionBinaryFingerprint fingerprint = new HighResolutionBinaryFingerprint();
 
         //Assigning t4-Header values
         Integer length = (int) readInt(token);

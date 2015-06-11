@@ -1,4 +1,4 @@
-package org.jnbis.record;
+package org.jnbis.internal.record;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -6,7 +6,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import java.io.Serializable;
 
 /**
- * Created by ericdsoto on 6/8/15.
+ * @author ericdsoto
  */
 
 @JsonIgnoreProperties(ignoreUnknown = true)

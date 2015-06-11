@@ -1,25 +1,20 @@
-package org.jnbis;
+package org.jnbis.internal.record.reader;
 
+import org.jnbis.NistHelper;
 import org.jnbis.record.VariableResolutionPalmprint;
 
 /**
- * Created by ericdsoto on 6/8/15.
+ * @author ericdsoto
  */
 public class VariableResolutionPalmprintReader extends RecordReader {
 
-    NistHelper.Token token;
-    VariableResolutionPalmprint palmprint;
-
-    public VariableResolutionPalmprintReader(NistHelper.Token token, VariableResolutionPalmprint palmprint) {
-        this.token = token;
-        this.palmprint = palmprint;
-    }
-
     @Override
-    public VariableResolutionPalmprint read() {
+    public VariableResolutionPalmprint read(NistHelper.Token token) {
         if (token.pos >= token.buffer.length) {
             throw new RuntimeException("T14::NULL pointer to T14 record");
         }
+
+        VariableResolutionPalmprint palmprint = new VariableResolutionPalmprint();
 
         int start = token.pos;
 

@@ -1,10 +1,10 @@
-package org.jnbis.record;
+package org.jnbis.internal.record;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 /**
- * Created by ericdsoto on 6/8/15.
+ * @author ericdsoto
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
 public abstract class BaseVariableResolutionImageRecord extends BaseImageRecord {

@@ -1,10 +1,12 @@
 package org.jnbis.record;
 
+import org.jnbis.internal.record.BaseImageRecord;
+
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 /**
- * Created by ericdsoto on 6/8/15.
+ * @author ericdsoto
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
 public abstract class BaseGrayscaleFingerprint extends BaseImageRecord {

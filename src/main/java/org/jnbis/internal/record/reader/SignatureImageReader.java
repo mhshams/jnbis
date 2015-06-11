@@ -1,25 +1,20 @@
-package org.jnbis;
+package org.jnbis.internal.record.reader;
 
+import org.jnbis.NistHelper;
 import org.jnbis.record.SignatureImage;
 
 /**
- * Created by ericdsoto on 6/8/15.
+ * @author ericdsoto
  */
 public class SignatureImageReader extends RecordReader {
 
-    NistHelper.Token token;
-    SignatureImage signatureImage;
-
-    public SignatureImageReader(NistHelper.Token token, SignatureImage signatureImage) {
-        this.token = token;
-        this.signatureImage = signatureImage;
-    }
-
     @Override
-    public SignatureImage read() {
+    public SignatureImage read(NistHelper.Token token) {
         if (token.pos >= token.buffer.length) {
             throw new RuntimeException("T8::NULL pointer to T8 record");
         }
+
+        SignatureImage signatureImage = new SignatureImage();
 
         //Assigning t8-Header values
         Integer length = (int) readInt(token);

@@ -1,25 +1,20 @@
-package org.jnbis;
+package org.jnbis.internal.record.reader;
 
+import org.jnbis.NistHelper;
 import org.jnbis.record.VariableResolutionFingerprint;
 
 /**
- * Created by ericdsoto on 6/8/15.
+ * @author ericdsoto
  */
 public class VariableResolutionFingerprintReader extends RecordReader {
 
-    NistHelper.Token token;
-    VariableResolutionFingerprint fingerprint;
-
-    public VariableResolutionFingerprintReader(NistHelper.Token token, VariableResolutionFingerprint fingerprint) {
-        this.token = token;
-        this.fingerprint = fingerprint;
-    }
-
     @Override
-    public VariableResolutionFingerprint read() {
+    public VariableResolutionFingerprint read(NistHelper.Token token) {
         if (token.pos >= token.buffer.length) {
             throw new RuntimeException("T14::NULL pointer to T14 record");
         }
+
+        VariableResolutionFingerprint fingerprint = new VariableResolutionFingerprint();
 
         int start = token.pos;
 
