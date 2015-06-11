@@ -12,8 +12,6 @@ public class FileUtils {
         try {
             bos = new FileOutputStream(name);
             bos.write(data);
-        } catch (FileNotFoundException e) {
-            throw new RuntimeException(e);
         } catch (IOException e) {
             throw new RuntimeException(e);
         } finally {
