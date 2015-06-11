@@ -1,8 +1,9 @@
-package org.jnbis.internal.record.reader;
+package org.jnbis.internal.record.reader.factory;
 
 
 import org.jnbis.NistHelper;
 import org.jnbis.internal.record.BaseRecord;
+import org.jnbis.internal.record.reader.*;
 
 /**
  * @author ericdsoto

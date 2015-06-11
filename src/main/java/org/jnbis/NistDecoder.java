@@ -1,7 +1,7 @@
 package org.jnbis;
 
 import org.jnbis.internal.record.BaseRecord;
-import org.jnbis.internal.record.reader.RecordReaderFactory;
+import org.jnbis.internal.record.reader.factory.RecordReaderFactory;
 import org.jnbis.record.*;
 
 import java.io.*;
