@@ -63,7 +63,7 @@ public class TransactionInfoReader extends RecordReader {
                     transaction.setControlReferenceNumber(value);
                     break;
                 case 11:
-                    transaction.setNativeSnanningResolution(value);
+                    transaction.setNativeScanningResolution(value);
                     break;
                 case 12:
                     transaction.setNominalTransmittingResolution(value);
@@ -76,7 +76,7 @@ public class TransactionInfoReader extends RecordReader {
                     break;
                 case 15:
                     token.setCharSetDecoder(value);
-                    transaction.setDirectoryOfCharacterSets(value);
+                    transaction.setDirectoryOfCharsets(value);
                     break;
             }
 
