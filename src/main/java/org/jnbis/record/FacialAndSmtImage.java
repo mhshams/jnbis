@@ -1,34 +1,87 @@
 package org.jnbis.record;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 /**
  * Created by ericdsoto on 6/8/15.
  */
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class FacialAndSmtImage extends BaseImageRecord {
     //
+    @JsonProperty("image_type")
     private String imageType;
+
+    @JsonProperty("source_agency")
     private String sourceAgency;
+
+    @JsonProperty("photo_date")
     private String photoDate;
+
+    @JsonProperty("scale_units")
     private String scaleUnits;
+
+    @JsonProperty("horizontal_pixel_scale")
     private String horizontalPixelScale;
+
+    @JsonProperty("vertical_pixel_scale")
     private String verticalPixelScale;
+
+    @JsonProperty("color_space")
     private String colorSpace;
+
+    @JsonProperty("subject_acquisition_profile")
     private String subjectAcquisitionProfile;
+
+    @JsonProperty("scanned_horizontal_pixel_scale")
     private String scannedHorizontalPixelScale;
+
+    @JsonProperty("scanned_vertical_pixel_scale")
     private String scannedVerticalPixelScale;
+
+    @JsonProperty("subject_pose")
     private String subjectPose;
+
+    @JsonProperty("pose_offset_angle")
     private String poseOffsetAngle;
+
+    @JsonProperty("photo_description")
     private String photoDescription;
+
+    @JsonProperty("photo_acquisition_source")
     private String photoAcquisitionSource;
+
+    @JsonProperty("subject_quality_score")
     private String subjectQualityScore;
+
+    @JsonProperty("subject_pose_angles")
     private String subjectPoseAngles;
+
+    @JsonProperty("subject_facial_description")
     private String subjectFacialDescription;
+
+    @JsonProperty("subject_eye_color")
     private String subjectEyeColor;
+
+    @JsonProperty("subject_hair_color")
     private String subjectHairColor;
+
+    @JsonProperty("facial_feature_points")
     private String facialFeaturePoints;
+
+    @JsonProperty("device_monitoring_mode")
     private String deviceMonitoringMode;
+
+    @JsonProperty("ncic_designation_code")
     private String ncicDesignationCode;
+
+    @JsonProperty("scar_mark_tattoo_size")
     private String scarMarkTattooSize;
+
+    @JsonProperty("smt_descriptors")
     private String smtDescriptors;
+
+    @JsonProperty("colors_present")
     private String colorsPresent;
 
     public FacialAndSmtImage() {

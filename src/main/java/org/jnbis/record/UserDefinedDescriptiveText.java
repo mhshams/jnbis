@@ -1,11 +1,18 @@
 package org.jnbis.record;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 /**
  * Created by ericdsoto on 6/8/15.
  */
-public class UserDefinedDescriptiveText extends BaseImageRecord {
+@JsonIgnoreProperties(ignoreUnknown = true)
+public class UserDefinedDescriptiveText extends BaseRecord {
 
-    private String domainDefinedText;
+    @JsonProperty("image_designation_character")
+    private String imageDesignationCharacter;
+
+    private String field003; // domainDefinedText
     private String field004;
     private String field005;
     private String field006;
@@ -18,11 +25,11 @@ public class UserDefinedDescriptiveText extends BaseImageRecord {
     private String field012;
     private String field013;
     private String field014;
-    private String stateId;
+    private String field015; //stateId
     private String field016;
     private String field017;
     private String field018;
-    private String alias;
+    private String field019; // alias
     private String field020;
 
     private String field021;
@@ -45,7 +52,7 @@ public class UserDefinedDescriptiveText extends BaseImageRecord {
     private String field037;
     private String field038;
     private String field039;
-    private String occupation;
+    private String field040; // occupation
 
     private String field041;
     private String field042;
@@ -122,15 +129,15 @@ public class UserDefinedDescriptiveText extends BaseImageRecord {
     private String field907;
     private String field908;
     private String field909;
-    private String lastName;
+    private String field910; // lastName
 
-    private String motherMaidenName;
-    private String firstName;
-    private String middleInitial;
+    private String field911; // motherMaidenName
+    private String field912; // firstName
+    private String field913; // middleInitial
     private String field914;
-    private String city;
-    private String state;
-    private String zipcode;
+    private String field915; // city
+    private String field916; // state
+    private String field917; // zipcode
     private String field918;
     private String field919;
     private String field920;
@@ -160,16 +167,24 @@ public class UserDefinedDescriptiveText extends BaseImageRecord {
     private String field951;
     private String field952;
     private String field953;
-    private String additionalInfo;
+    private String field954; // additionalInfo
     private String field955;
     private String field956;
 
-    public String getDomainDefinedText() {
-        return domainDefinedText;
+    public String getImageDesignationCharacter() {
+        return imageDesignationCharacter;
     }
 
-    public void setDomainDefinedText(String domainDefinedText) {
-        this.domainDefinedText = domainDefinedText;
+    public void setImageDesignationCharacter(String imageDesignationCharacter) {
+        this.imageDesignationCharacter = imageDesignationCharacter;
+    }
+
+    public String getField003() {
+        return field003;
+    }
+
+    public void setField003(String field003) {
+        this.field003 = field003;
     }
 
     public String getField004() {
@@ -260,12 +275,12 @@ public class UserDefinedDescriptiveText extends BaseImageRecord {
         this.field014 = field014;
     }
 
-    public String getStateId() {
-        return stateId;
+    public String getField015() {
+        return field015;
     }
 
-    public void setStateId(String stateId) {
-        this.stateId = stateId;
+    public void setField015(String field015) {
+        this.field015 = field015;
     }
 
     public String getField016() {
@@ -292,12 +307,12 @@ public class UserDefinedDescriptiveText extends BaseImageRecord {
         this.field018 = field018;
     }
 
-    public String getAlias() {
-        return alias;
+    public String getField019() {
+        return field019;
     }
 
-    public void setAlias(String alias) {
-        this.alias = alias;
+    public void setField019(String field019) {
+        this.field019 = field019;
     }
 
     public String getField020() {
@@ -460,12 +475,12 @@ public class UserDefinedDescriptiveText extends BaseImageRecord {
         this.field039 = field039;
     }
 
-    public String getOccupation() {
-        return occupation;
+    public String getField040() {
+        return field040;
     }
 
-    public void setOccupation(String occupation) {
-        this.occupation = occupation;
+    public void setField040(String field040) {
+        this.field040 = field040;
     }
 
     public String getField041() {
@@ -1020,36 +1035,36 @@ public class UserDefinedDescriptiveText extends BaseImageRecord {
         this.field909 = field909;
     }
 
-    public String getLastName() {
-        return lastName;
+    public String getField910() {
+        return field910;
     }
 
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
+    public void setField910(String field910) {
+        this.field910 = field910;
     }
 
-    public String getMotherMaidenName() {
-        return motherMaidenName;
+    public String getField911() {
+        return field911;
     }
 
-    public void setMotherMaidenName(String motherMaidenName) {
-        this.motherMaidenName = motherMaidenName;
+    public void setField911(String field911) {
+        this.field911 = field911;
     }
 
-    public String getFirstName() {
-        return firstName;
+    public String getField912() {
+        return field912;
     }
 
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
+    public void setField912(String field912) {
+        this.field912 = field912;
     }
 
-    public String getMiddleInitial() {
-        return middleInitial;
+    public String getField913() {
+        return field913;
     }
 
-    public void setMiddleInitial(String middleInitial) {
-        this.middleInitial = middleInitial;
+    public void setField913(String field913) {
+        this.field913 = field913;
     }
 
     public String getField914() {
@@ -1060,28 +1075,28 @@ public class UserDefinedDescriptiveText extends BaseImageRecord {
         this.field914 = field914;
     }
 
-    public String getCity() {
-        return city;
+    public String getField915() {
+        return field915;
     }
 
-    public void setCity(String city) {
-        this.city = city;
+    public void setField915(String field915) {
+        this.field915 = field915;
     }
 
-    public String getState() {
-        return state;
+    public String getField916() {
+        return field916;
     }
 
-    public void setState(String state) {
-        this.state = state;
+    public void setField916(String field916) {
+        this.field916 = field916;
     }
 
-    public String getZipcode() {
-        return zipcode;
+    public String getField917() {
+        return field917;
     }
 
-    public void setZipcode(String zipcode) {
-        this.zipcode = zipcode;
+    public void setField917(String field917) {
+        this.field917 = field917;
     }
 
     public String getField918() {
@@ -1266,5 +1281,53 @@ public class UserDefinedDescriptiveText extends BaseImageRecord {
 
     public void setField950(String field950) {
         this.field950 = field950;
+    }
+
+    public String getField951() {
+        return field951;
+    }
+
+    public void setField951(String field951) {
+        this.field951 = field951;
+    }
+
+    public String getField952() {
+        return field952;
+    }
+
+    public void setField952(String field952) {
+        this.field952 = field952;
+    }
+
+    public String getField953() {
+        return field953;
+    }
+
+    public void setField953(String field953) {
+        this.field953 = field953;
+    }
+
+    public String getField954() {
+        return field954;
+    }
+
+    public void setField954(String field954) {
+        this.field954 = field954;
+    }
+
+    public String getField955() {
+        return field955;
+    }
+
+    public void setField955(String field955) {
+        this.field955 = field955;
+    }
+
+    public String getField956() {
+        return field956;
+    }
+
+    public void setField956(String field956) {
+        this.field956 = field956;
     }
 }
