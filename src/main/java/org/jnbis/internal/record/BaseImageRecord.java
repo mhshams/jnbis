@@ -1,19 +1,27 @@
 package org.jnbis.internal.record;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 /**
  * @author ericdsoto
  */
+@JsonIgnoreProperties(ignoreUnknown = true)
 public abstract class BaseImageRecord extends BaseRecord {
-
     // IDC
+    @JsonProperty("image_designation_character")
     private String imageDesignationCharacter;
     // HLL
+    @JsonProperty("horizontal_line_length")
     private String horizontalLineLength;
     // VLL
+    @JsonProperty("vertical_line_length")
     private String verticalLineLength;
     // GCA / BCA
+    @JsonProperty("compression_algorithm")
     private String compressionAlgorithm;
     // DATA
+    @JsonProperty("image_data")
     private byte[] imageData;
 
     public String getImageDesignationCharacter() {

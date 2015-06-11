@@ -1,6 +1,7 @@
 package org.jnbis;
 
 import org.jnbis.record.HighResolutionGrayscaleFingerprint;
+import org.jnbis.record.UserDefinedDescriptiveText;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -45,6 +46,11 @@ public class SampleTest {
     @Test
     public void nist2jpeg() throws Exception {
         DecodedData decoded = nistDecoder.decode(FileUtils.read("samples/sample.an2"), DecodedData.Format.JPEG);
+
+        UserDefinedDescriptiveText userDefinedText = decoded.getUserDefinedText(0);
+        Assert.assertEquals("57", userDefinedText.getLogicalRecordLength());
+        Assert.assertEquals("00", userDefinedText.getImageDesignationCharacter());
+        Assert.assertEquals("domain defined text place holder", userDefinedText.getField003());
 
         Set<Integer> keys = decoded.getHiResGrayscaleFingerPrintKeys();
 

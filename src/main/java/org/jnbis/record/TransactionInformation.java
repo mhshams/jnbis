@@ -2,39 +2,56 @@ package org.jnbis.record;
 
 import org.jnbis.internal.record.BaseRecord;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 /**
  * @author ericdsoto
  */
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class TransactionInformation extends BaseRecord {
-
     // 1.002 - LEN
+    @JsonProperty("version")
     private String version;
     // 1.003 - CNT
+    @JsonProperty("file_content")
     private String fileContent;
     // 1.004 - TOT
+    @JsonProperty("type_of_transaction")
     private String typeOfTransaction;
     // 1.005 - DAT
+    @JsonProperty("date")
     private String date;
     // 1.006 - PRY
+    @JsonProperty("priority")
     private String priority;
     // 1.007 - DAI
+    @JsonProperty("destination_agency_id")
     private String destinationAgencyId;
     // 1.008 - ORI
+    @JsonProperty("originating_agency_id")
     private String originatingAgencyId;
     // 1.009 - TCN
+    @JsonProperty("control_number")
     private String controlNumber;
     // 1.010 - TCR
+    @JsonProperty("control_reference_number")
     private String controlReferenceNumber;
     // 1.011 - NSR
-    private String nativeSnanningResolution;
+    @JsonProperty("native_scanning_resolution")
+    private String nativeScanningResolution;
     // 1.012 - NTR
+    @JsonProperty("nominal_transmitting_resolution")
     private String nominalTransmittingResolution;
     // 1.013 - DOM
+    @JsonProperty("domain_name")
     private String domainName;
     // 1.014 - GMT
+    @JsonProperty("greenwich_mean_time")
     private String greenwichMeanTime;
     // 1.015 - DCS
-    private String directoryOfCharacterSets;
+    @JsonProperty("directory_of_charsets")
+    private String directoryOfCharsets;
 
     public String getVersion() {
         return version;
@@ -108,12 +125,12 @@ public class TransactionInformation extends BaseRecord {
         this.controlReferenceNumber = controlReferenceNumber;
     }
 
-    public String getNativeSnanningResolution() {
-        return nativeSnanningResolution;
+    public String getNativeScanningResolution() {
+        return nativeScanningResolution;
     }
 
-    public void setNativeSnanningResolution(String nativeSnanningResolution) {
-        this.nativeSnanningResolution = nativeSnanningResolution;
+    public void setNativeScanningResolution(String nativeScanningResolution) {
+        this.nativeScanningResolution = nativeScanningResolution;
     }
 
     public String getNominalTransmittingResolution() {
@@ -140,11 +157,11 @@ public class TransactionInformation extends BaseRecord {
         this.greenwichMeanTime = greenwichMeanTime;
     }
 
-    public String getDirectoryOfCharacterSets() {
-        return directoryOfCharacterSets;
+    public String getDirectoryOfCharsets() {
+        return directoryOfCharsets;
     }
 
-    public void setDirectoryOfCharacterSets(String directoryOfCharacterSets) {
-        this.directoryOfCharacterSets = directoryOfCharacterSets;
+    public void setDirectoryOfCharsets(String directoryOfCharsets) {
+        this.directoryOfCharsets = directoryOfCharsets;
     }
 }

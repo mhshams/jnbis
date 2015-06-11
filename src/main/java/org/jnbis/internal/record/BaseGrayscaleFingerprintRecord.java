@@ -1,16 +1,21 @@
-package org.jnbis.record;
+package org.jnbis.internal.record;
 
-import org.jnbis.internal.record.BaseImageRecord;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 /**
  * @author ericdsoto
  */
-public abstract class BaseGrayscaleFingerprint extends BaseImageRecord {
+@JsonIgnoreProperties(ignoreUnknown = true)
+public abstract class BaseGrayscaleFingerprintRecord extends BaseImageRecord {
     // IMP
+    @JsonProperty("impression_type")
     private String impressionType;
     // FGP
+    @JsonProperty("finger_position")
     private String fingerPosition;
     // ISR
+    @JsonProperty("image_scanning_resolution")
     private String imageScanningResolution;
 
     public String getImpressionType() {
