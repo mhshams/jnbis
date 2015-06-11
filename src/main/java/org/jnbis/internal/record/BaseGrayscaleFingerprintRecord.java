@@ -1,6 +1,4 @@
-package org.jnbis.record;
-
-import org.jnbis.internal.record.BaseImageRecord;
+package org.jnbis.internal.record;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -9,7 +7,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
  * @author ericdsoto
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
-public abstract class BaseGrayscaleFingerprint extends BaseImageRecord {
+public abstract class BaseGrayscaleFingerprintRecord extends BaseImageRecord {
     // IMP
     @JsonProperty("impression_type")
     private String impressionType;
