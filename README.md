@@ -79,7 +79,6 @@ public DecodedData> decode(InputStream inputStream, DecodedData.Format fingerIma
 public DecodedData decode(final byte[] data, DecodedData.Format fingerImageFormat);
 ```
 Second parameter in above methods is the output image format and currently JPEG, GIF and PNG are supported.
-Decoded
 
 DecodedData contains different types of data, depending on file type. 
 Here is a sample code to extract all fingerprints and save them in separate files. 
