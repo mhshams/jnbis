@@ -10,7 +10,7 @@
 
     <groupId>com.github.mhshams</groupId>
     <artifactId>jnbis</artifactId>
-    <version>1.0.6</version>
+    <version>1.1.0</version>
     <packaging>jar</packaging>
 
     <name>JNBIS</name>
@@ -44,6 +44,11 @@
     </distributionManagement>
 
     <dependencies>
+        <dependency>
+          <groupId>com.fasterxml.jackson.core</groupId>
+          <artifactId>jackson-databind</artifactId>
+          <version>2.3.3</version>
+        </dependency>
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>

@@ -1,6 +1,6 @@
 package org.jnbis.internal.record.reader;
 
-import org.jnbis.NistHelper;
+import org.jnbis.internal.NistHelper;
 import org.jnbis.record.VariableResolutionFingerprint;
 
 /**
@@ -23,7 +23,8 @@ public class VariableResolutionFingerprintReader extends RecordReader {
             throw new RuntimeException("T14::Invalid Record type = " + tag.type);
         }
 
-        int length = Integer.parseInt(nextWord(token, NistHelper.TAG_SEP_GSFS, NistHelper.FIELD_MAX_LENGTH - 1, false));
+        Integer length = Integer.parseInt(nextWord(token, NistHelper.TAG_SEP_GSFS, NistHelper.FIELD_MAX_LENGTH - 1, false));
+        fingerprint.setLogicalRecordLength(length.toString());
 
         while (true) {
 

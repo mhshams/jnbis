@@ -1,6 +1,6 @@
 package org.jnbis.internal.record.reader;
 
-import org.jnbis.NistHelper;
+import org.jnbis.internal.NistHelper;
 import org.jnbis.record.TransactionInformation;
 
 /**
@@ -58,7 +58,7 @@ public class TransactionInfoReader extends RecordReader {
                     transaction.setControlReferenceNumber(value);
                     break;
                 case 11:
-                    transaction.setNativeSnanningResolution(value);
+                    transaction.setNativeScanningResolution(value);
                     break;
                 case 12:
                     transaction.setNominalTransmittingResolution(value);
@@ -71,7 +71,7 @@ public class TransactionInfoReader extends RecordReader {
                     break;
                 case 15:
                     token.setCharSetDecoder(value);
-                    transaction.setDirectoryOfCharacterSets(value);
+                    transaction.setDirectoryOfCharsets(value);
                     break;
             }
 

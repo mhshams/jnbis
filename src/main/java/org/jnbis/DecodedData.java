@@ -2,7 +2,6 @@ package org.jnbis;
 
 import org.jnbis.record.*;
 
-import java.util.HashMap;
 import java.util.Set;
 
 /**
@@ -10,7 +9,7 @@ import java.util.Set;
  * @version 1.0.0
  * @since Oct 31, 2007
  */
-public class DecodedData {
+public abstract class DecodedData {
     public enum Format {
         JPEG("jpeg"),
         GIF("gif"),
@@ -27,221 +26,60 @@ public class DecodedData {
         }
     }
 
-    private final HashMap<Integer, TransactionInformation> transactionInformation;
-    private final HashMap<Integer, UserDefinedDescriptiveText> userDefinedText;
-    private final HashMap<Integer, LowResolutionGrayscaleFingerprint> lowResolutionGrayscaleFingerprint;
-    private final HashMap<Integer, HighResolutionGrayscaleFingerprint> hiResolutionGrayscaleFingerprint;
-    private final HashMap<Integer, LowResolutionBinaryFingerprint> lowResolutionBinaryFingerprint;
-    private final HashMap<Integer, HighResolutionBinaryFingerprint> hiResolutionBinaryFingerprint;
-    private final HashMap<Integer, UserDefinedImage> userDefinedImage;
-    private final HashMap<Integer, SignatureImage> signatureImage;
-    private final HashMap<Integer, MinutiaeData> minutiaeData;
-    private final HashMap<Integer, FacialAndSmtImage> facialAndSmtImage;
-    private final HashMap<Integer, VariableResolutionLatentImage> variableResolutionLatentImage;
-    private final HashMap<Integer, VariableResolutionFingerprint> variableResolutionFingerprint;
-    private final HashMap<Integer, VariableResolutionPalmprint> variableResolutionPalmprint;
-    private final HashMap<Integer, IrisImage> irisImage;
 
-    DecodedData() {
-        transactionInformation = new HashMap<>();
-        userDefinedText = new HashMap<>();
-        lowResolutionGrayscaleFingerprint = new HashMap<>();
-        hiResolutionGrayscaleFingerprint = new HashMap<>();
-        lowResolutionBinaryFingerprint = new HashMap<>();
-        hiResolutionBinaryFingerprint = new HashMap<>();
-        userDefinedImage = new HashMap<>();
-        signatureImage = new HashMap<>();
-        minutiaeData = new HashMap<>();
-        facialAndSmtImage = new HashMap<>();
-        variableResolutionLatentImage = new HashMap<>();
-        variableResolutionFingerprint = new HashMap<>();
-        variableResolutionPalmprint = new HashMap<>();
-        irisImage = new HashMap<>();
-    }
+    public abstract Set<Integer> getTransactionKeys();
 
-    void putTransactionInfo(Integer key, TransactionInformation transactionInfo) {
-        transactionInformation.put(key, transactionInfo);
-    }
+    public abstract Set<Integer> getUserDefinedTextKeys();
 
-    void putUserDefinedText(Integer key, UserDefinedDescriptiveText text) {
-        userDefinedText.put(key, text);
-    }
+    public abstract Set<Integer> getLowResBinaryFingerPrintKeys();
 
-    void putLowResGrayscaleFingerPrint(Integer key, LowResolutionGrayscaleFingerprint fingerprint) {
-        lowResolutionGrayscaleFingerprint.put(key, fingerprint);
-    }
+    public abstract Set<Integer> getHiResBinaryFingerPrintKeys();
 
-    void putHiResGrayscaleFingerPrint(Integer key, HighResolutionGrayscaleFingerprint fingerprint) {
-        hiResolutionGrayscaleFingerprint.put(key, fingerprint);
-    }
+    public abstract Set<Integer> getLowResGrayscaleFingerPrintKeys();
 
-    void putLowResBinaryFingerPrint(Integer key, LowResolutionBinaryFingerprint fingerprint) {
-        lowResolutionBinaryFingerprint.put(key, fingerprint);
-    }
+    public abstract Set<Integer> getHiResGrayscaleFingerPrintKeys();
 
-    void putHiResBinaryFingerPrint(Integer key, HighResolutionBinaryFingerprint fingerprint) {
-        hiResolutionBinaryFingerprint.put(key, fingerprint);
-    }
+    public abstract Set<Integer> getUserDefinedImageKeys();
 
-    void putUserDefinedImage(Integer key, UserDefinedImage image) {
-        userDefinedImage.put(key, image);
-    }
+    public abstract Set<Integer> getSignatureKeys();
 
-    void putSignature(Integer key, SignatureImage image) {
-        signatureImage.put(key, image);
-    }
+    public abstract Set<Integer> getMinutiaeDataKeys();
 
-    void putMinutiaeData(Integer key, MinutiaeData minutiae) {
-        minutiaeData.put(key, minutiae);
-    }
+    public abstract Set<Integer> getFacialSmtKeys();
 
-    void putFacialSmtImage(Integer key, FacialAndSmtImage image) {
-        facialAndSmtImage.put(key, image);
-    }
+    public abstract Set<Integer> getVariableResLatentImageKeys();
 
-    void putVariableResLatentImage(Integer key, VariableResolutionLatentImage image) {
-        variableResolutionLatentImage.put(key, image);
-    }
+    public abstract Set<Integer> getVariableResFingerprintKeys();
 
-    void putVariableResFingerprint(Integer key, VariableResolutionFingerprint fingerprint) {
-        variableResolutionFingerprint.put(key, fingerprint);
-    }
+    public abstract Set<Integer> getVariableResPalmprintKeys();
 
-    void putVariableResPalmprint(Integer key, VariableResolutionPalmprint palmprint) {
-        variableResolutionPalmprint.put(key, palmprint);
-    }
+    public abstract Set<Integer> getIrisImageKeys();
 
-    void putIrisImage(Integer key, IrisImage image) {
-        irisImage.put(key, image);
-    }
+    public abstract TransactionInformation getTransactionInfo(Integer key);
 
-    public Set<Integer> getTransactionKeys() {
-        return transactionInformation.keySet();
-    }
+    public abstract UserDefinedDescriptiveText getUserDefinedText(Integer key);
 
-    public Set<Integer> getUserDefinedTextKeys() {
-        return userDefinedText.keySet();
-    }
+    public abstract LowResolutionGrayscaleFingerprint getLowResGrayscaleFingerprint(Integer key);
 
-    public Set<Integer> getLowResBinaryFingerPrintKeys() {
-        return lowResolutionBinaryFingerprint.keySet();
-    }
+    public abstract HighResolutionGrayscaleFingerprint getHiResGrayscaleFingerprint(Integer key);
 
-    public Set<Integer> getHiResBinaryFingerPrintKeys() {
-        return hiResolutionBinaryFingerprint.keySet();
-    }
+    public abstract LowResolutionBinaryFingerprint getLowResBinaryFingerprint(Integer key);
 
-    public Set<Integer> getLowResGrayscaleFingerPrintKeys() {
-        return lowResolutionGrayscaleFingerprint.keySet();
-    }
+    public abstract HighResolutionBinaryFingerprint getHiResBinaryFingerprint(Integer key);
 
-    public Set<Integer> getHiResGrayscaleFingerPrintKeys() {
-        return hiResolutionGrayscaleFingerprint.keySet();
-    }
+    public abstract UserDefinedImage getUserDefinedImage(Integer key);
 
-    public Set<Integer> getUserDefinedImageKeys() {
-        return userDefinedImage.keySet();
-    }
+    public abstract SignatureImage getSignature(Integer key);
 
-    public Set<Integer> getSignatureKeys() {
-        return signatureImage.keySet();
-    }
+    public abstract MinutiaeData getMinutiaeData(Integer key);
 
-    public Set<Integer> getMinutiaeDataKeys() {
-        return minutiaeData.keySet();
-    }
+    public abstract FacialAndSmtImage getFacialAndSmtImage(Integer key);
 
-    public Set<Integer> getFacialSmtKeys() {
-        return facialAndSmtImage.keySet();
-    }
+    public abstract VariableResolutionLatentImage getVariableResLatentImage(Integer key);
 
-    public Set<Integer> getVariableResLatentImageKeys() {
-        return variableResolutionLatentImage.keySet();
-    }
+    public abstract VariableResolutionFingerprint getVariableResFingerprint(Integer key);
 
-    public Set<Integer> getVariableResFingerprintKeys() {
-        return variableResolutionFingerprint.keySet();
-    }
+    public abstract VariableResolutionPalmprint getVariableResPalmprint(Integer key);
 
-    public Set<Integer> getVariableResPalmprintKeys() {
-        return variableResolutionPalmprint.keySet();
-    }
-
-    public Set<Integer> getIrisImageKeys() {
-        return irisImage.keySet();
-    }
-
-    public TransactionInformation getTransactionInfo(Integer key) {
-        return transactionInformation.containsKey(key) ? transactionInformation.get(key) : null;
-    }
-
-    public UserDefinedDescriptiveText getUserDefinedText(Integer key) {
-        return userDefinedText.containsKey(key) ? userDefinedText.get(key) : null;
-    }
-
-    public LowResolutionGrayscaleFingerprint getLowResGrayscaleFingerprint(Integer key) {
-        return lowResolutionGrayscaleFingerprint.containsKey(key) ? lowResolutionGrayscaleFingerprint.get(key) : null;
-    }
-
-    public HighResolutionGrayscaleFingerprint getHiResGrayscaleFingerprint(Integer key) {
-        return hiResolutionGrayscaleFingerprint.containsKey(key) ? hiResolutionGrayscaleFingerprint.get(key) : null;
-    }
-
-    public LowResolutionBinaryFingerprint getLowResBinaryFingerprint(Integer key) {
-        return lowResolutionBinaryFingerprint.containsKey(key) ? lowResolutionBinaryFingerprint.get(key) : null;
-    }
-
-    public HighResolutionBinaryFingerprint getHiResBinaryFingerprint(Integer key) {
-        return hiResolutionBinaryFingerprint.containsKey(key) ? hiResolutionBinaryFingerprint.get(key) : null;
-    }
-
-    public UserDefinedImage getUserDefinedImage(Integer key) {
-        return userDefinedImage.containsKey(key) ? userDefinedImage.get(key) : null;
-    }
-
-    public SignatureImage getSignature(Integer key) {
-        return signatureImage.containsKey(key) ? signatureImage.get(key) : null;
-    }
-
-    public MinutiaeData getMinutiaeData(Integer key) {
-        return minutiaeData.containsKey(key) ? minutiaeData.get(key) : null;
-    }
-
-    public FacialAndSmtImage getFacialAndSmtImage(Integer key) {
-        return facialAndSmtImage.containsKey(key) ? facialAndSmtImage.get(key) : null;
-    }
-
-    public VariableResolutionLatentImage getVariableResLatentImage(Integer key) {
-        return variableResolutionLatentImage.containsKey(key) ? variableResolutionLatentImage.get(key) : null;
-    }
-
-    public VariableResolutionFingerprint getVariableResFingerprint(Integer key) {
-        return variableResolutionFingerprint.containsKey(key) ? variableResolutionFingerprint.get(key) : null;
-    }
-
-    public VariableResolutionPalmprint getVariableResPalmprint(Integer key) {
-        return variableResolutionPalmprint.containsKey(key) ? variableResolutionPalmprint.get(key) : null;
-    }
-
-    public IrisImage getIrisImage(Integer key) {
-        return irisImage.containsKey(key) ? irisImage.get(key) : null;
-    }
-
-    public static final class BinaryData {
-        private final String type;
-        private final byte[] data;
-
-        public BinaryData(String type, byte[] data) {
-            this.type = type;
-            this.data = data;
-        }
-
-        public String getType() {
-            return type;
-        }
-
-        public byte[] getData() {
-            return data;
-        }
-    }
+    public abstract IrisImage getIrisImage(Integer key);
 }

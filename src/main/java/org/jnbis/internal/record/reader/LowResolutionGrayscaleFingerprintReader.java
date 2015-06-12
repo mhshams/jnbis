@@ -1,6 +1,6 @@
 package org.jnbis.internal.record.reader;
 
-import org.jnbis.NistHelper;
+import org.jnbis.internal.NistHelper;
 import org.jnbis.record.LowResolutionGrayscaleFingerprint;
 
 /**
@@ -17,7 +17,7 @@ public class LowResolutionGrayscaleFingerprintReader extends RecordReader {
         LowResolutionGrayscaleFingerprint fingerprint = new LowResolutionGrayscaleFingerprint();
 
         //Assigning t3-Header values
-        int length = (int) readInt(token);
+        Integer length = (int) readInt(token);
         int fingerPrintNo = token.buffer[token.pos + 6];
 
         int dataSize = length - 18;
@@ -32,6 +32,7 @@ public class LowResolutionGrayscaleFingerprintReader extends RecordReader {
         token.pos += length;
         fingerprint.setImageDesignationCharacter(Integer.toString(fingerPrintNo));
         fingerprint.setImageData(data);
+        fingerprint.setLogicalRecordLength(length.toString());
 
         return fingerprint;
     }

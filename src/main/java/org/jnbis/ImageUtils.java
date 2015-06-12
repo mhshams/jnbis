@@ -33,19 +33,13 @@ public class ImageUtils {
         WritableRaster writableRaster = Raster.createPackedRaster(buffer, width, height, width, MASKS, null);
         BufferedImage bimage = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
         bimage.setData(writableRaster);
-        ByteArrayOutputStream bstream = new ByteArrayOutputStream();
-        try {
+
+        try (ByteArrayOutputStream bstream = new ByteArrayOutputStream()) {
             ImageIO.write(bimage, format, bstream);
             bstream.close();
             return bstream.toByteArray();
         } catch (IOException e) {
             throw new RuntimeException(e);
-        } finally {
-            try {
-                bstream.close();
-            } catch (IOException e) {
-                throw new RuntimeException(e);
-            }
         }
     }
 }

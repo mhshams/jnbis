@@ -1,30 +1,45 @@
 package org.jnbis.internal.record;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 /**
  * @author ericdsoto
  */
+@JsonIgnoreProperties(ignoreUnknown = true)
 public abstract class BaseVariableResolutionImageRecord extends BaseImageRecord {
     // X.003 - IMP
+    @JsonProperty("impression_type")
     private String impressionType;
     // X.004 - SRC
+    @JsonProperty("source_agency")
     private String sourceAgency;
     // X.005 - FCD/PCD
+    @JsonProperty("capture_date")
     private String captureDate;
     // X.008 - SLC
+    @JsonProperty("scale_units")
     private String scaleUnits;
     // X.009 - HPS
+    @JsonProperty("horizontal_pixel_scale")
     private String horizontalPixelScale;
     // X.010 - VPS
+    @JsonProperty("vertical_pixel_scale")
     private String verticalPixelScale;
     // X.012 - BPX
+    @JsonProperty("bits_per_pixel")
     private String bitsPerPixel;
     // X.016 - SHPS
+    @JsonProperty("scanned_horizontal_pixel_scale")
     private String scannedHorizontalPixelScale;
     // X.017 - SVPS
+    @JsonProperty("scanned_vertical_pixel_scale")
     private String scannedVerticalPixelScale;
     // X.020 - COM
+    @JsonProperty("comment")
     private String comment;
     // X.030 - DMM
+    @JsonProperty("device_monitoring_mode")
     private String deviceMonitoringMode;
 
     public String getImpressionType() {

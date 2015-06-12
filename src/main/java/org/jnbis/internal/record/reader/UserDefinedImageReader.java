@@ -1,6 +1,6 @@
 package org.jnbis.internal.record.reader;
 
-import org.jnbis.NistHelper;
+import org.jnbis.internal.NistHelper;
 import org.jnbis.record.UserDefinedImage;
 
 /**
@@ -17,7 +17,7 @@ public class UserDefinedImageReader extends RecordReader {
         UserDefinedImage userDefinedImage = new UserDefinedImage();
 
         //Assigning t7-Header values
-        int length = (int) readInt(token);
+        Integer length = (int) readInt(token);
         //int fingerPrintNo = token.buffer[token.pos + 6];
 
         int dataSize = length - 5;
@@ -32,6 +32,7 @@ public class UserDefinedImageReader extends RecordReader {
         token.pos += length;
 
         userDefinedImage.setImageData(data);
+        userDefinedImage.setLogicalRecordLength(length.toString());
 
         return userDefinedImage;
     }

@@ -4,7 +4,11 @@ import org.jnbis.record.FacialAndSmtImage;
 import org.jnbis.record.HighResolutionGrayscaleFingerprint;
 import org.jnbis.record.VariableResolutionFingerprint;
 
-import java.io.*;
+import java.io.Closeable;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.net.URL;
 
 public class FileUtils {
     public static void save(byte[] data, String name) {
@@ -12,8 +16,6 @@ public class FileUtils {
         try {
             bos = new FileOutputStream(name);
             bos.write(data);
-        } catch (FileNotFoundException e) {
-            throw new RuntimeException(e);
         } catch (IOException e) {
             throw new RuntimeException(e);
         } finally {
@@ -46,8 +48,9 @@ public class FileUtils {
         }
     }
 
-    public static InputStream read(String name) {
-        return FileUtils.class.getClassLoader().getResourceAsStream(name);
+    public static String absoluteFile(String name) {
+        URL url = FileUtils.class.getClassLoader().getResource(name);
+        return url != null ? url.getFile() : null;
     }
 
     private static void close(Closeable closeable) {

@@ -1,6 +1,6 @@
 package org.jnbis.internal.record.reader;
 
-import org.jnbis.NistHelper;
+import org.jnbis.internal.NistHelper;
 import org.jnbis.record.FacialAndSmtImage;
 
 /**
@@ -23,7 +23,8 @@ public class FacialAndSmtImageReader extends RecordReader {
             throw new RuntimeException("T10::Invalid Record type = " + tag.type);
         }
 
-        int length = Integer.parseInt(nextWord(token, NistHelper.TAG_SEP_GSFS, NistHelper.FIELD_MAX_LENGTH - 1, false));
+        Integer length = Integer.parseInt(nextWord(token, NistHelper.TAG_SEP_GSFS, NistHelper.FIELD_MAX_LENGTH - 1, false));
+        facialRecord.setLogicalRecordLength(length.toString());
 
         while (true) {
 
@@ -93,7 +94,43 @@ public class FacialAndSmtImageReader extends RecordReader {
                     facialRecord.setPoseOffsetAngle(word);
                     break;
                 case 22:
-                    facialRecord.setImageType(word);
+                    facialRecord.setPhotoDescription(word);
+                    break;
+                case 23:
+                    facialRecord.setPhotoAcquisitionSource(word);
+                    break;
+                case 24:
+                    facialRecord.setSubjectQualityScore(word);
+                    break;
+                case 25:
+                    facialRecord.setSubjectPoseAngles(word);
+                    break;
+                case 26:
+                    facialRecord.setSubjectFacialDescription(word);
+                    break;
+                case 27:
+                    facialRecord.setSubjectEyeColor(word);
+                    break;
+                case 28:
+                    facialRecord.setSubjectHairColor(word);
+                    break;
+                case 29:
+                    facialRecord.setFacialFeaturePoints(word);
+                    break;
+                case 30:
+                    facialRecord.setDeviceMonitoringMode(word);
+                    break;
+                case 40:
+                    facialRecord.setNcicDesignationCode(word);
+                    break;
+                case 41:
+                    facialRecord.setScarMarkTattooSize(word);
+                    break;
+                case 42:
+                    facialRecord.setSmtDescriptors(word);
+                    break;
+                case 43:
+                    facialRecord.setColorsPresent(word);
                     break;
                 default:
                     break;
