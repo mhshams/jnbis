@@ -16,7 +16,7 @@ JNBIS is available in [The Central Repository](http://search.maven.org/#browse),
 <dependency>
   <groupId>jnbis</groupId>
   <artifactId>jnbis</artifactId>
-  <version>1.0.6</version>
+  <version>1.1.0</version>
 </dependency>
 ```
 
