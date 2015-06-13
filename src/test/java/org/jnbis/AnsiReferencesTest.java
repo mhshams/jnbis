@@ -56,7 +56,7 @@ public class AnsiReferencesTest {
     public void type_3() throws IOException {
         Nist decoded = decode(FILES[0]);
         commonAssert(decoded);
-        assertEquals(1, decoded.getLowResGrayscaleFingerPrintKeys().size());
+        assertEquals(1, decoded.getLowResGrayscaleFingerprints().size());
     }
 
     @Test

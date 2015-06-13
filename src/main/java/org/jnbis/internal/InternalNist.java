@@ -17,7 +17,7 @@ public class InternalNist extends Nist {
 
     private TransactionInformation transactionInformation;
     private final HashMap<Integer, UserDefinedDescriptiveText> userDefinedText;
-    private final HashMap<Integer, LowResolutionGrayscaleFingerprint> lowResolutionGrayscaleFingerprint;
+    private final List<LowResolutionGrayscaleFingerprint> lowResolutionGrayscaleFingerprints;
     private final List<HighResolutionGrayscaleFingerprint> hiResolutionGrayscaleFingerprints;
     private final HashMap<Integer, LowResolutionBinaryFingerprint> lowResolutionBinaryFingerprint;
     private final HashMap<Integer, HighResolutionBinaryFingerprint> hiResolutionBinaryFingerprint;
@@ -32,7 +32,7 @@ public class InternalNist extends Nist {
 
     public InternalNist() {
         userDefinedText = new HashMap<>();
-        lowResolutionGrayscaleFingerprint = new HashMap<>();
+        lowResolutionGrayscaleFingerprints = new ArrayList<>();
         hiResolutionGrayscaleFingerprints = new ArrayList<>();
         lowResolutionBinaryFingerprint = new HashMap<>();
         hiResolutionBinaryFingerprint = new HashMap<>();
@@ -54,8 +54,8 @@ public class InternalNist extends Nist {
         userDefinedText.put(key, text);
     }
 
-    void putLowResGrayscaleFingerPrint(Integer key, LowResolutionGrayscaleFingerprint fingerprint) {
-        lowResolutionGrayscaleFingerprint.put(key, fingerprint);
+    void addLowResGrayscaleFingerPrint(LowResolutionGrayscaleFingerprint fingerprint) {
+        lowResolutionGrayscaleFingerprints.add(fingerprint);
     }
 
     void addHiResGrayscaleFingerPrint(HighResolutionGrayscaleFingerprint fingerprint) {
@@ -114,10 +114,6 @@ public class InternalNist extends Nist {
         return hiResolutionBinaryFingerprint.keySet();
     }
 
-    public Set<Integer> getLowResGrayscaleFingerPrintKeys() {
-        return lowResolutionGrayscaleFingerprint.keySet();
-    }
-
     public Set<Integer> getUserDefinedImageKeys() {
         return userDefinedImage.keySet();
     }
@@ -158,8 +154,8 @@ public class InternalNist extends Nist {
         return userDefinedText.containsKey(key) ? userDefinedText.get(key) : null;
     }
 
-    public LowResolutionGrayscaleFingerprint getLowResGrayscaleFingerprint(Integer key) {
-        return lowResolutionGrayscaleFingerprint.containsKey(key) ? lowResolutionGrayscaleFingerprint.get(key) : null;
+    public List<LowResolutionGrayscaleFingerprint> getLowResGrayscaleFingerprints() {
+        return lowResolutionGrayscaleFingerprints;
     }
 
     public List<HighResolutionGrayscaleFingerprint> getHiResGrayscaleFingerprints() {

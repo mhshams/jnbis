@@ -18,8 +18,6 @@ public abstract class Nist {
 
     public abstract Set<Integer> getHiResBinaryFingerPrintKeys();
 
-    public abstract Set<Integer> getLowResGrayscaleFingerPrintKeys();
-
     public abstract Set<Integer> getUserDefinedImageKeys();
 
     public abstract Set<Integer> getSignatureKeys();
@@ -40,7 +38,7 @@ public abstract class Nist {
 
     public abstract UserDefinedDescriptiveText getUserDefinedText(Integer key);
 
-    public abstract LowResolutionGrayscaleFingerprint getLowResGrayscaleFingerprint(Integer key);
+    public abstract List<LowResolutionGrayscaleFingerprint> getLowResGrayscaleFingerprints();
 
     public abstract List<HighResolutionGrayscaleFingerprint> getHiResGrayscaleFingerprints();
 
