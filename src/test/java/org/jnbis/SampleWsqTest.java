@@ -41,7 +41,7 @@ public class SampleWsqTest {
 
     @Test
     public void wsq2pngFile() throws IOException {
-        File png = Jnbis.wsq().decode(WSQ_FILE_NAME).toPng().save(temp.newFile("temp.png").getAbsolutePath());
+        File png = Jnbis.wsq().decode(WSQ_FILE_NAME).toPng().asFile(temp.newFile("temp.png").getAbsolutePath());
 
         Assert.assertArrayEquals(FileUtils.read(new File(PNG_FILE_NAME)), FileUtils.read(png));
     }
@@ -62,7 +62,7 @@ public class SampleWsqTest {
 
     @Test
     public void wsq2gifFile() throws IOException {
-        File gif = Jnbis.wsq().decode(WSQ_FILE_NAME).toGif().save(temp.newFile("temp.gif").getAbsolutePath());
+        File gif = Jnbis.wsq().decode(WSQ_FILE_NAME).toGif().asFile(temp.newFile("temp.gif").getAbsolutePath());
 
         Assert.assertArrayEquals(FileUtils.read(new File(GIF_FILE_NAME)), FileUtils.read(gif));
     }
@@ -83,7 +83,7 @@ public class SampleWsqTest {
 
     @Test
     public void wsq2jpgFile() throws IOException {
-        File jpg = Jnbis.wsq().decode(WSQ_FILE_NAME).toJpg().save(temp.newFile("temp.jpg").getAbsolutePath());
+        File jpg = Jnbis.wsq().decode(WSQ_FILE_NAME).toJpg().asFile(temp.newFile("temp.jpg").getAbsolutePath());
 
         Assert.assertArrayEquals(FileUtils.read(new File(JPG_FILE_NAME)), FileUtils.read(jpg));
     }

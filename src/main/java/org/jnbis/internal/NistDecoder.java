@@ -11,10 +11,10 @@ import org.jnbis.api.model.record.*;
  * @version 1.0
  * @since Apr 29, 2007
  */
-public class InternalNistDecoder {
+public class NistDecoder {
     private RecordReaderFactory readerFactory;
 
-    public InternalNistDecoder() {
+    public NistDecoder() {
         readerFactory = new RecordReaderFactory();
     }
 

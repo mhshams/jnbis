@@ -9,7 +9,7 @@ import java.util.Arrays;
  * @version 1.0.0
  * @since Oct 1, 2007
  */
-public class InternalWsqDecoder {
+public class WsqDecoder {
 
     public Bitmap decode(final byte[] data) {
         WsqHelper.Token token = new WsqHelper.Token(data);
