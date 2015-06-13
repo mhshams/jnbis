@@ -10,22 +10,6 @@ import java.util.Set;
  * @since Oct 31, 2007
  */
 public abstract class Nist {
-    public enum Format {
-        JPEG("jpeg"),
-        GIF("gif"),
-        PNG("png");
-
-        private final String code;
-
-        public String code() {
-            return code;
-        }
-
-        Format(String code) {
-            this.code = code;
-        }
-    }
-
 
     public abstract Set<Integer> getTransactionKeys();
 

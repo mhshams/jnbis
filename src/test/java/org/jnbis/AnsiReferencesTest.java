@@ -1,10 +1,10 @@
 package org.jnbis;
 
+import org.jnbis.api.Jnbis;
+import org.jnbis.record.UserDefinedDescriptiveText;
 import org.junit.Test;
 
 import java.io.IOException;
-import java.io.InputStream;
-import java.util.Map;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
@@ -50,8 +50,6 @@ public class AnsiReferencesTest {
             "15-palms",
             "17-iris"
     };
-
-    private static final NistDecoder DECODER = new NistDecoder();
 
     @Test
     public void type_3() throws IOException {
@@ -296,18 +294,16 @@ public class AnsiReferencesTest {
         assertEquals(1, decoded.getTransactionKeys().size());
         assertEquals(1, decoded.getUserDefinedTextKeys().size());
 
-        Map<Integer, String> userDefinedFields = decoded.getUserDefinedText(0).getUserDefinedFields();
-        assertEquals("57", userDefinedFields.get(1));
-        assertEquals("00", userDefinedFields.get(2));
-        assertEquals("domain defined text place holder", userDefinedFields.get(3));
+        UserDefinedDescriptiveText userDefinedText = decoded.getUserDefinedText(0);
+        assertEquals("57", userDefinedText.getLogicalRecordLength());
+        assertEquals("00", userDefinedText.getImageDesignationCharacter());
+        assertEquals("domain defined text place holder", userDefinedText.getField003());
     }
 
     private Nist decode(String name) throws IOException {
-        InputStream file = SampleTest.class.getClassLoader().getResourceAsStream(String.format(FILE_PATH, name));
-        Nist decoded = DECODER.decode(file, Nist.Format.PNG);
-        assertNotNull(decoded);
-        // For local check.
-        //FileUtils.saveAll(decoded, Nist.Format.PNG, "target/" + name);
-        return decoded;
+        String fileName = FileUtils.absoluteFile(String.format(FILE_PATH, name));
+        Nist nist = Jnbis.nist().decode(fileName);
+        assertNotNull(nist);
+        return nist;
     }
 }
