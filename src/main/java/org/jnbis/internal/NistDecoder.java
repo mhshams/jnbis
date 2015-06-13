@@ -1,9 +1,9 @@
 package org.jnbis.internal;
 
 import org.jnbis.api.model.Nist;
+import org.jnbis.api.model.record.*;
 import org.jnbis.internal.record.BaseRecord;
 import org.jnbis.internal.record.reader.RecordReaderFactory;
-import org.jnbis.api.model.record.*;
 
 
 /**
@@ -26,7 +26,7 @@ public class NistDecoder {
         NistHelper.Token token = new NistHelper.Token(nist);
         InternalNist decoded = new InternalNist();
         BaseRecord record = readerFactory.read(token);
-        decoded.putTransactionInfo(decoded.getTransactionKeys().size(), (TransactionInformation) record);
+        decoded.setTransactionInfo((TransactionInformation) record);
 
         while (nextRecord(token)) {
             if (token.crt < 2) {

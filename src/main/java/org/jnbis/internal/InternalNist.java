@@ -13,7 +13,7 @@ import java.util.Set;
  */
 public class InternalNist extends Nist {
 
-    private final HashMap<Integer, TransactionInformation> transactionInformation;
+    private TransactionInformation transactionInformation;
     private final HashMap<Integer, UserDefinedDescriptiveText> userDefinedText;
     private final HashMap<Integer, LowResolutionGrayscaleFingerprint> lowResolutionGrayscaleFingerprint;
     private final HashMap<Integer, HighResolutionGrayscaleFingerprint> hiResolutionGrayscaleFingerprint;
@@ -29,7 +29,6 @@ public class InternalNist extends Nist {
     private final HashMap<Integer, IrisImage> irisImage;
 
     public InternalNist() {
-        transactionInformation = new HashMap<>();
         userDefinedText = new HashMap<>();
         lowResolutionGrayscaleFingerprint = new HashMap<>();
         hiResolutionGrayscaleFingerprint = new HashMap<>();
@@ -45,8 +44,8 @@ public class InternalNist extends Nist {
         irisImage = new HashMap<>();
     }
 
-    void putTransactionInfo(Integer key, TransactionInformation transactionInfo) {
-        transactionInformation.put(key, transactionInfo);
+    void setTransactionInfo(TransactionInformation transactionInfo) {
+        this.transactionInformation = transactionInfo;
     }
 
     void putUserDefinedText(Integer key, UserDefinedDescriptiveText text) {
@@ -101,10 +100,6 @@ public class InternalNist extends Nist {
         irisImage.put(key, image);
     }
 
-    public Set<Integer> getTransactionKeys() {
-        return transactionInformation.keySet();
-    }
-
     public Set<Integer> getUserDefinedTextKeys() {
         return userDefinedText.keySet();
     }
@@ -157,8 +152,8 @@ public class InternalNist extends Nist {
         return irisImage.keySet();
     }
 
-    public TransactionInformation getTransactionInfo(Integer key) {
-        return transactionInformation.containsKey(key) ? transactionInformation.get(key) : null;
+    public TransactionInformation getTransactionInfo() {
+        return transactionInformation;
     }
 
     public UserDefinedDescriptiveText getUserDefinedText(Integer key) {

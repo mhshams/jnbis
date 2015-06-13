@@ -292,7 +292,7 @@ public class AnsiReferencesTest {
     }
 
     private void commonAssert(Nist decoded) {
-        assertEquals(1, decoded.getTransactionKeys().size());
+        assertNotNull(decoded.getTransactionInfo());
         assertEquals(1, decoded.getUserDefinedTextKeys().size());
 
         Map<Integer, String> userDefinedFields = decoded.getUserDefinedText(0).getUserDefinedFields();

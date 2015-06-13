@@ -11,8 +11,6 @@ import java.util.Set;
  */
 public abstract class Nist {
 
-    public abstract Set<Integer> getTransactionKeys();
-
     public abstract Set<Integer> getUserDefinedTextKeys();
 
     public abstract Set<Integer> getLowResBinaryFingerPrintKeys();
@@ -39,7 +37,7 @@ public abstract class Nist {
 
     public abstract Set<Integer> getIrisImageKeys();
 
-    public abstract TransactionInformation getTransactionInfo(Integer key);
+    public abstract TransactionInformation getTransactionInfo();
 
     public abstract UserDefinedDescriptiveText getUserDefinedText(Integer key);
 
