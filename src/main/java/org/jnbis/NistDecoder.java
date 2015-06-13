@@ -61,7 +61,8 @@ public class NistDecoder {
             record = readerFactory.read(token);
 
             if (record instanceof UserDefinedDescriptiveText) {
-                decoded.putUserDefinedText(decoded.getUserDefinedTextKeys().size(), (UserDefinedDescriptiveText) record);
+                UserDefinedDescriptiveText userDefinedText = (UserDefinedDescriptiveText) record;
+                decoded.putUserDefinedText(decoded.getUserDefinedTextKeys().size(), userDefinedText);
 
             } else if (record instanceof LowResolutionGrayscaleFingerprint) {
                 LowResolutionGrayscaleFingerprint fingerprint = (LowResolutionGrayscaleFingerprint) record;

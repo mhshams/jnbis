@@ -6,6 +6,7 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.util.Map;
 import java.util.Set;
 
 /**
@@ -47,10 +48,10 @@ public class SampleTest {
     public void nist2jpeg() throws Exception {
         DecodedData decoded = nistDecoder.decode(FileUtils.read("samples/sample.an2"), DecodedData.Format.JPEG);
 
-        UserDefinedDescriptiveText userDefinedText = decoded.getUserDefinedText(0);
-        Assert.assertEquals("57", userDefinedText.getLogicalRecordLength());
-        Assert.assertEquals("00", userDefinedText.getImageDesignationCharacter());
-        Assert.assertEquals("domain defined text place holder", userDefinedText.getField003());
+        Map<Integer, String> userDefinedFields = decoded.getUserDefinedText(0).getUserDefinedFields();
+        Assert.assertEquals("57", userDefinedFields.get(1));
+        Assert.assertEquals("00", userDefinedFields.get(2));
+        Assert.assertEquals("domain defined text place holder", userDefinedFields.get(3));
 
         Set<Integer> keys = decoded.getHiResGrayscaleFingerPrintKeys();
 

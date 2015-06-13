@@ -3,6 +3,7 @@ package org.jnbis;
 import org.jnbis.record.*;
 
 import java.util.HashMap;
+import java.util.Map;
 import java.util.Set;
 
 /**
@@ -27,20 +28,20 @@ public class DecodedData {
         }
     }
 
-    private final HashMap<Integer, TransactionInformation> transactionInformation;
-    private final HashMap<Integer, UserDefinedDescriptiveText> userDefinedText;
-    private final HashMap<Integer, LowResolutionGrayscaleFingerprint> lowResolutionGrayscaleFingerprint;
-    private final HashMap<Integer, HighResolutionGrayscaleFingerprint> hiResolutionGrayscaleFingerprint;
-    private final HashMap<Integer, LowResolutionBinaryFingerprint> lowResolutionBinaryFingerprint;
-    private final HashMap<Integer, HighResolutionBinaryFingerprint> hiResolutionBinaryFingerprint;
-    private final HashMap<Integer, UserDefinedImage> userDefinedImage;
-    private final HashMap<Integer, SignatureImage> signatureImage;
-    private final HashMap<Integer, MinutiaeData> minutiaeData;
-    private final HashMap<Integer, FacialAndSmtImage> facialAndSmtImage;
-    private final HashMap<Integer, VariableResolutionLatentImage> variableResolutionLatentImage;
-    private final HashMap<Integer, VariableResolutionFingerprint> variableResolutionFingerprint;
-    private final HashMap<Integer, VariableResolutionPalmprint> variableResolutionPalmprint;
-    private final HashMap<Integer, IrisImage> irisImage;
+    private final Map<Integer, TransactionInformation> transactionInformation;
+    private final Map<Integer, UserDefinedDescriptiveText> userDefinedText;
+    private final Map<Integer, LowResolutionGrayscaleFingerprint> lowResolutionGrayscaleFingerprint;
+    private final Map<Integer, HighResolutionGrayscaleFingerprint> hiResolutionGrayscaleFingerprint;
+    private final Map<Integer, LowResolutionBinaryFingerprint> lowResolutionBinaryFingerprint;
+    private final Map<Integer, HighResolutionBinaryFingerprint> hiResolutionBinaryFingerprint;
+    private final Map<Integer, UserDefinedImage> userDefinedImage;
+    private final Map<Integer, SignatureImage> signatureImage;
+    private final Map<Integer, MinutiaeData> minutiaeData;
+    private final Map<Integer, FacialAndSmtImage> facialAndSmtImage;
+    private final Map<Integer, VariableResolutionLatentImage> variableResolutionLatentImage;
+    private final Map<Integer, VariableResolutionFingerprint> variableResolutionFingerprint;
+    private final Map<Integer, VariableResolutionPalmprint> variableResolutionPalmprint;
+    private final Map<Integer, IrisImage> irisImage;
 
     DecodedData() {
         transactionInformation = new HashMap<>();
@@ -227,21 +228,4 @@ public class DecodedData {
         return irisImage.containsKey(key) ? irisImage.get(key) : null;
     }
 
-    public static final class BinaryData {
-        private final String type;
-        private final byte[] data;
-
-        public BinaryData(String type, byte[] data) {
-            this.type = type;
-            this.data = data;
-        }
-
-        public String getType() {
-            return type;
-        }
-
-        public byte[] getData() {
-            return data;
-        }
-    }
 }
