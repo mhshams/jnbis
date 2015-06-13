@@ -2,10 +2,10 @@ package org.jnbis;
 
 import org.jnbis.api.Jnbis;
 import org.jnbis.api.model.Nist;
-import org.jnbis.api.model.record.UserDefinedDescriptiveText;
 import org.junit.Test;
 
 import java.io.IOException;
+import java.util.Map;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
@@ -250,10 +250,10 @@ public class AnsiReferencesTest {
     @Test
     public void type14_amp_nqm_utf8() throws IOException {
         Nist decoded = decode(FILES[26]);
-        UserDefinedDescriptiveText userDefinedText = decoded.getUserDefinedText(0);
-        assertEquals("55", userDefinedText.getLogicalRecordLength());
-        assertEquals("00", userDefinedText.getImageDesignationCharacter());
-        assertEquals("two chinese characters: 華裔", userDefinedText.getField003());
+        Map<Integer, String> userDefinedFields = decoded.getUserDefinedText(0).getUserDefinedFields();
+        assertEquals("55", userDefinedFields.get(1));
+        assertEquals("00", userDefinedFields.get(2));
+        assertEquals("two chinese characters: 華裔", userDefinedFields.get(3));
     }
 
     @Test
@@ -295,10 +295,10 @@ public class AnsiReferencesTest {
         assertEquals(1, decoded.getTransactionKeys().size());
         assertEquals(1, decoded.getUserDefinedTextKeys().size());
 
-        UserDefinedDescriptiveText userDefinedText = decoded.getUserDefinedText(0);
-        assertEquals("57", userDefinedText.getLogicalRecordLength());
-        assertEquals("00", userDefinedText.getImageDesignationCharacter());
-        assertEquals("domain defined text place holder", userDefinedText.getField003());
+        Map<Integer, String> userDefinedFields = decoded.getUserDefinedText(0).getUserDefinedFields();
+        assertEquals("57", userDefinedFields.get(1));
+        assertEquals("00", userDefinedFields.get(2));
+        assertEquals("domain defined text place holder", userDefinedFields.get(3));
     }
 
     private Nist decode(String name) throws IOException {

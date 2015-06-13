@@ -8,6 +8,7 @@ import org.junit.Assert;
 import org.junit.Test;
 
 import java.io.File;
+import java.util.Map;
 import java.util.Set;
 
 /**
@@ -22,9 +23,10 @@ public class SampleNistTest {
         Nist nist = Jnbis.nist().decode(FileUtils.absolute("samples/nist/sample.an2"));
 
         UserDefinedDescriptiveText userDefinedText = nist.getUserDefinedText(0);
-        Assert.assertEquals("57", userDefinedText.getLogicalRecordLength());
-        Assert.assertEquals("00", userDefinedText.getImageDesignationCharacter());
-        Assert.assertEquals("domain defined text place holder", userDefinedText.getField003());
+        Map<Integer, String> userDefinedFields = userDefinedText.getUserDefinedFields();
+        Assert.assertEquals("57", userDefinedFields.get(1));
+        Assert.assertEquals("00", userDefinedFields.get(2));
+        Assert.assertEquals("domain defined text place holder", userDefinedFields.get(3));
 
         Set<Integer> keys = nist.getHiResGrayscaleFingerPrintKeys();
 
