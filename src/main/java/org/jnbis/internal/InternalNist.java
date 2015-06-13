@@ -1,6 +1,6 @@
 package org.jnbis.internal;
 
-import org.jnbis.DecodedData;
+import org.jnbis.Nist;
 import org.jnbis.record.*;
 
 import java.util.HashMap;
@@ -11,7 +11,7 @@ import java.util.Set;
  * @version 1.0.0
  * @since Oct 31, 2007
  */
-public class InternalDecodedData extends DecodedData {
+public class InternalNist extends Nist {
 
     private final HashMap<Integer, TransactionInformation> transactionInformation;
     private final HashMap<Integer, UserDefinedDescriptiveText> userDefinedText;
@@ -28,7 +28,7 @@ public class InternalDecodedData extends DecodedData {
     private final HashMap<Integer, VariableResolutionPalmprint> variableResolutionPalmprint;
     private final HashMap<Integer, IrisImage> irisImage;
 
-    public InternalDecodedData() {
+    public InternalNist() {
         transactionInformation = new HashMap<>();
         userDefinedText = new HashMap<>();
         lowResolutionGrayscaleFingerprint = new HashMap<>();

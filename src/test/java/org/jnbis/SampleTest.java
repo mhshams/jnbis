@@ -1,14 +1,11 @@
 package org.jnbis;
 
-import org.jnbis.api.Jnbis;
 import org.jnbis.record.HighResolutionGrayscaleFingerprint;
 import org.jnbis.record.UserDefinedDescriptiveText;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
-import java.io.File;
-import java.io.IOException;
 import java.util.Set;
 
 /**
@@ -48,7 +45,7 @@ public class SampleTest {
 
     @Test
     public void nist2jpeg() throws Exception {
-        DecodedData decoded = nistDecoder.decode(FileUtils.absoluteFile("samples/sample.an2"), DecodedData.Format.JPEG);
+        Nist decoded = nistDecoder.decode(FileUtils.absoluteFile("samples/nist/sample.an2"), Nist.Format.JPEG);
 
         UserDefinedDescriptiveText userDefinedText = decoded.getUserDefinedText(0);
         Assert.assertEquals("57", userDefinedText.getLogicalRecordLength());

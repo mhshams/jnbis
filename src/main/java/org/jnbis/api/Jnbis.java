@@ -1,5 +1,6 @@
 package org.jnbis.api;
 
+import org.jnbis.api.handler.NistHandler;
 import org.jnbis.api.handler.WsqHandler;
 
 /**
@@ -7,12 +8,17 @@ import org.jnbis.api.handler.WsqHandler;
  */
 public final class Jnbis {
     private static WsqHandler WSQ_HANDLER = new WsqHandler();
+    private static NistHandler NIST_HANDLER = new NistHandler();
 
     private Jnbis() {
     }
 
     public static WsqHandler wsq() {
         return WSQ_HANDLER;
+    }
+
+    public static NistHandler nist() {
+        return NIST_HANDLER;
     }
 }
 

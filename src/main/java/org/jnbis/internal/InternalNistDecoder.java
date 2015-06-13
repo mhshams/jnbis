@@ -1,8 +1,6 @@
 package org.jnbis.internal;
 
-import org.jnbis.Bitmap;
-import org.jnbis.DecodedData;
-import org.jnbis.ImageUtils;
+import org.jnbis.Nist;
 import org.jnbis.internal.record.BaseRecord;
 import org.jnbis.internal.record.reader.factory.RecordReaderFactory;
 import org.jnbis.record.*;
@@ -14,23 +12,19 @@ import org.jnbis.record.*;
  * @since Apr 29, 2007
  */
 public class InternalNistDecoder {
-    private InternalWsqDecoder wsqDecoder;
-    private ImageUtils imageUtils;
     private RecordReaderFactory readerFactory;
 
     public InternalNistDecoder() {
-        wsqDecoder = new InternalWsqDecoder();
-        imageUtils = new ImageUtils();
         readerFactory = new RecordReaderFactory();
     }
 
-    public DecodedData decode(byte[] nist, DecodedData.Format fingerImageFormat) {
+    public Nist decode(byte[] nist) {
         if (nist == null || nist.length == 0) {
             throw new IllegalArgumentException("data is null or zero length");
         }
 
         NistHelper.Token token = new NistHelper.Token(nist);
-        InternalDecodedData decoded = new InternalDecodedData();
+        InternalNist decoded = new InternalNist();
         BaseRecord record = readerFactory.read(token);
         decoded.putTransactionInfo(decoded.getTransactionKeys().size(), (TransactionInformation) record);
 
@@ -49,23 +43,6 @@ public class InternalNistDecoder {
 
             } else if (record instanceof HighResolutionGrayscaleFingerprint) {
                 HighResolutionGrayscaleFingerprint fingerprint = (HighResolutionGrayscaleFingerprint) record;
-                if (WsqHelper.isWsqFormat(fingerprint.getImageData())) {
-                    Bitmap bitmap = wsqDecoder.decode(fingerprint.getImageData());
-
-                    switch (fingerImageFormat) {
-                        case JPEG:
-                            fingerprint.setImageData(imageUtils.bitmap2jpeg(bitmap));
-                            break;
-                        case GIF:
-                            fingerprint.setImageData(imageUtils.bitmap2gif(bitmap));
-                            break;
-                        case PNG:
-                            fingerprint.setImageData(imageUtils.bitmap2png(bitmap));
-                            break;
-                        default:
-                            throw new RuntimeException("unsupported image format.");
-                    }
-                }
                 decoded.putHiResGrayscaleFingerPrint(decoded.getHiResGrayscaleFingerPrintKeys().size(), fingerprint);
 
             } else if (record instanceof LowResolutionBinaryFingerprint) {

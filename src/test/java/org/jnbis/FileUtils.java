@@ -47,7 +47,7 @@ public class FileUtils {
         return buffer.toByteArray();
     }
 
-    public static void saveAll(DecodedData decoded, DecodedData.Format format, String path) {
+    public static void saveAll(Nist decoded, Nist.Format format, String path) {
         File directory = new File(path);
         if (directory.exists()) {
             directory.mkdir();

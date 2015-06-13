@@ -11,15 +11,15 @@ import java.io.*;
  */
 public class NistDecoder {
 
-    public DecodedData decode(String fileName, DecodedData.Format fingerImageFormat) throws IOException {
+    public Nist decode(String fileName, Nist.Format fingerImageFormat) throws IOException {
         return decode(new File(fileName), fingerImageFormat);
     }
 
-    public DecodedData decode(File file, DecodedData.Format fingerImageFormat) throws IOException {
+    public Nist decode(File file, Nist.Format fingerImageFormat) throws IOException {
         return decode(new FileInputStream(file), fingerImageFormat);
     }
 
-    public DecodedData decode(InputStream inputStream, DecodedData.Format fingerImageFormat) throws IOException {
+    public Nist decode(InputStream inputStream, Nist.Format fingerImageFormat) throws IOException {
         ByteArrayOutputStream buffer = new ByteArrayOutputStream();
 
         int nRead;
@@ -33,7 +33,7 @@ public class NistDecoder {
         return decode(buffer.toByteArray(), fingerImageFormat);
     }
 
-    public DecodedData decode(byte[] nist, DecodedData.Format fingerImageFormat) {
-        return new InternalNistDecoder().decode(nist, fingerImageFormat);
+    public Nist decode(byte[] nist, Nist.Format fingerImageFormat) {
+        return new InternalNistDecoder().decode(nist);
     }
 }
