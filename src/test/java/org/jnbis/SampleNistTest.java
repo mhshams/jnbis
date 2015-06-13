@@ -22,7 +22,7 @@ public class SampleNistTest {
     public void nist() throws Exception {
         Nist nist = Jnbis.nist().decode(FileUtils.absolute("samples/nist/sample.an2"));
 
-        UserDefinedDescriptiveText userDefinedText = nist.getUserDefinedText(0);
+        UserDefinedDescriptiveText userDefinedText = nist.getUserDefinedTexts().get(0);
         Map<Integer, String> userDefinedFields = userDefinedText.getUserDefinedFields();
         Assert.assertEquals("57", userDefinedFields.get(1));
         Assert.assertEquals("00", userDefinedFields.get(2));

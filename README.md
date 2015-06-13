@@ -92,7 +92,7 @@ for (HighResolutionGrayscaleFingerprint fingerPrint : hiResGrayscaleFingerprints
     byte[] pngArray = Jnbis.wsq()
             .decode(fingerPrint.getImageData())
             .toPng()
-            .asFile("/path/finger-print-" + fingerPrint.getImageDesignationCharacter() + ".png");
+            .asFile("/path/fp-" + fingerPrint.getImageDesignationCharacter() + ".png");
 }
  ```
 For more examples check the **SampleNistTest.java** in the project source. 
