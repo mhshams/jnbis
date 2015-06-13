@@ -1,7 +1,7 @@
 package org.jnbis.internal.record.reader;
 
 import org.jnbis.internal.NistHelper;
-import org.jnbis.record.VariableResolutionLatentImage;
+import org.jnbis.api.model.record.VariableResolutionLatentImage;
 
 /**
  * @author ericdsoto

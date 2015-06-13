@@ -10,7 +10,7 @@
 
     <groupId>com.github.mhshams</groupId>
     <artifactId>jnbis</artifactId>
-    <version>1.1.1-SNAPSHOT</version>
+    <version>2.0.0-SNAPSHOT</version>
     <packaging>jar</packaging>
 
     <name>JNBIS</name>
@@ -43,39 +43,48 @@
         </repository>
     </distributionManagement>
 
+    <properties>
+        <jdk.version>1.8</jdk.version>
+        <junit.version>4.12</junit.version>
+        <jackson.version>2.5.4</jackson.version>
+        <maven.compiler.verison>3.3</maven.compiler.verison>
+        <maven.source.verison>2.4</maven.source.verison>
+        <maven.javadoc.verison>2.10.3</maven.javadoc.verison>
+        <maven.gpg.verison>1.6</maven.gpg.verison>
+        <jgitflow.version>1.0-m5.1</jgitflow.version>
+    </properties>
+
     <dependencies>
         <dependency>
-            <groupId>com.fasterxml.jackson.core</groupId>
-            <artifactId>jackson-databind</artifactId>
-            <version>2.3.3</version>
+          <groupId>com.fasterxml.jackson.core</groupId>
+          <artifactId>jackson-databind</artifactId>
+          <version>${jackson.version}</version>
         </dependency>
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
-            <version>4.11</version>
+            <version>${junit.version}</version>
             <scope>test</scope>
         </dependency>
     </dependencies>
 
     <build>
-
         <finalName>jnbis-${project.version}</finalName>
-
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
-                <version>2.3</version>
+                <version>${maven.compiler.verison}</version>
                 <configuration>
-                    <source>1.7</source>
-                    <target>1.7</target>
+                    <source>${jdk.version}</source>
+                    <target>${jdk.version}</target>
                     <optimize>true</optimize>
                 </configuration>
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-source-plugin</artifactId>
-                <version>2.4</version>
+                <version>${maven.source.verison}</version>
                 <executions>
                     <execution>
                         <id>attach-sources</id>
@@ -88,7 +97,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-javadoc-plugin</artifactId>
-                <version>2.10.3</version>
+                <version>${maven.javadoc.verison}</version>
                 <executions>
                     <execution>
                         <id>attach-javadocs</id>
@@ -118,7 +127,7 @@
                     <plugin>
                         <groupId>org.apache.maven.plugins</groupId>
                         <artifactId>maven-gpg-plugin</artifactId>
-                        <version>1.6</version>
+                        <version>${maven.gpg.verison}</version>
                         <executions>
                             <execution>
                                 <id>sign-artifacts</id>
@@ -132,7 +141,7 @@
                     <plugin>
                         <groupId>external.atlassian.jgitflow</groupId>
                         <artifactId>jgitflow-maven-plugin</artifactId>
-                        <version>1.0-m5.1</version>
+                        <version>${jgitflow.version}</version>
                     </plugin>
                 </plugins>
             </build>
