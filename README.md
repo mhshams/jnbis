@@ -7,6 +7,8 @@ JNBIS is a library, written in Java, to extract and decode NIST (National Instit
 The code has been converted from NBIS (NIST Biometric Image Software) version 1.1 which is written in C.
 You can find more about NIST Biometric Image Software [here](http://www.nist.gov/itl/iad/ig/nbis.cfm).
 
+> **NOTE:** Version **2.x** is the active development branch, check branch **[version/1.x](https://github.com/mhshams/jnbis/tree/version/1.x)** for the older versions. 
+
 ###Quick Start
 #####Build and Install
 JNBIS is available in [The Central Repository](http://search.maven.org/#browse), so you just need to include it to your project libraries or maven dependencies.
@@ -16,79 +18,83 @@ JNBIS is available in [The Central Repository](http://search.maven.org/#browse),
 <dependency>
   <groupId>jnbis</groupId>
   <artifactId>jnbis</artifactId>
-  <version>1.0.6</version>
+  <version>2.x.x</version>
 </dependency>
 ```
 
-Alternatively, you can clone the source code and build it with maven. You need JDK version *1.7 or higher* to build the code. 
+Alternatively, you can clone the source code and build it with maven. You need **JDK** version **1.8 or higher** to build the code. 
 ```bash
 $ git clone git@github.com:mhshams/jnbis.git
 $ cd jnbis
-$ mvn install
+$ mvn package
 ```
-#####WSQ Decoder 
-First of all you need to create an instance of _org.jnbis.WSqDecoder_.
- ```Java
-WsqDecoder wsqDecoder = new WsqDecoder();
- ```
-Then you can decode your WSQ image using following methods:
- ```Java
-//Decode a WSQ image by passing image file name
-public Bitmap decode(String fileName) throws IOException;
-
-//Decode a WSQ image by passing image File (java.io.File).
-public Bitmap decode(File file) throws IOException;
-
-//Decode a WSQ image by passing image stream.
-public Bitmap decode(InputStream inputStream) throws IOException;
-
-//Decode a WSQ image by passing image byte array.
-public Bitmap decode(final byte[] data);
- ```
-The result of all methods is a Bitmap object which contains the decoded data in byte array format. you can convert it to other image formats using _org.jnbis.ImageUtils_ class.
+#####Examples: WSQ Decoding 
+Convert WSQ image to PNG image and return the result as **File**
 ```Java
-WsqDecoder wsqDecoder = new WsqDecoder();
-ImageUtils imageUtils = new ImageUtils();   
+File png = Jnbis.wsq()
+                .decode("path/to/wsq/file.wsq")
+                .toPng()
+                .asFile("/path/to/final/file.png");
+```
+Convert WSQ image to GIF image and return the result as **File**
+ ```Java
+File gif = Jnbis.wsq()
+                .decode(new File("path/to/wsq/file.wsq"))
+                .toGif()
+                .asFile("/path/to/final/file.gif");
+```
+Convert WSQ image (as input stream) to JPEG image and return the result as **File**
+```Java
+File jpg = Jnbis.wsq()
+                .decode(wsqInputStream)
+                .toJpg()
+                .asFile("/path/to/final/file.jpg");
+ ```
+ Convert WSQ image to PNG image and return the result as **InputStream** 
+```Java
+ InputStream pngStream = Jnbis.wsq()
+                              .decode("path/to/wsq/file.wsq")
+                              .toPng()
+                              .asInputStream();
+```
+Convert WSQ image to GIF image and return the result as **Byte Array**
+```Java
+byte[] gifBytes = Jnbis.wsq()
+                       .decode(new File("path/to/wsq/file.wsq"))
+                       .toGif()
+                       .asByteArray();
+```
  
-Bitmap bm = wsqDecode.docode("/path/to/my/wsq-image");
-byte[] data = imageUtils.bitmap2jpeg(bm);
-
-FileOutputStream bos = new FileOutputStream("myjpeg.jpg");
-bos.write(data);
-bos.close();
-```
-#####NIST Decoder
- Just like WsqDecoder, you need to create an instance of _org.jnbis.nist.NistDecoder_.
- ```Java
-NistDecoder nistDecoder = new NistDecoder();
- ```
-
-Now you can decode your NIST file using following methods:
-
+For more examples check the **SampleWsqTest.java** in the project source. 
+#####Examples: NIST Decoding 
+Decode a NIST file with given file name
 ```Java
-//Decode a NIST file by passing file name.
-public DecodedData decode(String fileName, DecodedData.Format fingerImageFormat) throws IOException;
-
-//Decode a NIST file by passing File (java.io.File).
-public DecodedData decode(File file, DecodedData.Format fingerImageFormat) throws IOException;
-
-//Decode a NIST file by passing stream.
-public DecodedData> decode(InputStream inputStream, DecodedData.Format fingerImageFormat) throws IOException;
-
-//Decode a NIST file by passing byte array.
-public DecodedData decode(final byte[] data, DecodedData.Format fingerImageFormat);
+Nist nist = Jnbis.nist().decode("/path/to/nist/file"));
 ```
-Second parameter in above methods is the output image format and currently JPEG, GIF and PNG are supported.
 
-DecodedData contains different types of data, depending on file type. 
-Here is a sample code to extract all fingerprints and save them in separate files. 
+Decode a NIST file with given **File** instance
 ```Java
-DecodedData decoded = new NistDecoder().decode("/path/to/nist-file", DecodedData.Format.GIF);
+Nist nist = Jnbis.nist().decode(new File("/path/to/nist/file")));
+```
 
-for (Integer key : decoded.getHiResGrayscaleFingerPrintKeys()) {
-  HighResolutionGrayscaleFingerprint image = decoded.getHiResGrayscaleFingerprint(key);
-  FileOutputStream bos = new FileOutputStream(file + "-" + key + ".gif");
-  bos.write(image.getImageData());
-  bos.close();
+Decode a NIST file with given **InputStream** instance
+```Java
+Nist nist = Jnbis.nist().decode(nistInputStream));
+```
+
+**Nist** instance contains different types of data, depending on file type. 
+Here is a sample code that extract all fingerprints and save them in individual files. 
+```Java
+Nist nist = Jnbis.nist().decode(new File("/path/to/nist/file")));
+Set<Integer> keys = nist.getHiResGrayscaleFingerPrintKeys();
+
+for (Integer key : keys) {
+    HighResolutionGrayscaleFingerprint image = nist.getHiResGrayscaleFingerprint(key);
+    
+    Jnbis.wsq()
+         .decode(image.getImageData())
+         .toPng()
+         .asFile("/path/finger-print-" + String.format("%02d", key) + ".png");
 }
-```
+ ```
+For more examples check the **SampleNistTest.java** in the project source. 

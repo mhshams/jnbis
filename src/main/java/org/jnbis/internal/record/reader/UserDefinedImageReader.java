@@ -1,7 +1,7 @@
 package org.jnbis.internal.record.reader;
 
 import org.jnbis.internal.NistHelper;
-import org.jnbis.record.UserDefinedImage;
+import org.jnbis.api.model.record.UserDefinedImage;
 
 /**
  * @author ericdsoto
