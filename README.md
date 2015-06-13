@@ -7,6 +7,8 @@ JNBIS is a library, written in Java, to extract and decode NIST (National Instit
 The code has been converted from NBIS (NIST Biometric Image Software) version 1.1 which is written in C.
 You can find more about NIST Biometric Image Software [here](http://www.nist.gov/itl/iad/ig/nbis.cfm).
 
+> **NOTE:** Version **2.x** is the active development branch, check branch **[version/1.x](https://github.com/mhshams/jnbis/tree/version/1.x)** for the older versions. 
+
 ###Quick Start
 #####Build and Install
 JNBIS is available in [The Central Repository](http://search.maven.org/#browse), so you just need to include it to your project libraries or maven dependencies.
