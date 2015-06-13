@@ -2,7 +2,7 @@ package org.jnbis.api.model;
 
 import org.jnbis.api.model.record.*;
 
-import java.util.Set;
+import java.util.List;
 
 /**
  * @author <a href="mailto:m.h.shams@gmail.com">M. H. Shamsi</a>
@@ -11,59 +11,31 @@ import java.util.Set;
  */
 public abstract class Nist {
 
-    public abstract Set<Integer> getTransactionKeys();
+    public abstract TransactionInformation getTransactionInfo();
 
-    public abstract Set<Integer> getUserDefinedTextKeys();
+    public abstract List<UserDefinedDescriptiveText> getUserDefinedTexts();
 
-    public abstract Set<Integer> getLowResBinaryFingerPrintKeys();
+    public abstract List<LowResolutionGrayscaleFingerprint> getLowResGrayscaleFingerprints();
 
-    public abstract Set<Integer> getHiResBinaryFingerPrintKeys();
+    public abstract List<HighResolutionGrayscaleFingerprint> getHiResGrayscaleFingerprints();
 
-    public abstract Set<Integer> getLowResGrayscaleFingerPrintKeys();
+    public abstract List<LowResolutionBinaryFingerprint> getLowResBinaryFingerprints();
 
-    public abstract Set<Integer> getHiResGrayscaleFingerPrintKeys();
+    public abstract List<HighResolutionBinaryFingerprint> getHiResBinaryFingerprints();
 
-    public abstract Set<Integer> getUserDefinedImageKeys();
+    public abstract List<UserDefinedImage> getUserDefinedImages();
 
-    public abstract Set<Integer> getSignatureKeys();
+    public abstract List<SignatureImage> getSignatures();
 
-    public abstract Set<Integer> getMinutiaeDataKeys();
+    public abstract List<MinutiaeData> getMinutiaeData();
 
-    public abstract Set<Integer> getFacialSmtKeys();
+    public abstract List<FacialAndSmtImage> getFacialAndSmtImages();
 
-    public abstract Set<Integer> getVariableResLatentImageKeys();
+    public abstract List<VariableResolutionLatentImage> getVariableResLatentImages();
 
-    public abstract Set<Integer> getVariableResFingerprintKeys();
+    public abstract List<VariableResolutionFingerprint> getVariableResFingerprints();
 
-    public abstract Set<Integer> getVariableResPalmprintKeys();
+    public abstract List<VariableResolutionPalmprint> getVariableResPalmprints();
 
-    public abstract Set<Integer> getIrisImageKeys();
-
-    public abstract TransactionInformation getTransactionInfo(Integer key);
-
-    public abstract UserDefinedDescriptiveText getUserDefinedText(Integer key);
-
-    public abstract LowResolutionGrayscaleFingerprint getLowResGrayscaleFingerprint(Integer key);
-
-    public abstract HighResolutionGrayscaleFingerprint getHiResGrayscaleFingerprint(Integer key);
-
-    public abstract LowResolutionBinaryFingerprint getLowResBinaryFingerprint(Integer key);
-
-    public abstract HighResolutionBinaryFingerprint getHiResBinaryFingerprint(Integer key);
-
-    public abstract UserDefinedImage getUserDefinedImage(Integer key);
-
-    public abstract SignatureImage getSignature(Integer key);
-
-    public abstract MinutiaeData getMinutiaeData(Integer key);
-
-    public abstract FacialAndSmtImage getFacialAndSmtImage(Integer key);
-
-    public abstract VariableResolutionLatentImage getVariableResLatentImage(Integer key);
-
-    public abstract VariableResolutionFingerprint getVariableResFingerprint(Integer key);
-
-    public abstract VariableResolutionPalmprint getVariableResPalmprint(Integer key);
-
-    public abstract IrisImage getIrisImage(Integer key);
+    public abstract List<IrisImage> getIrisImages();
 }

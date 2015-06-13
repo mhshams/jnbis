@@ -8,8 +8,8 @@ import org.junit.Assert;
 import org.junit.Test;
 
 import java.io.File;
+import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
 /**
  * @author <a href="mailto:m.h.shams@gmail.com">M. H. Shamsi</a>
@@ -22,24 +22,29 @@ public class SampleNistTest {
     public void nist() throws Exception {
         Nist nist = Jnbis.nist().decode(FileUtils.absolute("samples/nist/sample.an2"));
 
-        UserDefinedDescriptiveText userDefinedText = nist.getUserDefinedText(0);
+        UserDefinedDescriptiveText userDefinedText = nist.getUserDefinedTexts().get(0);
         Map<Integer, String> userDefinedFields = userDefinedText.getUserDefinedFields();
         Assert.assertEquals("57", userDefinedFields.get(1));
         Assert.assertEquals("00", userDefinedFields.get(2));
         Assert.assertEquals("domain defined text place holder", userDefinedFields.get(3));
 
-        Set<Integer> keys = nist.getHiResGrayscaleFingerPrintKeys();
+        List<HighResolutionGrayscaleFingerprint> hiResGrayscaleFingerprints = nist.getHiResGrayscaleFingerprints();
 
-        Assert.assertEquals(14, keys.size());
+        Assert.assertEquals(14, hiResGrayscaleFingerprints.size());
 
-        for (Integer key : keys) {
-            HighResolutionGrayscaleFingerprint image = nist.getHiResGrayscaleFingerprint(key);
+        for (HighResolutionGrayscaleFingerprint fingerPrint : hiResGrayscaleFingerprints) {
+            byte[] pngArray = Jnbis.wsq()
+                    .decode(fingerPrint.getImageData())
+                    .toPng()
+                    .asByteArray();
 
-            byte[] pngArray = Jnbis.wsq().decode(image.getImageData()).toPng().asByteArray();
-            String fileName = FileUtils.absolute("samples/nist/fp-" + String.format("%02d", key) + ".png");
+            String fileName = findFileName(fingerPrint.getImageDesignationCharacter());
 
             Assert.assertArrayEquals(FileUtils.read(new File(fileName)), pngArray);
         }
     }
 
+    private String findFileName(String imageCharacter) {
+        return FileUtils.absolute("samples/nist/fp-" + String.format("%s", imageCharacter) + ".png");
+    }
 }

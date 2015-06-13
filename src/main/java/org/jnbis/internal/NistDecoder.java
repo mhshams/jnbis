@@ -1,9 +1,9 @@
 package org.jnbis.internal;
 
 import org.jnbis.api.model.Nist;
+import org.jnbis.api.model.record.*;
 import org.jnbis.internal.record.BaseRecord;
 import org.jnbis.internal.record.reader.RecordReaderFactory;
-import org.jnbis.api.model.record.*;
 
 
 /**
@@ -26,7 +26,7 @@ public class NistDecoder {
         NistHelper.Token token = new NistHelper.Token(nist);
         InternalNist decoded = new InternalNist();
         BaseRecord record = readerFactory.read(token);
-        decoded.putTransactionInfo(decoded.getTransactionKeys().size(), (TransactionInformation) record);
+        decoded.setTransactionInfo((TransactionInformation) record);
 
         while (nextRecord(token)) {
             if (token.crt < 2) {
@@ -35,48 +35,44 @@ public class NistDecoder {
             record = readerFactory.read(token);
 
             if (record instanceof UserDefinedDescriptiveText) {
-                decoded.putUserDefinedText(decoded.getUserDefinedTextKeys().size(), (UserDefinedDescriptiveText) record);
+                decoded.addUserDefinedText((UserDefinedDescriptiveText) record);
 
             } else if (record instanceof LowResolutionGrayscaleFingerprint) {
-                LowResolutionGrayscaleFingerprint fingerprint = (LowResolutionGrayscaleFingerprint) record;
-                decoded.putLowResGrayscaleFingerPrint(decoded.getLowResGrayscaleFingerPrintKeys().size(), fingerprint);
+                decoded.addLowResGrayscaleFingerPrint((LowResolutionGrayscaleFingerprint) record);
 
             } else if (record instanceof HighResolutionGrayscaleFingerprint) {
-                HighResolutionGrayscaleFingerprint fingerprint = (HighResolutionGrayscaleFingerprint) record;
-                decoded.putHiResGrayscaleFingerPrint(decoded.getHiResGrayscaleFingerPrintKeys().size(), fingerprint);
+                decoded.addHiResGrayscaleFingerPrint((HighResolutionGrayscaleFingerprint) record);
 
             } else if (record instanceof LowResolutionBinaryFingerprint) {
-                LowResolutionBinaryFingerprint fingerprint = (LowResolutionBinaryFingerprint) record;
-                decoded.putLowResBinaryFingerPrint(decoded.getLowResBinaryFingerPrintKeys().size(), fingerprint);
+                decoded.addLowResBinaryFingerPrint((LowResolutionBinaryFingerprint) record);
 
             } else if (record instanceof HighResolutionBinaryFingerprint) {
-                HighResolutionBinaryFingerprint fingerprint = (HighResolutionBinaryFingerprint) record;
-                decoded.putHiResBinaryFingerPrint(decoded.getHiResBinaryFingerPrintKeys().size(), fingerprint);
+                decoded.addHiResBinaryFingerPrint((HighResolutionBinaryFingerprint) record);
 
             } else if (record instanceof UserDefinedImage) {
-                decoded.putUserDefinedImage(decoded.getUserDefinedImageKeys().size(), (UserDefinedImage) record);
+                decoded.addUserDefinedImage((UserDefinedImage) record);
 
             } else if (record instanceof SignatureImage) {
-                decoded.putSignature(decoded.getSignatureKeys().size(), (SignatureImage) record);
+                decoded.addSignature((SignatureImage) record);
 
             } else if (record instanceof MinutiaeData) {
                 //readMinutiaeData(token, decoded);
-                decoded.putMinutiaeData(decoded.getMinutiaeDataKeys().size(), (MinutiaeData) record);
+                decoded.addMinutiaeData((MinutiaeData) record);
 
             } else if (record instanceof FacialAndSmtImage) {
-                decoded.putFacialSmtImage(decoded.getFacialSmtKeys().size(), (FacialAndSmtImage) record);
+                decoded.addFacialSmtImage((FacialAndSmtImage) record);
 
             } else if (record instanceof VariableResolutionLatentImage) {
-                decoded.putVariableResLatentImage(decoded.getVariableResLatentImageKeys().size(), (VariableResolutionLatentImage) record);
+                decoded.addVariableResLatentImage((VariableResolutionLatentImage) record);
 
             } else if (record instanceof VariableResolutionFingerprint) {
-                decoded.putVariableResFingerprint(decoded.getVariableResFingerprintKeys().size(), (VariableResolutionFingerprint) record);
+                decoded.addVariableResFingerprint((VariableResolutionFingerprint) record);
 
             } else if (record instanceof VariableResolutionPalmprint) {
-                decoded.putVariableResPalmprint(decoded.getVariableResPalmprintKeys().size(), (VariableResolutionPalmprint) record);
+                decoded.addVariableResPalmprint((VariableResolutionPalmprint) record);
 
             } else if (record instanceof IrisImage) {
-                decoded.putIrisImage(decoded.getIrisImageKeys().size(), (IrisImage) record);
+                decoded.addIrisImage((IrisImage) record);
             }
         }
 
