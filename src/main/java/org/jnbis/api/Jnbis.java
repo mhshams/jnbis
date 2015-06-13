@@ -1,25 +1,27 @@
 package org.jnbis.api;
 
+import org.jnbis.api.handler.WsqHandler;
+
 /**
  *
  */
 public final class Jnbis {
+    private static WsqHandler WSQ_HANDLER = new WsqHandler();
 
+    private Jnbis() {
+    }
+
+    public static WsqHandler wsq() {
+        return WSQ_HANDLER;
+    }
 }
 
 /*
- Jnbis.wsq().decode("my file").toPng().asInputStream()
- Jnbis.wsq().decode("my file").toGif().asByteArray()
- Jnbis.wsq().decode("my file").toJpeg().save("file")
- Jnbis.wsq().decode("my file").toBmp().save(new File(""))
-*/
-
-/*
- decoded = Jnbis.nist().decode("my file")
- decoded.bitmaps().get(0).toPng().save("file")
- decoded.bitmaps().keys()
- decoded.bitmaps().values()
- decoded.texts().get(1)
- decoded.texts().keys()
- decoded.texts().values()
+ Nist nist = Jnbis.nist().decode("my file")
+ nist.bitmaps().get(0).toPng().save("file")
+ nist.bitmaps().keys()
+ nist.bitmaps().values()
+ nist.texts().get(1)
+ nist.texts().keys()
+ nist.texts().values()
  */

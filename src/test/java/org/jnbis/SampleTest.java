@@ -1,12 +1,14 @@
 package org.jnbis;
 
+import org.jnbis.api.Jnbis;
 import org.jnbis.record.HighResolutionGrayscaleFingerprint;
 import org.jnbis.record.UserDefinedDescriptiveText;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
-import java.util.Map;
+import java.io.File;
+import java.io.IOException;
 import java.util.Set;
 
 /**
@@ -28,7 +30,7 @@ public class SampleTest {
 
     @Test
     public void wsq2jpeg() throws Exception {
-        Bitmap decoded = wsqDecoder.decode(FileUtils.absoluteFile("samples/sample.wsq"));
+        Bitmap decoded = wsqDecoder.decode(FileUtils.absoluteFile("samples/wsq/sample.wsq"));
 
         Assert.assertNotNull(decoded);
 
@@ -48,10 +50,10 @@ public class SampleTest {
     public void nist2jpeg() throws Exception {
         DecodedData decoded = nistDecoder.decode(FileUtils.absoluteFile("samples/sample.an2"), DecodedData.Format.JPEG);
 
-        Map<Integer, String> userDefinedFields = decoded.getUserDefinedText(0).getUserDefinedFields();
-        Assert.assertEquals("57", userDefinedFields.get(1));
-        Assert.assertEquals("00", userDefinedFields.get(2));
-        Assert.assertEquals("domain defined text place holder", userDefinedFields.get(3));
+        UserDefinedDescriptiveText userDefinedText = decoded.getUserDefinedText(0);
+        Assert.assertEquals("57", userDefinedText.getLogicalRecordLength());
+        Assert.assertEquals("00", userDefinedText.getImageDesignationCharacter());
+        Assert.assertEquals("domain defined text place holder", userDefinedText.getField003());
 
         Set<Integer> keys = decoded.getHiResGrayscaleFingerPrintKeys();
 
@@ -66,4 +68,5 @@ public class SampleTest {
 //            FileUtils.save(image.getImageData(), "/path/to/file-" + key + ".jpeg");
         }
     }
+
 }
