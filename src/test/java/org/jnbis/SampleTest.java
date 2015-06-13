@@ -28,7 +28,7 @@ public class SampleTest {
 
     @Test
     public void wsq2jpeg() throws Exception {
-        Bitmap decoded = wsqDecoder.decode(FileUtils.read("samples/sample.wsq"));
+        Bitmap decoded = wsqDecoder.decode(FileUtils.absoluteFile("samples/sample.wsq"));
 
         Assert.assertNotNull(decoded);
 
@@ -46,7 +46,7 @@ public class SampleTest {
 
     @Test
     public void nist2jpeg() throws Exception {
-        DecodedData decoded = nistDecoder.decode(FileUtils.read("samples/sample.an2"), DecodedData.Format.JPEG);
+        DecodedData decoded = nistDecoder.decode(FileUtils.absoluteFile("samples/sample.an2"), DecodedData.Format.JPEG);
 
         Map<Integer, String> userDefinedFields = decoded.getUserDefinedText(0).getUserDefinedFields();
         Assert.assertEquals("57", userDefinedFields.get(1));
