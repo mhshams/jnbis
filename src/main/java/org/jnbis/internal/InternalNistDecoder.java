@@ -1,9 +1,9 @@
 package org.jnbis.internal;
 
-import org.jnbis.Nist;
+import org.jnbis.api.model.Nist;
 import org.jnbis.internal.record.BaseRecord;
-import org.jnbis.internal.record.reader.factory.RecordReaderFactory;
-import org.jnbis.record.*;
+import org.jnbis.internal.record.reader.RecordReaderFactory;
+import org.jnbis.api.model.record.*;
 
 
 /**

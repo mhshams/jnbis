@@ -1,7 +1,7 @@
 package org.jnbis.internal;
 
-import org.jnbis.Nist;
-import org.jnbis.record.*;
+import org.jnbis.api.model.Nist;
+import org.jnbis.api.model.record.*;
 
 import java.util.HashMap;
 import java.util.Set;

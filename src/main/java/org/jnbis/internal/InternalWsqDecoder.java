@@ -1,6 +1,6 @@
 package org.jnbis.internal;
 
-import org.jnbis.Bitmap;
+import org.jnbis.api.model.Bitmap;
 
 import java.util.Arrays;
 

@@ -1,4 +1,4 @@
-package org.jnbis.record;
+package org.jnbis.api.model.record;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;

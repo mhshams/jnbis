@@ -1,7 +1,8 @@
 package org.jnbis;
 
 import org.jnbis.api.Jnbis;
-import org.jnbis.record.UserDefinedDescriptiveText;
+import org.jnbis.api.model.Nist;
+import org.jnbis.api.model.record.UserDefinedDescriptiveText;
 import org.junit.Test;
 
 import java.io.IOException;
@@ -301,7 +302,7 @@ public class AnsiReferencesTest {
     }
 
     private Nist decode(String name) throws IOException {
-        String fileName = FileUtils.absoluteFile(String.format(FILE_PATH, name));
+        String fileName = FileUtils.absolute(String.format(FILE_PATH, name));
         Nist nist = Jnbis.nist().decode(fileName);
         assertNotNull(nist);
         return nist;

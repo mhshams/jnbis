@@ -1,4 +1,4 @@
-package org.jnbis.record;
+package org.jnbis.api.model.record;
 
 import org.jnbis.internal.record.BaseVariableResolutionImageRecord;
 

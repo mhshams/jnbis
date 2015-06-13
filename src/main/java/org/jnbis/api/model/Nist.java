@@ -1,6 +1,6 @@
-package org.jnbis;
+package org.jnbis.api.model;
 
-import org.jnbis.record.*;
+import org.jnbis.api.model.record.*;
 
 import java.util.Set;
 

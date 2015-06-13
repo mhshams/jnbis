@@ -1,7 +1,7 @@
 package org.jnbis.internal.record.reader;
 
 import org.jnbis.internal.NistHelper;
-import org.jnbis.record.SignatureImage;
+import org.jnbis.api.model.record.SignatureImage;
 
 /**
  * @author ericdsoto

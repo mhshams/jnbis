@@ -1,5 +1,6 @@
 package org.jnbis;
 
+import org.jnbis.api.model.Bitmap;
 import org.jnbis.api.Jnbis;
 import org.junit.Assert;
 import org.junit.Rule;
@@ -16,10 +17,10 @@ import java.io.InputStream;
  * @since Oct 31, 2007
  */
 public class SampleWsqTest {
-    private static final String WSQ_FILE_NAME = FileUtils.absoluteFile("samples/wsq/sample.wsq");
-    private static final String PNG_FILE_NAME = FileUtils.absoluteFile("samples/wsq/sample.png");
-    private static final String GIF_FILE_NAME = FileUtils.absoluteFile("samples/wsq/sample.gif");
-    private static final String JPG_FILE_NAME = FileUtils.absoluteFile("samples/wsq/sample.jpg");
+    private static final String WSQ_FILE_NAME = FileUtils.absolute("samples/wsq/sample.wsq");
+    private static final String PNG_FILE_NAME = FileUtils.absolute("samples/wsq/sample.png");
+    private static final String GIF_FILE_NAME = FileUtils.absolute("samples/wsq/sample.gif");
+    private static final String JPG_FILE_NAME = FileUtils.absolute("samples/wsq/sample.jpg");
 
     @Rule
     public TemporaryFolder temp = new TemporaryFolder();

@@ -1,6 +1,6 @@
 package org.jnbis.api.handler;
 
-import org.jnbis.Bitmap;
+import org.jnbis.api.model.Bitmap;
 
 import javax.imageio.ImageIO;
 import java.awt.image.*;

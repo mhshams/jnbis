@@ -1,4 +1,4 @@
-package org.jnbis.internal.record.reader.factory;
+package org.jnbis.internal.record.reader;
 
 
 import org.jnbis.internal.NistHelper;

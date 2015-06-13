@@ -1,6 +1,6 @@
 package org.jnbis.api.handler;
 
-import org.jnbis.Nist;
+import org.jnbis.api.model.Nist;
 import org.jnbis.internal.InternalNistDecoder;
 
 import java.io.*;
