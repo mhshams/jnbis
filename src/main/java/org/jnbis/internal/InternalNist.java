@@ -3,7 +3,9 @@ package org.jnbis.internal;
 import org.jnbis.api.model.Nist;
 import org.jnbis.api.model.record.*;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -16,7 +18,7 @@ public class InternalNist extends Nist {
     private TransactionInformation transactionInformation;
     private final HashMap<Integer, UserDefinedDescriptiveText> userDefinedText;
     private final HashMap<Integer, LowResolutionGrayscaleFingerprint> lowResolutionGrayscaleFingerprint;
-    private final HashMap<Integer, HighResolutionGrayscaleFingerprint> hiResolutionGrayscaleFingerprint;
+    private final List<HighResolutionGrayscaleFingerprint> hiResolutionGrayscaleFingerprints;
     private final HashMap<Integer, LowResolutionBinaryFingerprint> lowResolutionBinaryFingerprint;
     private final HashMap<Integer, HighResolutionBinaryFingerprint> hiResolutionBinaryFingerprint;
     private final HashMap<Integer, UserDefinedImage> userDefinedImage;
@@ -31,7 +33,7 @@ public class InternalNist extends Nist {
     public InternalNist() {
         userDefinedText = new HashMap<>();
         lowResolutionGrayscaleFingerprint = new HashMap<>();
-        hiResolutionGrayscaleFingerprint = new HashMap<>();
+        hiResolutionGrayscaleFingerprints = new ArrayList<>();
         lowResolutionBinaryFingerprint = new HashMap<>();
         hiResolutionBinaryFingerprint = new HashMap<>();
         userDefinedImage = new HashMap<>();
@@ -56,8 +58,8 @@ public class InternalNist extends Nist {
         lowResolutionGrayscaleFingerprint.put(key, fingerprint);
     }
 
-    void putHiResGrayscaleFingerPrint(Integer key, HighResolutionGrayscaleFingerprint fingerprint) {
-        hiResolutionGrayscaleFingerprint.put(key, fingerprint);
+    void addHiResGrayscaleFingerPrint(HighResolutionGrayscaleFingerprint fingerprint) {
+        hiResolutionGrayscaleFingerprints.add(fingerprint);
     }
 
     void putLowResBinaryFingerPrint(Integer key, LowResolutionBinaryFingerprint fingerprint) {
@@ -116,10 +118,6 @@ public class InternalNist extends Nist {
         return lowResolutionGrayscaleFingerprint.keySet();
     }
 
-    public Set<Integer> getHiResGrayscaleFingerPrintKeys() {
-        return hiResolutionGrayscaleFingerprint.keySet();
-    }
-
     public Set<Integer> getUserDefinedImageKeys() {
         return userDefinedImage.keySet();
     }
@@ -164,8 +162,8 @@ public class InternalNist extends Nist {
         return lowResolutionGrayscaleFingerprint.containsKey(key) ? lowResolutionGrayscaleFingerprint.get(key) : null;
     }
 
-    public HighResolutionGrayscaleFingerprint getHiResGrayscaleFingerprint(Integer key) {
-        return hiResolutionGrayscaleFingerprint.containsKey(key) ? hiResolutionGrayscaleFingerprint.get(key) : null;
+    public List<HighResolutionGrayscaleFingerprint> getHiResGrayscaleFingerprints() {
+        return hiResolutionGrayscaleFingerprints;
     }
 
     public LowResolutionBinaryFingerprint getLowResBinaryFingerprint(Integer key) {

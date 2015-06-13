@@ -43,7 +43,7 @@ public class NistDecoder {
 
             } else if (record instanceof HighResolutionGrayscaleFingerprint) {
                 HighResolutionGrayscaleFingerprint fingerprint = (HighResolutionGrayscaleFingerprint) record;
-                decoded.putHiResGrayscaleFingerPrint(decoded.getHiResGrayscaleFingerPrintKeys().size(), fingerprint);
+                decoded.addHiResGrayscaleFingerPrint(fingerprint);
 
             } else if (record instanceof LowResolutionBinaryFingerprint) {
                 LowResolutionBinaryFingerprint fingerprint = (LowResolutionBinaryFingerprint) record;

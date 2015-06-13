@@ -63,7 +63,7 @@ public class AnsiReferencesTest {
     public void type4_14_slaps() throws IOException {
         Nist decoded = decode(FILES[1]);
         commonAssert(decoded);
-        assertEquals(2, decoded.getHiResGrayscaleFingerPrintKeys().size());
+        assertEquals(2, decoded.getHiResGrayscaleFingerprints().size());
         assertEquals(1, decoded.getVariableResFingerprintKeys().size());
     }
 
@@ -71,14 +71,14 @@ public class AnsiReferencesTest {
     public void type4_slaps() throws IOException {
         Nist decoded = decode(FILES[2]);
         commonAssert(decoded);
-        assertEquals(4, decoded.getHiResGrayscaleFingerPrintKeys().size());
+        assertEquals(4, decoded.getHiResGrayscaleFingerprints().size());
     }
 
     @Test
     public void type4_tpcard() throws IOException {
         Nist decoded = decode(FILES[3]);
         commonAssert(decoded);
-        assertEquals(14, decoded.getHiResGrayscaleFingerPrintKeys().size());
+        assertEquals(14, decoded.getHiResGrayscaleFingerprints().size());
     }
 
     @Test
@@ -127,7 +127,7 @@ public class AnsiReferencesTest {
     public void type9_4_iafis() throws IOException {
         Nist decoded = decode(FILES[10]);
         commonAssert(decoded);
-        assertEquals(1, decoded.getHiResGrayscaleFingerPrintKeys().size());
+        assertEquals(1, decoded.getHiResGrayscaleFingerprints().size());
         assertEquals(1, decoded.getMinutiaeDataKeys().size());
     }
 

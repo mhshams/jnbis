@@ -2,6 +2,7 @@ package org.jnbis.api.model;
 
 import org.jnbis.api.model.record.*;
 
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -18,8 +19,6 @@ public abstract class Nist {
     public abstract Set<Integer> getHiResBinaryFingerPrintKeys();
 
     public abstract Set<Integer> getLowResGrayscaleFingerPrintKeys();
-
-    public abstract Set<Integer> getHiResGrayscaleFingerPrintKeys();
 
     public abstract Set<Integer> getUserDefinedImageKeys();
 
@@ -43,7 +42,7 @@ public abstract class Nist {
 
     public abstract LowResolutionGrayscaleFingerprint getLowResGrayscaleFingerprint(Integer key);
 
-    public abstract HighResolutionGrayscaleFingerprint getHiResGrayscaleFingerprint(Integer key);
+    public abstract List<HighResolutionGrayscaleFingerprint> getHiResGrayscaleFingerprints();
 
     public abstract LowResolutionBinaryFingerprint getLowResBinaryFingerprint(Integer key);
 
