@@ -1,6 +1,7 @@
 #JNBIS
 Java Implementation of NIST Biometric Image Software (NBIS) 
-[![License](https://pypip.in/license/apache-libcloud/badge.png)]() [![Build Status](https://travis-ci.org/mhshams/jnbis.svg?branch=master)](https://travis-ci.org/mhshams/jnbis)
+[![GitHub license](https://img.shields.io/badge/license-Apache%20License%202.0-blue.svg?style=flat)](http://www.apache.org/licenses/LICENSE-2.0)
+[![Build Status](https://travis-ci.org/mhshams/jnbis.svg?branch=master)](https://travis-ci.org/mhshams/jnbis)
 
 ###About JNBIS
 JNBIS is a library, written in Java, to extract and decode NIST (National Institute of Standards and Technology) compressed files and WSQ (Wavelet Scalar Quantization) images. 
@@ -11,7 +12,8 @@ You can find more about NIST Biometric Image Software [here](http://www.nist.gov
 
 ###Quick Start
 #####Build and Install
-JNBIS is available in [The Central Repository](http://search.maven.org/#browse), so you just need to include it to your project libraries or maven dependencies.
+JNBIS is available in [the maven central repository](http://search.maven.org/#browse), so you just need to download and add it to your project libraries or 
+if you are using maven, add it to project dependencies.
 [![Maven Central](https://maven-badges.herokuapp.com/maven-central/com.github.mhshams/jnbis/badge.svg)](https://maven-badges.herokuapp.com/maven-central/com.github.mhshams/jnbis)
 
 ```xml
@@ -28,7 +30,8 @@ $ git clone git@github.com:mhshams/jnbis.git
 $ cd jnbis
 $ mvn package
 ```
-#####Examples: WSQ Decoding 
+###Examples
+#####WSQ Decoding 
 Convert WSQ image to PNG image and return the result as **File**
 ```Java
 File png = Jnbis.wsq()
@@ -66,7 +69,7 @@ byte[] gifBytes = Jnbis.wsq()
 ```
  
 For more examples check the **SampleWsqTest.java** in the project source. 
-#####Examples: NIST Decoding 
+#####NIST Decoding 
 Decode a NIST file with given file name
 ```Java
 Nist nist = Jnbis.nist().decode("/path/to/nist/file"));
@@ -86,13 +89,12 @@ Nist nist = Jnbis.nist().decode(nistInputStream));
 Here is a sample code that extract all fingerprints and save them in individual files. 
 ```Java
 Nist nist = Jnbis.nist().decode(new File("/path/to/nist/file")));
-Set<Integer> keys = nist.getHiResGrayscaleFingerPrintKeys();
 
-for (HighResolutionGrayscaleFingerprint fingerPrint : hiResGrayscaleFingerprints) {
-    byte[] pngArray = Jnbis.wsq()
-            .decode(fingerPrint.getImageData())
-            .toPng()
-            .asFile("/path/fp-" + fingerPrint.getImageDesignationCharacter() + ".png");
+for (HighResolutionGrayscaleFingerprint fp : nist.getHiResGrayscaleFingerprints()) {
+    Jnbis.wsq()
+        .decode(fp.getImageData())
+        .toPng()
+        .asFile("/path/fp-" + fp.getImageDesignationCharacter() + ".png");
 }
  ```
-For more examples check the **SampleNistTest.java** in the project source. 
+For more examples check the **SampleNistTest.java** and **AnsiReferencesTest.java** in the project source. 
