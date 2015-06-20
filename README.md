@@ -90,10 +90,10 @@ Nist nist = Jnbis.nist().decode(new File("/path/to/nist/file")));
 Set<Integer> keys = nist.getHiResGrayscaleFingerPrintKeys();
 
 for (HighResolutionGrayscaleFingerprint fingerPrint : hiResGrayscaleFingerprints) {
-    byte[] pngArray = Jnbis.wsq()
-            .decode(fingerPrint.getImageData())
-            .toPng()
-            .asFile("/path/fp-" + fingerPrint.getImageDesignationCharacter() + ".png");
+    Jnbis.wsq()
+        .decode(fingerPrint.getImageData())
+        .toPng()
+        .asFile("/path/fp-" + fingerPrint.getImageDesignationCharacter() + ".png");
 }
  ```
 For more examples check the **SampleNistTest.java** in the project source. 
