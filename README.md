@@ -89,9 +89,8 @@ Nist nist = Jnbis.nist().decode(nistInputStream));
 Here is a sample code that extract all fingerprints and save them in individual files. 
 ```Java
 Nist nist = Jnbis.nist().decode(new File("/path/to/nist/file")));
-Set<Integer> keys = nist.getHiResGrayscaleFingerPrintKeys();
 
-for (HighResolutionGrayscaleFingerprint fingerPrint : hiResGrayscaleFingerprints) {
+for (HighResolutionGrayscaleFingerprint fingerPrint : nist.getHiResGrayscaleFingerprints()) {
     Jnbis.wsq()
         .decode(fingerPrint.getImageData())
         .toPng()
