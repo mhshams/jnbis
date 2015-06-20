@@ -90,11 +90,11 @@ Here is a sample code that extract all fingerprints and save them in individual 
 ```Java
 Nist nist = Jnbis.nist().decode(new File("/path/to/nist/file")));
 
-for (HighResolutionGrayscaleFingerprint fingerPrint : nist.getHiResGrayscaleFingerprints()) {
+for (HighResolutionGrayscaleFingerprint fp : nist.getHiResGrayscaleFingerprints()) {
     Jnbis.wsq()
-        .decode(fingerPrint.getImageData())
+        .decode(fp.getImageData())
         .toPng()
-        .asFile("/path/fp-" + fingerPrint.getImageDesignationCharacter() + ".png");
+        .asFile("/path/fp-" + fp.getImageDesignationCharacter() + ".png");
 }
  ```
 For more examples check the **SampleNistTest.java** and **AnsiReferencesTest.java** in the project source. 
