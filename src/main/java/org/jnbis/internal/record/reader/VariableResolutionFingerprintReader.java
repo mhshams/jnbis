@@ -46,7 +46,7 @@ public class VariableResolutionFingerprintReader extends RecordReader {
                     fingerprint.setLogicalRecordLength(word);
                     break;
                 case 2:
-                    fingerprint.setImageDesignationCharacter(word);
+                    fingerprint.setIdc(Integer.parseInt(word));
                     break;
                 case 3:
                     fingerprint.setImpressionType(word);
@@ -58,10 +58,10 @@ public class VariableResolutionFingerprintReader extends RecordReader {
                     fingerprint.setCaptureDate(word);
                     break;
                 case 6:
-                    fingerprint.setHorizontalLineLength(word);
+                    fingerprint.setHorizontalLineLength(Integer.parseInt(word));
                     break;
                 case 7:
-                    fingerprint.setVerticalLineLength(word);
+                    fingerprint.setVerticalLineLength(Integer.parseInt(word));
                     break;
                 case 8:
                     fingerprint.setScaleUnits(word);

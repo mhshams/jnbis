@@ -1,5 +1,8 @@
 package org.jnbis.api.model.record;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.jnbis.internal.record.BaseRecord;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
@@ -8,14 +11,117 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 /**
  * @author ericdsoto
  */
+@SuppressWarnings("serial")
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class TransactionInformation extends BaseRecord {
+
+    /**
+     * 8.1.3 Field 1.003 Transaction content / CNT This mandatory field shall
+     * list and identify each of the records in the transaction by record type
+     * and its IDC value. It also specifies the order in which the remaining
+     * records shall appear in the file. It shall consist of two or more
+     * subfields. The first subfield shall relate to this Type-1 record.
+     */
+    public static class TransactionContent {
+
+        /**
+         * The first information item (first record category code / FRC) within
+         * this subfield shall be “1”. This indicates that the first record in
+         * the transaction is a Type-1 record consisting of header information.
+         */
+        public int firstRecordCategoryCode = 1;
+
+        /**
+         * The second information item of this subfield (content record count /
+         * CRC) shall be the sum of the Type-2 through Type-99 records contained
+         * in this transaction. This number is also equal to the count of the
+         * remaining subfields of Field 1.003 Transaction content / CNT. The
+         * maximum value for CRC is 999.
+         */
+        public int contentRecordCount;
+
+        /**
+         * Each of the remaining subfields of Field 1.003 Transaction content /
+         * CNT corresponds to a single Type-2 through Type-99 record contained
+         * in the transaction. Two information items shall comprise each of
+         * these subfields:
+         */
+        public List<InfoDesignation> idcs = new ArrayList<>();
+        
+        public TransactionContent() {}
+        
+        public TransactionContent(int frc, int crc) {
+            this.firstRecordCategoryCode = frc;
+            this.contentRecordCount = crc;
+        }
+
+        public int getFirstRecordCategoryCode() {
+            return firstRecordCategoryCode;
+        }
+
+        public void setFirstRecordCategoryCode(int firstRecordCategoryCode) {
+            this.firstRecordCategoryCode = firstRecordCategoryCode;
+        }
+
+        public int getContentRecordCount() {
+            return contentRecordCount;
+        }
+
+        public void setContentRecordCount(int contentRecordCount) {
+            this.contentRecordCount = contentRecordCount;
+        }
+
+        public List<InfoDesignation> getIdcs() {
+            return idcs;
+        }
+
+    }
+
+    public static class InfoDesignation {
+        /**
+         * The first information item (record category code / REC), shall
+         * contain a number chosen from the “record identifier” column of Table
+         * 3.
+         */
+        public int recordCategoryCode;
+
+        /**
+         * The second information item (information designation character / IDC)
+         * shall be an integer equal to or greater than zero and less than or
+         * equal to 99. See Section 7.3.1.
+         */
+        public int informationDesignationCharacter;
+
+        public InfoDesignation() {}
+        
+        public InfoDesignation(int rec, int idc) {
+            this.recordCategoryCode = rec;
+            this.informationDesignationCharacter = idc;
+        }
+        
+        public int getRecordCategoryCode() {
+            return recordCategoryCode;
+        }
+
+        public void setRecordCategoryCode(int recordCategoryCode) {
+            this.recordCategoryCode = recordCategoryCode;
+        }
+
+        public int getInformationDesignationCharacter() {
+            return informationDesignationCharacter;
+        }
+
+        public void setInformationDesignationCharacter(int informationDesignationCharacter) {
+            this.informationDesignationCharacter = informationDesignationCharacter;
+        }
+    }
+
     // 1.002 - LEN
     @JsonProperty("version")
     private String version;
     // 1.003 - CNT
     @JsonProperty("file_content")
-    private String fileContent;
+    private TransactionContent transactionContent;
     // 1.004 - TOT
     @JsonProperty("type_of_transaction")
     private String typeOfTransaction;
@@ -61,12 +167,12 @@ public class TransactionInformation extends BaseRecord {
         this.version = version;
     }
 
-    public String getFileContent() {
-        return fileContent;
+    public TransactionContent getTransactionContent() {
+        return transactionContent;
     }
 
-    public void setFileContent(String fileContent) {
-        this.fileContent = fileContent;
+    public void setTransactionContent(TransactionContent fileContent) {
+        this.transactionContent = fileContent;
     }
 
     public String getTypeOfTransaction() {

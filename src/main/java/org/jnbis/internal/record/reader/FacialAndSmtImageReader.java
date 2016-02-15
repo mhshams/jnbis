@@ -46,7 +46,7 @@ public class FacialAndSmtImageReader extends RecordReader {
                     facialRecord.setLogicalRecordLength(word);
                     break;
                 case 2:
-                    facialRecord.setImageDesignationCharacter(word);
+                    facialRecord.setIdc(Integer.parseInt(word));
                     break;
                 case 3:
                     facialRecord.setImageType(word);
@@ -58,10 +58,10 @@ public class FacialAndSmtImageReader extends RecordReader {
                     facialRecord.setPhotoDate(word);
                     break;
                 case 6:
-                    facialRecord.setHorizontalLineLength(word);
+                    facialRecord.setHorizontalLineLength(Integer.parseInt(word));
                     break;
                 case 7:
-                    facialRecord.setVerticalLineLength(word);
+                    facialRecord.setVerticalLineLength(Integer.parseInt(word));
                     break;
                 case 8:
                     facialRecord.setScaleUnits(word);

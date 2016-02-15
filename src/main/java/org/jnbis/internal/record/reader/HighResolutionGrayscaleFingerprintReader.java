@@ -1,7 +1,10 @@
 package org.jnbis.internal.record.reader;
 
-import org.jnbis.internal.NistHelper;
+import java.nio.ByteBuffer;
+import java.nio.ByteOrder;
+
 import org.jnbis.api.model.record.HighResolutionGrayscaleFingerprint;
+import org.jnbis.internal.NistHelper;
 
 /**
  * @author ericdsoto
@@ -16,24 +19,50 @@ public class HighResolutionGrayscaleFingerprintReader extends RecordReader {
 
         HighResolutionGrayscaleFingerprint fingerprint = new HighResolutionGrayscaleFingerprint();
 
-        //Assigning t4-Header values
-        Integer length = (int) readInt(token);
-        int fingerPrintNo = token.buffer[token.pos + 6];
+        /* Total length of record, including 4.001 */
+        int recordLength = readInt(token);
+        /*
+         * We read 4 bytes to get the length, so 4.002 starts 4 bytes from token
+         * pos
+         */
+        int fieldStart = token.pos + 4;
+        /* Fixed byte length for 4.002 to 4.008 (Note: 4.005 has 6 occurrences (bytes)) */
+        int fieldSize = 14;
+        /* Image data size from end of 4.008 to recordLength */
+        int imageSize = recordLength - 4 - fieldSize;
 
-        int dataSize = length - 18;
+        /* Wrap the token buffer so that we can get the correct byte order easily */
+        ByteBuffer buffer = ByteBuffer.wrap(token.buffer, fieldStart, fieldSize);
+        buffer.order(ByteOrder.BIG_ENDIAN);
 
-        if (token.pos + dataSize + 17 > token.buffer.length) {
-            dataSize += token.buffer.length - token.pos - 18;
+        int idc = buffer.get();
+        int imp = buffer.get();
+        int[] fgp = new int[6];
+        for (int f = 0; f < fgp.length; f++) {
+            fgp[f] = buffer.get();
         }
+        int isr = buffer.get();
+        int hll = buffer.getShort();
+        int vll = buffer.getShort();
+        int gca = buffer.get();
 
-        byte[] data = new byte[dataSize];
-        System.arraycopy(token.buffer, token.pos + 18, data, 0, data.length + 18 - 18);
+        /*
+         * We can't use the ByteBuffer for this as it does the endian conversion
+         * on the data
+         */
+        byte[] data = new byte[imageSize];
+        System.arraycopy(token.buffer, fieldStart + fieldSize, data, 0, imageSize);
 
-        token.pos += length;
-        fingerprint.setImageDesignationCharacter(Integer.toString(fingerPrintNo));
+        fingerprint.setIdc(idc);
+        fingerprint.setImpressionType(imp);
+        fingerprint.setFingerPosition(fgp);
+        fingerprint.setImageScanningResolution(isr);
+        fingerprint.setHorizontalLineLength(hll);
+        fingerprint.setVerticalLineLength(vll);
+        fingerprint.setCompressionAlgorithm(String.valueOf(gca));
         fingerprint.setImageData(data);
-        fingerprint.setLogicalRecordLength(length.toString());
 
+        token.pos += recordLength;
         return fingerprint;
     }
 }

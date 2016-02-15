@@ -44,13 +44,13 @@ public abstract class RecordReader {
         }
     }
 
-    protected long readInt(NistHelper.Token token) {
+    protected int readInt(NistHelper.Token token) {
         byte byte1 = token.buffer[token.pos];
         byte byte2 = token.buffer[token.pos + 1];
         byte byte3 = token.buffer[token.pos + 2];
         byte byte4 = token.buffer[token.pos + 3];
 
-        return (0xffL & byte1) << 24 | (0xffL & byte2) << 16 | (0xffL & byte3) << 8 | (0xffL & byte4);
+        return (int) ((0xffL & byte1) << 24 | (0xffL & byte2) << 16 | (0xffL & byte3) << 8 | (0xffL & byte4));
     }
 
 }

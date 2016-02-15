@@ -251,8 +251,8 @@ public class AnsiReferencesTest {
     public void type14_amp_nqm_utf8() throws IOException {
         Nist decoded = decode(FILES[26]);
         Map<Integer, String> userDefinedFields = decoded.getUserDefinedTexts().get(0).getUserDefinedFields();
-        assertEquals("55", userDefinedFields.get(1));
-        assertEquals("00", userDefinedFields.get(2));
+        assertEquals("55", decoded.getUserDefinedTexts().get(0).getLogicalRecordLength());
+        assertEquals(new Integer(0), decoded.getUserDefinedTexts().get(0).getIdc());
         assertEquals("two chinese characters: 華裔", userDefinedFields.get(3));
     }
 
@@ -296,8 +296,8 @@ public class AnsiReferencesTest {
         assertEquals(1, decoded.getUserDefinedTexts().size());
 
         Map<Integer, String> userDefinedFields = decoded.getUserDefinedTexts().get(0).getUserDefinedFields();
-        assertEquals("57", userDefinedFields.get(1));
-        assertEquals("00", userDefinedFields.get(2));
+        assertEquals("57", decoded.getUserDefinedTexts().get(0).getLogicalRecordLength());
+        assertEquals(new Integer(0), decoded.getUserDefinedTexts().get(0).getIdc());
         assertEquals("domain defined text place holder", userDefinedFields.get(3));
     }
 

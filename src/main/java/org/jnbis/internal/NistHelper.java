@@ -11,8 +11,8 @@ import java.nio.charset.CharsetDecoder;
 public class NistHelper {
     static final CharsetDecoder CP1256 = Charset.forName("cp1256").newDecoder();
     public static final CharsetDecoder USASCII = Charset.forName("US-ASCII").newDecoder();
-    static final CharsetDecoder UTF8 = Charset.forName("UTF-8").newDecoder();
-    static final CharsetDecoder UTF16 = Charset.forName("UTF-16").newDecoder();
+    public static final CharsetDecoder UTF8 = Charset.forName("UTF-8").newDecoder();
+    public static final CharsetDecoder UTF16 = Charset.forName("UTF-16").newDecoder();
 
     // Logical record types (used here.)
     public static final int RT_TRANSACTION_INFO = 1;
@@ -31,9 +31,9 @@ public class NistHelper {
     public static final int RT_IRIS_IMAGE = 17;
 
     // Information separators
-    static final char SEP_US = 31;
-    static final char SEP_RS = 30;
-    static final char SEP_GS = 29;
+    public static final char SEP_US = 31;
+    public static final char SEP_RS = 30;
+    public static final char SEP_GS = 29;
     public static final char SEP_FS = 28;
 
     public static final int FIELD_MAX_LENGTH = 1024;
@@ -41,7 +41,8 @@ public class NistHelper {
     public static final char[] TAG_SEP_DOT = {'.', '.'};
     public static final char[] TAG_SEP_COLN = {':', ':'};
     public static final char[] TAG_SEP_GSFS = {SEP_GS, SEP_FS};
-
+    public static final char[] TAG_SEP_USRS = {SEP_US, SEP_RS};
+    
     public static class Tag {
         public final int type;
         public final int field;
@@ -61,7 +62,7 @@ public class NistHelper {
 
         public CharsetDecoder charset;
 
-        Token(byte[] buffer) {
+        public Token(byte[] buffer) {
             this.buffer = buffer;
             this.charset = CP1256;
         }

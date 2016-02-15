@@ -45,7 +45,7 @@ public class VariableResolutionPalmprintReader extends RecordReader {
                     palmprint.setLogicalRecordLength(word);
                     break;
                 case 2:
-                    palmprint.setImageDesignationCharacter(word);
+                    palmprint.setIdc(Integer.parseInt(word));
                     break;
                 case 3:
                     palmprint.setImpressionType(word);
@@ -57,10 +57,10 @@ public class VariableResolutionPalmprintReader extends RecordReader {
                     palmprint.setCaptureDate(word);
                     break;
                 case 6:
-                    palmprint.setHorizontalLineLength(word);
+                    palmprint.setHorizontalLineLength(Integer.parseInt(word));
                     break;
                 case 7:
-                    palmprint.setVerticalLineLength(word);
+                    palmprint.setVerticalLineLength(Integer.parseInt(word));
                     break;
                 case 8:
                     palmprint.setScaleUnits(word);

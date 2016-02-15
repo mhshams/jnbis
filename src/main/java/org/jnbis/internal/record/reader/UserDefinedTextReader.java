@@ -24,7 +24,16 @@ public class UserDefinedTextReader extends RecordReader {
             }
 
             String value = nextWord(token, NistHelper.TAG_SEP_GSFS, NistHelper.FIELD_MAX_LENGTH - 1, true);
-            userDefinedText.addUserDefinedField(tag.field, value);
+            switch (tag.field) {
+            case 1:
+                userDefinedText.setLogicalRecordLength(value);
+                break;
+            case 2:
+                userDefinedText.setIdc(Integer.valueOf(value));
+                break;
+            default:
+                userDefinedText.addUserDefinedField(tag.field, value);
+            }
 
             if (token.buffer[token.pos++] == NistHelper.SEP_FS) {
                 break;

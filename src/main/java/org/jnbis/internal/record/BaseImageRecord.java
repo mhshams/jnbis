@@ -6,17 +6,15 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 /**
  * @author ericdsoto
  */
+@SuppressWarnings("serial")
 @JsonIgnoreProperties(ignoreUnknown = true)
 public abstract class BaseImageRecord extends BaseRecord {
-    // IDC
-    @JsonProperty("image_designation_character")
-    private String imageDesignationCharacter;
     // HLL
     @JsonProperty("horizontal_line_length")
-    private String horizontalLineLength;
+    private int horizontalLineLength;
     // VLL
     @JsonProperty("vertical_line_length")
-    private String verticalLineLength;
+    private int verticalLineLength;
     // GCA / BCA
     @JsonProperty("compression_algorithm")
     private String compressionAlgorithm;
@@ -24,27 +22,19 @@ public abstract class BaseImageRecord extends BaseRecord {
     @JsonProperty("image_data")
     private byte[] imageData;
 
-    public String getImageDesignationCharacter() {
-        return imageDesignationCharacter;
-    }
-
-    public void setImageDesignationCharacter(String imageDesignationCharacter) {
-        this.imageDesignationCharacter = imageDesignationCharacter;
-    }
-
-    public String getHorizontalLineLength() {
+    public int getHorizontalLineLength() {
         return horizontalLineLength;
     }
 
-    public void setHorizontalLineLength(String horizontalLineLength) {
+    public void setHorizontalLineLength(int horizontalLineLength) {
         this.horizontalLineLength = horizontalLineLength;
     }
 
-    public String getVerticalLineLength() {
+    public int getVerticalLineLength() {
         return verticalLineLength;
     }
 
-    public void setVerticalLineLength(String verticalLineLength) {
+    public void setVerticalLineLength(int verticalLineLength) {
         this.verticalLineLength = verticalLineLength;
     }
 

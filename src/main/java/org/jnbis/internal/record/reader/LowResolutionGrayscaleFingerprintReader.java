@@ -30,7 +30,7 @@ public class LowResolutionGrayscaleFingerprintReader extends RecordReader {
         System.arraycopy(token.buffer, token.pos + 18, data, 0, data.length + 18 - 18);
 
         token.pos += length;
-        fingerprint.setImageDesignationCharacter(Integer.toString(fingerPrintNo));
+        fingerprint.setIdc(fingerPrintNo);
         fingerprint.setImageData(data);
         fingerprint.setLogicalRecordLength(length.toString());
 

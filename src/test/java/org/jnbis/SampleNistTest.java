@@ -7,6 +7,8 @@ import org.jnbis.api.model.record.UserDefinedDescriptiveText;
 import org.junit.Assert;
 import org.junit.Test;
 
+import static org.junit.Assert.assertEquals;
+
 import java.io.File;
 import java.util.List;
 import java.util.Map;
@@ -24,8 +26,8 @@ public class SampleNistTest {
 
         UserDefinedDescriptiveText userDefinedText = nist.getUserDefinedTexts().get(0);
         Map<Integer, String> userDefinedFields = userDefinedText.getUserDefinedFields();
-        Assert.assertEquals("57", userDefinedFields.get(1));
-        Assert.assertEquals("00", userDefinedFields.get(2));
+        assertEquals("57", nist.getUserDefinedTexts().get(0).getLogicalRecordLength());
+        assertEquals(new Integer(0), nist.getUserDefinedTexts().get(0).getIdc());
         Assert.assertEquals("domain defined text place holder", userDefinedFields.get(3));
 
         List<HighResolutionGrayscaleFingerprint> hiResGrayscaleFingerprints = nist.getHiResGrayscaleFingerprints();
@@ -38,13 +40,13 @@ public class SampleNistTest {
                     .toPng()
                     .asByteArray();
 
-            String fileName = findFileName(fingerPrint.getImageDesignationCharacter());
+            String fileName = findFileName(fingerPrint.getFingerPosition()[0], "png");
 
             Assert.assertArrayEquals(FileUtils.read(new File(fileName)), pngArray);
         }
     }
 
-    private String findFileName(String imageCharacter) {
-        return FileUtils.absolute("samples/nist/fp-" + String.format("%s", imageCharacter) + ".png");
+    private String findFileName(int imageCharacter, String ext) {
+        return FileUtils.absolute(String.format("samples/nist/fp-%d.%s", imageCharacter, ext));
     }
 }

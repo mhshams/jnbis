@@ -7,9 +7,6 @@ import org.jnbis.api.handler.WsqHandler;
  * The starting point of the API.
  */
 public final class Jnbis {
-    private static final WsqHandler WSQ_HANDLER = new WsqHandler();
-    private static final NistHandler NIST_HANDLER = new NistHandler();
-
     /**
      * No instance is needed.
      */
@@ -23,7 +20,7 @@ public final class Jnbis {
      * @see WsqHandler
      */
     public static WsqHandler wsq() {
-        return WSQ_HANDLER;
+        return new WsqHandler();
     }
 
     /**
@@ -33,6 +30,6 @@ public final class Jnbis {
      * @see NistHandler
      */
     public static NistHandler nist() {
-        return NIST_HANDLER;
+        return new NistHandler();
     }
 }

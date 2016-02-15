@@ -45,7 +45,7 @@ public class IrisImageReader extends RecordReader {
                     image.setLogicalRecordLength(word);
                     break;
                 case 2:
-                    image.setImageDesignationCharacter(word);
+                    image.setIdc(Integer.parseInt(word));
                     break;
                 case 3:
                     image.setFeatureIdentifier(word);
@@ -57,10 +57,10 @@ public class IrisImageReader extends RecordReader {
                     image.setCaptureDate(word);
                     break;
                 case 6:
-                    image.setHorizontalLineLength(word);
+                    image.setHorizontalLineLength(Integer.parseInt(word));
                     break;
                 case 7:
-                    image.setVerticalLineLength(word);
+                    image.setVerticalLineLength(Integer.parseInt(word));
                     break;
                 case 8:
                     image.setScaleUnits(word);

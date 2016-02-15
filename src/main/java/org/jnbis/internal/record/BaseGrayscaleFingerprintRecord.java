@@ -10,35 +10,35 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 public abstract class BaseGrayscaleFingerprintRecord extends BaseImageRecord {
     // IMP
     @JsonProperty("impression_type")
-    private String impressionType;
+    private int impressionType;
     // FGP
     @JsonProperty("finger_position")
-    private String fingerPosition;
+    private int[] fingerPosition;
     // ISR
     @JsonProperty("image_scanning_resolution")
-    private String imageScanningResolution;
+    private int imageScanningResolution;
 
-    public String getImpressionType() {
+    public int getImpressionType() {
         return impressionType;
     }
 
-    public void setImpressionType(String impressionType) {
+    public void setImpressionType(int impressionType) {
         this.impressionType = impressionType;
     }
 
-    public String getFingerPosition() {
+    public int[] getFingerPosition() {
         return fingerPosition;
     }
 
-    public void setFingerPosition(String fingerPosition) {
+    public void setFingerPosition(int[] fingerPosition) {
         this.fingerPosition = fingerPosition;
     }
 
-    public String getImageScanningResolution() {
+    public int getImageScanningResolution() {
         return imageScanningResolution;
     }
 
-    public void setImageScanningResolution(String imageScanningResolution) {
+    public void setImageScanningResolution(int imageScanningResolution) {
         this.imageScanningResolution = imageScanningResolution;
     }
 }
