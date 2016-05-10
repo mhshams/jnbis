@@ -26,7 +26,7 @@ public class SampleNistTest {
 
         UserDefinedDescriptiveText userDefinedText = nist.getUserDefinedTexts().get(0);
         Map<Integer, String> userDefinedFields = userDefinedText.getUserDefinedFields();
-        assertEquals("57", nist.getUserDefinedTexts().get(0).getLogicalRecordLength());
+        assertEquals(57, nist.getUserDefinedTexts().get(0).getLogicalRecordLength());
         assertEquals(new Integer(0), nist.getUserDefinedTexts().get(0).getIdc());
         Assert.assertEquals("domain defined text place holder", userDefinedFields.get(3));
 

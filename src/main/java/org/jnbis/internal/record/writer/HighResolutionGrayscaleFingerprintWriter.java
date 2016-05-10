@@ -6,8 +6,14 @@ import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
 
 import org.jnbis.api.model.record.HighResolutionGrayscaleFingerprint;
+import org.jnbis.internal.NistHelper.RecordType;
 
 public class HighResolutionGrayscaleFingerprintWriter extends RecordWriter<HighResolutionGrayscaleFingerprint> {
+
+    @Override
+    public RecordType getRecordType() {
+        return RecordType.RT4_HR_GS_FINGERPRINT;
+    }
 
     @Override
     public void write(OutputStream out, HighResolutionGrayscaleFingerprint record) throws IOException {

@@ -1,41 +1,37 @@
 package org.jnbis.internal.record.writer;
 
 
-import org.jnbis.internal.NistHelper;
+import java.util.HashMap;
+import java.util.Map;
+
+import org.jnbis.internal.NistHelper.RecordType;
 import org.jnbis.internal.record.BaseRecord;
 
 /**
  * @author ericdsoto
  */
 public class RecordWriterFactory {
-    private static final RecordWriter<?>[] WRITERS = new RecordWriter[18];
+    private static final Map<RecordType, RecordWriter<?>> WRITERS = new HashMap<>();
 
     static {
-        WRITERS[0] = new TransactionInfoWriter();
-        WRITERS[NistHelper.RT_TRANSACTION_INFO] = new TransactionInfoWriter();
-        WRITERS[NistHelper.RT_USER_DEFINED_TEXT] = new UserDefinedTextWriter();
-//        WRITERS[NistHelper.RT_LR_GS_FINGERPRINT] = new LowResolutionGrayscaleFingerprintWriter();
-        WRITERS[NistHelper.RT_HR_GS_FINGERPRINT] = new HighResolutionGrayscaleFingerprintWriter();
-//        WRITERS[NistHelper.RT_LR_BINARY_FINGERPRINT] = new LowResolutionBinaryFingerprintWriter();
-//        WRITERS[NistHelper.RT_HR_BINARY_FINGERPRINT] = new HighResolutionBinaryFingerprintWriter();
-//        WRITERS[NistHelper.RT_USER_DEFINED_IMAGE] = new UserDefinedImageWriter();
-//        WRITERS[NistHelper.RT_SIGNATURE_IMAGE] = new SignatureImageWriter();
-//        WRITERS[NistHelper.RT_MINUTIAE_DATA] = new MinutiaeDataWriter();
-//        WRITERS[NistHelper.RT_FACIAL_N_SMT_IMAGE_DATA] = new FacialAndSmtImageWriter();
-//        WRITERS[11] = null;
-//        WRITERS[12] = null;
-//        WRITERS[NistHelper.RT_VR_LATENT_IMAGE] = new VariableResolutionLatentImageWriter();
-//        WRITERS[NistHelper.RT_VR_FINGERPRINT] = new VariableResolutionFingerprintWriter();
-//        WRITERS[NistHelper.RT_VR_PALMPRINT] = new VariableResolutionPalmprintWriter();
-//        WRITERS[16] = null;
-//        WRITERS[NistHelper.RT_IRIS_IMAGE] = new IrisImageWriter();
+        WRITERS.put(RecordType.RT1_TRANSACTION_INFO, new TransactionInfoWriter());
+        WRITERS.put(RecordType.RT2_USER_DEFINED_TEXT, new UserDefinedTextWriter());
+        WRITERS.put(RecordType.RT4_HR_GS_FINGERPRINT, new HighResolutionGrayscaleFingerprintWriter());
+//        WRITERS.put(RecordType.RT7_USER_DEFINED_IMAGE, new UserDefinedImageWriter());
+//        WRITERS.put(RecordType.RT8_SIGNATURE_IMAGE, new SignatureImageWriter());
+//        WRITERS.put(RecordType.RT9_MINUTIAE_DATA, new MinutiaeDataWriter());
+//        WRITERS.put(RecordType.RT10_FACIAL_N_SMT_IMAGE_DATA, new FacialAndSmtImageWriter());
+//        WRITERS.put(RecordType.RT13_VR_LATENT_IMAGE, new VariableResolutionLatentImageWriter());
+        WRITERS.put(RecordType.RT14_VR_FINGERPRINT, new VariableResolutionFingerprintWriter());
+//        WRITERS.put(RecordType.RT15_VR_PALMPRINT, new VariableResolutionPalmprintWriter());
+//        WRITERS.put(RecordType.RT17_IRIS_IMAGE, new IrisImageWriter());
     }
 
     @SuppressWarnings("unchecked")
-    public <T extends BaseRecord> RecordWriter<T> writer(int crt) {
-        if (WRITERS[crt] == null) {
-            throw new UnsupportedOperationException("Record type " + crt + " not supported");
+    public <T extends BaseRecord> RecordWriter<T> writer(RecordType type) {
+        if (!WRITERS.containsKey(type)) {
+            throw new UnsupportedOperationException("Record type " + type.type + " not supported");
         }
-        return (RecordWriter<T>) WRITERS[crt];
+        return (RecordWriter<T>) WRITERS.get(type);
     }
 }

@@ -1,6 +1,9 @@
 package org.jnbis.internal.record.reader;
 
 import org.jnbis.internal.NistHelper;
+
+import java.nio.ByteBuffer;
+
 import org.jnbis.api.model.record.SignatureImage;
 
 /**
@@ -10,28 +13,33 @@ public class SignatureImageReader extends RecordReader {
 
     @Override
     public SignatureImage read(NistHelper.Token token) {
-        if (token.pos >= token.buffer.length) {
-            throw new RuntimeException("T8::NULL pointer to T8 record");
-        }
-
         SignatureImage signatureImage = new SignatureImage();
 
-        //Assigning t8-Header values
-        Integer length = (int) readInt(token);
-        //int fingerPrintNo = token.buffer[token.pos + 6];
+        ByteBuffer buffer = token.buffer;
+        
+        /* Total length of record, including field 001 */
+        int recordLength = buffer.getInt();
 
-        int dataSize = length - 12;
+        int idc = buffer.get();
+        int sig = buffer.get();
+        int srt = buffer.get();
+        int isr = buffer.get();
+        int hll = buffer.getShort();
+        int vll = buffer.getShort();
 
-        if (token.pos + dataSize + 11 > token.buffer.length) {
-            dataSize += token.buffer.length - token.pos - 12;
-        }
+        byte[] data = new byte[buffer.remaining()];
+        buffer.get(data);
 
-        byte[] data = new byte[dataSize];
-        System.arraycopy(token.buffer, token.pos + 12, data, 0, data.length + 12 - 12);
-
-        token.pos += length;
+        signatureImage.setLogicalRecordLength(recordLength);
+        signatureImage.setIdc(idc);
+        /*
+        signatureImage.setSignatureType(sig);
+        signatureImage.setSignatureRepresentationType(srt);
+        signatureImage.setImageScanningResolution(isr);
+        */
+        signatureImage.setHorizontalLineLength(hll);
+        signatureImage.setVerticalLineLength(vll);
         signatureImage.setImageData(data);
-        signatureImage.setLogicalRecordLength(length.toString());
 
         return signatureImage;
     }

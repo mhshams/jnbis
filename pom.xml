@@ -10,7 +10,7 @@
 
     <groupId>com.github.mhshams</groupId>
     <artifactId>jnbis</artifactId>
-    <version>3.0.0-SNAPSHOT</version>
+    <version>3.0.1-SNAPSHOT</version>
     <packaging>jar</packaging>
 
     <name>JNBIS</name>
@@ -25,15 +25,22 @@
         </license>
     </licenses>
     <scm>
-        <connection>scm:git:git@github.com:mhshams/jnbis.git</connection>
-        <developerConnection>scm:git:git@github.com:mhshams/jnbis.git</developerConnection>
-        <url>git@github.com:mhshams/jnbis.git</url>
+        <connection>scm:git:git@github.com:argonaut-nz/jnbis.git</connection>
+        <developerConnection>scm:git:git@github.com:argonaut-nz/jnbis.git</developerConnection>
+        <url>git@github.com:argonaut-nz/jnbis.git</url>
     </scm>
     <developers>
         <developer>
             <id>mhshams</id>
             <name>Mohammad Shamsi</name>
             <email>m.h.shams@gmail.com</email>
+        </developer>
+        <developer>
+            <id>mpresling</id>
+            <name>Mark Presling</name>
+            <email>mark.presling@argonautltd.co.nz</email>
+            <organization>Argonaut Ltd</organization>
+            <organizationUrl>http://www.argonautltd.co.nz</organizationUrl>
         </developer>
     </developers>
     <distributionManagement>

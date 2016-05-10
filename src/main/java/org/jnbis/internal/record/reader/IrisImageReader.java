@@ -1,6 +1,10 @@
 package org.jnbis.internal.record.reader;
 
 import org.jnbis.internal.NistHelper;
+import org.jnbis.internal.NistHelper.Field;
+
+import java.nio.ByteBuffer;
+
 import org.jnbis.api.model.record.IrisImage;
 
 /**
@@ -10,117 +14,103 @@ public class IrisImageReader extends RecordReader {
 
     @Override
     public IrisImage read(NistHelper.Token token) {
-        if (token.pos >= token.buffer.length) {
-            throw new RuntimeException("T17::NULL pointer to T17 record");
-        }
 
         IrisImage image = new IrisImage();
 
-        int start = token.pos;
-
-        NistHelper.Tag tag = getTagInfo(token);
-        if (tag.field != 1) {
-            throw new RuntimeException("T17::Invalid Record type = " + tag.type);
-        }
-
-        Integer length = Integer.parseInt(nextWord(token, NistHelper.TAG_SEP_GSFS, NistHelper.FIELD_MAX_LENGTH - 1, false));
-        image.setLogicalRecordLength(length.toString());
-
-        while (true) {
-
-            token.pos++;
-
-            tag = getTagInfo(token);
-            if (tag.field == 999) {
-                byte[] data = new byte[length - (token.pos - start)];
-                System.arraycopy(token.buffer, token.pos, data, 0, data.length);
-                token.pos = token.pos + data.length;
-                image.setImageData(data);
+        ByteBuffer buffer = token.buffer;
+        
+        while (buffer.hasRemaining()) {
+            Field field = nextField(token);
+            if (field == null) {
                 break;
             }
 
-            String word = nextWord(token, NistHelper.TAG_SEP_GSFS, NistHelper.FIELD_MAX_LENGTH - 1, false);
-            switch (tag.field) {
+            switch (field.fieldNumber) {
                 case 1:
-                    image.setLogicalRecordLength(word);
+                    image.setLogicalRecordLength(field.asInteger());
                     break;
                 case 2:
-                    image.setIdc(Integer.parseInt(word));
+                    image.setIdc(field.asInteger());
                     break;
                 case 3:
-                    image.setFeatureIdentifier(word);
+                    image.setFeatureIdentifier(field.asString());
                     break;
                 case 4:
-                    image.setSourceAgency(word);
+                    image.setSourceAgency(field.asString());
                     break;
                 case 5:
-                    image.setCaptureDate(word);
+                    image.setCaptureDate(parseDate(field.asString()));
                     break;
                 case 6:
-                    image.setHorizontalLineLength(Integer.parseInt(word));
+                    image.setHorizontalLineLength(field.asInteger());
                     break;
                 case 7:
-                    image.setVerticalLineLength(Integer.parseInt(word));
+                    image.setVerticalLineLength(field.asInteger());
                     break;
                 case 8:
-                    image.setScaleUnits(word);
+                    image.setScaleUnits(field.asInteger());
                     break;
                 case 9:
-                    image.setHorizontalPixelScale(word);
+                    image.setHorizontalPixelScale(field.asInteger());
                     break;
                 case 10:
-                    image.setVerticalPixelScale(word);
+                    image.setVerticalPixelScale(field.asInteger());
                     break;
                 case 11:
-                    image.setCompressionAlgorithm(word);
+                    image.setCompressionAlgorithm(field.asString());
                     break;
                 case 12:
-                    image.setBitsPerPixel(word);
+                    image.setBitsPerPixel(field.asInteger());
                     break;
                 case 13:
-                    image.setColorSpace(word);
+                    image.setColorSpace(field.asString());
                     break;
                 case 14:
-                    image.setRotationAngleOfEye(word);
+                    image.setRotationAngleOfEye(field.asString());
                     break;
                 case 15:
-                    image.setRotationUncertainty(word);
+                    image.setRotationUncertainty(field.asString());
                     break;
                 case 16:
-                    image.setImagePropertyCode(word);
+                    image.setImagePropertyCode(field.asString());
                     break;
                 case 17:
-                    image.setDeviceUniqueIdentifier(word);
+                    image.setDeviceUniqueIdentifier(field.asString());
                     break;
                 case 18:
-                    image.setGlobalUniqueIdentifier(word);
+                    image.setGlobalUniqueIdentifier(field.asString());
                     break;
                 case 19:
-                    image.setMakeModelSerialNumber(word);
+                    image.setMakeModelSerialNumber(field.asString());
                     break;
                 case 20:
-                    image.setEyeColor(word);
+                    image.setEyeColor(field.asString());
                     break;
                 case 21:
-                    image.setComment(word);
+                    image.setComment(field.asString());
                     break;
                 case 22:
-                    image.setScannedHorizontalPixelScale(word);
+                    image.setScannedHorizontalPixelScale(field.asInteger());
                     break;
                 case 23:
-                    image.setScannedVerticalPixelScale(word);
+                    image.setScannedVerticalPixelScale(field.asInteger());
                     break;
                 case 24:
-                    image.setImageQualityScore(word);
+                    image.setImageQualityScore(field.asString());
                     break;
                 case 25:
-                    image.setAcquisitionLightingSpectrum(word);
+                    image.setAcquisitionLightingSpectrum(field.asString());
                     break;
                 case 26:
-                    image.setIrisDiameter(word);
+                    image.setIrisDiameter(field.asString());
                     break;
                 case 30:
-                    image.setDeviceMonitoringMode(word);
+                    image.setDeviceMonitoringMode(field.asString());
+                    break;
+                case 999:
+                    byte[] imageData = new byte[buffer.remaining()];
+                    buffer.get(imageData);
+                    image.setImageData(imageData);
                     break;
                 default:
                     break;

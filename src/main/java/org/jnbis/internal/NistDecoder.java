@@ -1,10 +1,27 @@
 package org.jnbis.internal;
 
-import org.jnbis.api.model.Nist;
-import org.jnbis.api.model.record.*;
-import org.jnbis.internal.record.BaseRecord;
-import org.jnbis.internal.record.reader.RecordReaderFactory;
+import java.nio.ByteBuffer;
+import java.nio.ByteOrder;
+import java.util.List;
 
+import org.jnbis.api.model.Nist;
+import org.jnbis.api.model.record.FacialAndSmtImage;
+import org.jnbis.api.model.record.HighResolutionGrayscaleFingerprint;
+import org.jnbis.api.model.record.IrisImage;
+import org.jnbis.api.model.record.MinutiaeData;
+import org.jnbis.api.model.record.SignatureImage;
+import org.jnbis.api.model.record.TransactionInformation;
+import org.jnbis.api.model.record.TransactionInformation.InfoDesignation;
+import org.jnbis.api.model.record.UserDefinedDescriptiveText;
+import org.jnbis.api.model.record.UserDefinedImage;
+import org.jnbis.api.model.record.VariableResolutionFingerprint;
+import org.jnbis.api.model.record.VariableResolutionLatentImage;
+import org.jnbis.api.model.record.VariableResolutionPalmprint;
+import org.jnbis.internal.NistHelper.Field;
+import org.jnbis.internal.NistHelper.RecordType;
+import org.jnbis.internal.record.BaseRecord;
+import org.jnbis.internal.record.reader.RecordReader;
+import org.jnbis.internal.record.reader.RecordReaderFactory;
 
 /**
  * @author hamed
@@ -23,31 +40,30 @@ public class NistDecoder {
             throw new IllegalArgumentException("data is null or zero length");
         }
 
-        NistHelper.Token token = new NistHelper.Token(nist);
         InternalNist decoded = new InternalNist();
-        BaseRecord record = readerFactory.read(token);
-        decoded.setTransactionInfo((TransactionInformation) record);
 
-        while (nextRecord(token)) {
-            if (token.crt < 2) {
-                continue;
-            }
-            record = readerFactory.read(token);
+        ByteBuffer buffer = ByteBuffer.wrap(nist);
+        buffer.order(ByteOrder.BIG_ENDIAN);
+        NistHelper.Token token = new NistHelper.Token(buffer);
+
+        /* Set up the buffer and check the type */
+        nextRecord(RecordType.RT1_TRANSACTION_INFO, token);
+
+        TransactionInformation txInfo = (TransactionInformation) readerFactory.read(token);
+        decoded.setTransactionInfo(txInfo);
+
+        List<InfoDesignation> recordTypes = txInfo.getTransactionContent().getIdcs();
+        for (InfoDesignation idc : recordTypes) {
+            RecordType type = RecordType.valueOf(idc.recordCategoryCode);
+            nextRecord(type, token);
+
+            BaseRecord record = readerFactory.read(token);
 
             if (record instanceof UserDefinedDescriptiveText) {
                 decoded.addUserDefinedText((UserDefinedDescriptiveText) record);
 
-            } else if (record instanceof LowResolutionGrayscaleFingerprint) {
-                decoded.addLowResGrayscaleFingerPrint((LowResolutionGrayscaleFingerprint) record);
-
             } else if (record instanceof HighResolutionGrayscaleFingerprint) {
                 decoded.addHiResGrayscaleFingerPrint((HighResolutionGrayscaleFingerprint) record);
-
-            } else if (record instanceof LowResolutionBinaryFingerprint) {
-                decoded.addLowResBinaryFingerPrint((LowResolutionBinaryFingerprint) record);
-
-            } else if (record instanceof HighResolutionBinaryFingerprint) {
-                decoded.addHiResBinaryFingerPrint((HighResolutionBinaryFingerprint) record);
 
             } else if (record instanceof UserDefinedImage) {
                 decoded.addUserDefinedImage((UserDefinedImage) record);
@@ -56,7 +72,6 @@ public class NistDecoder {
                 decoded.addSignature((SignatureImage) record);
 
             } else if (record instanceof MinutiaeData) {
-                //readMinutiaeData(token, decoded);
                 decoded.addMinutiaeData((MinutiaeData) record);
 
             } else if (record instanceof FacialAndSmtImage) {
@@ -79,19 +94,50 @@ public class NistDecoder {
         return decoded;
     }
 
-    private boolean nextRecord(NistHelper.Token token) {
-        if (token.header.length() == 0) {
-            return false;
+    private boolean nextRecord(RecordType type, NistHelper.Token token) {
+        token.crt = type;
+
+        ByteBuffer buffer = token.buffer;
+        int bufferPosition = buffer.position();
+
+        /*
+         * Reset the limit because it may be set to the previous record length
+         * and we need to read past that to find the next one.
+         */
+        buffer.limit(buffer.capacity());
+
+        int length = 0;
+
+        /*
+         * If it's a binary record then it's just going to start with a 4-byte
+         * little-endian int that represents the Field 001 LEN length of the
+         * record.
+         */
+        if (type.isBinary) {
+            length = buffer.getInt();
+
+            /*
+             * Otherwise, it's going to start with an ASCII string in the form:
+             * "<type>.001:<length>"
+             */
+        } else {
+            Field header = RecordReader.nextField(token);
+            if (header == null) {
+                return false;
+            }
+            length = header.asInteger();
         }
 
-        int rsPos = token.header.indexOf(NistHelper.SEP_RS);
-        if (rsPos == -1) {
-            rsPos = token.header.length() - 1;
-        }
+        /*
+         * Reset the buffer position to what it was
+         */
+        buffer.position(bufferPosition);
 
-        int usPos = token.header.indexOf(NistHelper.SEP_US);
-        token.crt = Integer.parseInt(token.header.substring(0, usPos));
-        token.header = token.header.substring(rsPos + 1);
+        /*
+         * Specify the limit on the buffer so the record readers can't/don't
+         * overrun the record
+         */
+        buffer.limit(buffer.position() + length);
 
         return true;
     }

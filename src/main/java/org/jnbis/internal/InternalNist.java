@@ -15,10 +15,7 @@ public class InternalNist extends Nist {
 
     private TransactionInformation transactionInformation;
     private final List<UserDefinedDescriptiveText> userDefinedTexts;
-    private final List<LowResolutionGrayscaleFingerprint> lowResolutionGrayscaleFingerprints;
     private final List<HighResolutionGrayscaleFingerprint> hiResolutionGrayscaleFingerprints;
-    private final List<LowResolutionBinaryFingerprint> lowResolutionBinaryFingerprints;
-    private final List<HighResolutionBinaryFingerprint> hiResolutionBinaryFingerprints;
     private final List<UserDefinedImage> userDefinedImages;
     private final List<SignatureImage> signatureImages;
     private final List<MinutiaeData> minutiaeData;
@@ -30,10 +27,7 @@ public class InternalNist extends Nist {
 
     public InternalNist() {
         userDefinedTexts = new ArrayList<>();
-        lowResolutionGrayscaleFingerprints = new ArrayList<>();
         hiResolutionGrayscaleFingerprints = new ArrayList<>();
-        lowResolutionBinaryFingerprints = new ArrayList<>();
-        hiResolutionBinaryFingerprints = new ArrayList<>();
         userDefinedImages = new ArrayList<>();
         signatureImages = new ArrayList<>();
         minutiaeData = new ArrayList<>();
@@ -52,20 +46,8 @@ public class InternalNist extends Nist {
         userDefinedTexts.add(text);
     }
 
-    void addLowResGrayscaleFingerPrint(LowResolutionGrayscaleFingerprint fingerprint) {
-        lowResolutionGrayscaleFingerprints.add(fingerprint);
-    }
-
     void addHiResGrayscaleFingerPrint(HighResolutionGrayscaleFingerprint fingerprint) {
         hiResolutionGrayscaleFingerprints.add(fingerprint);
-    }
-
-    void addLowResBinaryFingerPrint(LowResolutionBinaryFingerprint fingerprint) {
-        lowResolutionBinaryFingerprints.add(fingerprint);
-    }
-
-    void addHiResBinaryFingerPrint(HighResolutionBinaryFingerprint fingerprint) {
-        hiResolutionBinaryFingerprints.add(fingerprint);
     }
 
     void addUserDefinedImage(UserDefinedImage image) {
@@ -108,20 +90,8 @@ public class InternalNist extends Nist {
         return userDefinedTexts;
     }
 
-    public List<LowResolutionGrayscaleFingerprint> getLowResGrayscaleFingerprints() {
-        return lowResolutionGrayscaleFingerprints;
-    }
-
     public List<HighResolutionGrayscaleFingerprint> getHiResGrayscaleFingerprints() {
         return hiResolutionGrayscaleFingerprints;
-    }
-
-    public List<LowResolutionBinaryFingerprint> getLowResBinaryFingerprints() {
-        return lowResolutionBinaryFingerprints;
-    }
-
-    public List<HighResolutionBinaryFingerprint> getHiResBinaryFingerprints() {
-        return hiResolutionBinaryFingerprints;
     }
 
     public List<UserDefinedImage> getUserDefinedImages() {

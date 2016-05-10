@@ -6,6 +6,7 @@ import java.util.List;
 
 import org.jnbis.api.model.Nist;
 import org.jnbis.api.model.record.TransactionInformation;
+import org.jnbis.internal.NistHelper.RecordType;
 import org.jnbis.internal.record.BaseRecord;
 import org.jnbis.internal.record.writer.RecordWriter;
 import org.jnbis.internal.record.writer.RecordWriterFactory;
@@ -32,57 +33,42 @@ public class NistEncoder {
             throw new IllegalArgumentException("data is null");
         }
 
-        RecordWriter<TransactionInformation> writer = writerFactory.writer(NistHelper.RT_TRANSACTION_INFO);
+        RecordWriter<TransactionInformation> writer = writerFactory.writer(RecordType.RT1_TRANSACTION_INFO);
         TransactionInformation txInfo = nist.getTransactionInfo();
         writer.write(baos, txInfo);
         
-        writeRecords(NistHelper.RT_USER_DEFINED_TEXT, nist.getUserDefinedTexts(), true);
-        nextRecord();
+        writeRecords(RecordType.RT2_USER_DEFINED_TEXT, nist.getUserDefinedTexts());
         
-        writeRecords(NistHelper.RT_LR_GS_FINGERPRINT, nist.getLowResGrayscaleFingerprints(), false);
+        writeRecords(RecordType.RT4_HR_GS_FINGERPRINT, nist.getHiResGrayscaleFingerprints());
         
-        writeRecords(NistHelper.RT_HR_GS_FINGERPRINT, nist.getHiResGrayscaleFingerprints(), false);
+        writeRecords(RecordType.RT7_USER_DEFINED_IMAGE, nist.getUserDefinedImages());
         
-        writeRecords(NistHelper.RT_LR_BINARY_FINGERPRINT, nist.getLowResBinaryFingerprints(), false);
+        writeRecords(RecordType.RT8_SIGNATURE_IMAGE, nist.getSignatures());
         
-        writeRecords(NistHelper.RT_HR_BINARY_FINGERPRINT, nist.getHiResBinaryFingerprints(), false);
+        writeRecords(RecordType.RT9_MINUTIAE_DATA, nist.getMinutiaeData());
         
-        writeRecords(NistHelper.RT_USER_DEFINED_IMAGE, nist.getUserDefinedImages(), false);
+        writeRecords(RecordType.RT10_FACIAL_N_SMT_IMAGE_DATA, nist.getFacialAndSmtImages());
         
-        writeRecords(NistHelper.RT_SIGNATURE_IMAGE, nist.getSignatures(), false);
+        writeRecords(RecordType.RT13_VR_LATENT_IMAGE, nist.getVariableResLatentImages());
         
-        writeRecords(NistHelper.RT_MINUTIAE_DATA, nist.getMinutiaeData(), true);
+        writeRecords(RecordType.RT14_VR_FINGERPRINT, nist.getVariableResFingerprints());
         
-        writeRecords(NistHelper.RT_FACIAL_N_SMT_IMAGE_DATA, nist.getFacialAndSmtImages(), true);
+        writeRecords(RecordType.RT15_VR_PALMPRINT, nist.getVariableResPalmprints());
         
-        writeRecords(NistHelper.RT_VR_LATENT_IMAGE, nist.getVariableResLatentImages(), true);
-        
-        writeRecords(NistHelper.RT_VR_FINGERPRINT, nist.getVariableResFingerprints(), true);
-        
-        writeRecords(NistHelper.RT_VR_PALMPRINT, nist.getVariableResPalmprints(), true);
-        
-        writeRecords(NistHelper.RT_IRIS_IMAGE, nist.getIrisImages(), true);
+        writeRecords(RecordType.RT17_IRIS_IMAGE, nist.getIrisImages());
         
         return baos.toByteArray();
     }
 
-    private <T extends BaseRecord> void writeRecords(int crt, List<T> records, boolean useSeparator) throws IOException {
+    private <T extends BaseRecord> void writeRecords(RecordType type, List<T> records) throws IOException {
         if (records == null || records.isEmpty()) {
             return;
         }
         
-        if (useSeparator) {
-            nextRecord();
-        }
-
-        RecordWriter<T> writer = writerFactory.writer(crt);
+        RecordWriter<T> writer = writerFactory.writer(type);
         for (T record: records) {
             writer.write(baos, record);
         }
     }
     
-    private void nextRecord() {
-        baos.write(NistHelper.SEP_FS);
-    }
-
 }

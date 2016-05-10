@@ -1,9 +1,11 @@
 package org.jnbis.internal.record.reader;
 
-import org.jnbis.internal.NistHelper;
 import org.jnbis.api.model.record.TransactionInformation;
 import org.jnbis.api.model.record.TransactionInformation.InfoDesignation;
 import org.jnbis.api.model.record.TransactionInformation.TransactionContent;
+import org.jnbis.internal.NistHelper;
+import org.jnbis.internal.NistHelper.Field;
+import org.jnbis.internal.NistHelper.Token;
 
 /**
  * @author ericdsoto
@@ -12,60 +14,49 @@ public class TransactionInfoReader extends RecordReader {
 
     @Override
     public TransactionInformation read(NistHelper.Token token) {
-        if (token.pos >= token.buffer.length) {
-            throw new RuntimeException("T1::NULL pointer to T1 record");
-        }
-
         TransactionInformation transaction = new TransactionInformation();
 
-        while (true) {
-            NistHelper.Tag tag = getTagInfo(token);
+        while (token.buffer.hasRemaining()) {
+            Field field = nextField(token);
 
-            if (tag.type != NistHelper.RT_TRANSACTION_INFO) {
-                throw new RuntimeException("T1::Invalid Record Type : " + tag.type);
-            }
+            String value = field.asString();
 
-            String value = nextWord(token, NistHelper.TAG_SEP_GSFS, NistHelper.FIELD_MAX_LENGTH - 1, false);
-
-            switch (tag.field) {
+            switch (field.fieldNumber) {
             case 1:
-                transaction.setLogicalRecordLength(value);
+                transaction.setLogicalRecordLength(Integer.parseInt(value));
                 break;
             case 2:
                 transaction.setVersion(value);
                 break;
-            case 3:
-                token.header = value;
-                NistHelper.Token contentToken = new NistHelper.Token(value.getBytes());
-                
+            case 3: {
                 TransactionContent content = new TransactionContent();
-                String subField = nextWord(contentToken, NistHelper.TAG_SEP_USRS, NistHelper.FIELD_MAX_LENGTH - 1, false);
-                content.setFirstRecordCategoryCode(Integer.parseInt(subField));
-                contentToken.pos++;
-                subField = nextWord(contentToken, NistHelper.TAG_SEP_USRS, NistHelper.FIELD_MAX_LENGTH - 1, false);
-                content.setContentRecordCount(Integer.parseInt(subField));
-                contentToken.pos++;
+                Token subToken = new Token(field.value);
+                Field subField = nextInformationItem(subToken);
+                content.setFirstRecordCategoryCode(subField.asInteger());
+
+                subField = nextInformationItem(subToken);
+                content.setContentRecordCount(subField.asInteger());
 
                 while (true) {
-                    subField = nextWord(contentToken, NistHelper.TAG_SEP_USRS, NistHelper.FIELD_MAX_LENGTH - 1, false);
-                    int recordType = Integer.parseInt(subField);
-                    contentToken.pos++;
-                    subField = nextWord(contentToken, NistHelper.TAG_SEP_USRS, NistHelper.FIELD_MAX_LENGTH - 1, false);
-                    int idc = Integer.parseInt(subField);
-
-                    content.getIdcs().add(new InfoDesignation(recordType, idc));
-                    
-                    if (contentToken.pos++ == contentToken.buffer.length || contentToken.buffer[contentToken.pos] == NistHelper.SEP_GS) {
+                    subField = nextInformationItem(subToken);
+                    if (subField == null) {
                         break;
                     }
+                    int recordType = subField.asInteger();
+
+                    subField = nextInformationItem(subToken);
+                    int idc = subField.asInteger();
+
+                    content.getIdcs().add(new InfoDesignation(recordType, idc));
                 }
                 transaction.setTransactionContent(content);
                 break;
+            }
             case 4:
                 transaction.setTypeOfTransaction(value);
                 break;
             case 5:
-                transaction.setDate(value);
+                transaction.setDate(parseDate(value));
                 break;
             case 6:
                 transaction.setPriority(value);
@@ -94,14 +85,16 @@ public class TransactionInfoReader extends RecordReader {
             case 14:
                 transaction.setGreenwichMeanTime(value);
                 break;
-            case 15:
-                token.setCharSetDecoder(value);
+            case 15: {
+                TransactionContent content = new TransactionContent();
+                Token subToken = new Token(field.value);
+                Field subField = nextInformationItem(subToken);
+                content.setFirstRecordCategoryCode(subField.asInteger());
+
+                token.setCharSet(value);
                 transaction.setDirectoryOfCharsets(value);
                 break;
             }
-
-            if (token.buffer[token.pos++] == NistHelper.SEP_FS) {
-                break;
             }
         }
 

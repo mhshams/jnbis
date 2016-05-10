@@ -1,6 +1,7 @@
 package org.jnbis.api.model.record;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import org.jnbis.internal.record.BaseRecord;
@@ -127,7 +128,7 @@ public class TransactionInformation extends BaseRecord {
     private String typeOfTransaction;
     // 1.005 - DAT
     @JsonProperty("date")
-    private String date;
+    private Date date;
     // 1.006 - PRY
     @JsonProperty("priority")
     private String priority;
@@ -183,11 +184,11 @@ public class TransactionInformation extends BaseRecord {
         this.typeOfTransaction = typeOfTransaction;
     }
 
-    public String getDate() {
+    public Date getDate() {
         return date;
     }
 
-    public void setDate(String date) {
+    public void setDate(Date date) {
         this.date = date;
     }
 

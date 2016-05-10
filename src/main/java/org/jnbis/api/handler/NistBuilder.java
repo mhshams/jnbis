@@ -3,9 +3,11 @@ package org.jnbis.api.handler;
 import org.jnbis.api.model.Nist;
 import org.jnbis.api.model.record.HighResolutionGrayscaleFingerprint;
 import org.jnbis.api.model.record.TransactionInformation;
-import org.jnbis.api.model.record.UserDefinedDescriptiveText;
 import org.jnbis.api.model.record.TransactionInformation.InfoDesignation;
 import org.jnbis.api.model.record.TransactionInformation.TransactionContent;
+import org.jnbis.api.model.record.UserDefinedDescriptiveText;
+import org.jnbis.api.model.record.VariableResolutionFingerprint;
+import org.jnbis.internal.NistHelper.RecordType;
 import org.jnbis.internal.record.BaseRecord;
 
 public abstract class NistBuilder {
@@ -14,13 +16,13 @@ public abstract class NistBuilder {
     private TransactionContent transactionContent;
     private int currentIdc = 0;
     
-    protected void updateTransactionContent(int recordType, BaseRecord record) {
+    protected void updateTransactionContent(RecordType recordType, BaseRecord record) {
         if (transactionContent == null) {
             transactionContent = new TransactionContent();
         }
         
         if (transactionContent.getFirstRecordCategoryCode() == 0) {
-            transactionContent.setFirstRecordCategoryCode(recordType);
+            transactionContent.setFirstRecordCategoryCode(recordType.type);
         }
         
         transactionContent.setContentRecordCount(transactionContent.getContentRecordCount() + 1);
@@ -35,7 +37,7 @@ public abstract class NistBuilder {
             record.setIdc(recordIdc);
         }
         
-        transactionContent.getIdcs().add(new InfoDesignation(recordType, recordIdc));
+        transactionContent.getIdcs().add(new InfoDesignation(recordType.type, recordIdc));
     }
     
     public NistHandler build() {
@@ -53,4 +55,5 @@ public abstract class NistBuilder {
     public abstract NistBuilder transactionInfo(TransactionInformation type1);
     public abstract NistBuilder add(UserDefinedDescriptiveText type2);
     public abstract NistBuilder add(HighResolutionGrayscaleFingerprint type4);
+    public abstract NistBuilder add(VariableResolutionFingerprint type14);
 }

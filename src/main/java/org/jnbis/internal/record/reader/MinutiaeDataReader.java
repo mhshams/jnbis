@@ -1,6 +1,10 @@
 package org.jnbis.internal.record.reader;
 
 import org.jnbis.internal.NistHelper;
+import org.jnbis.internal.NistHelper.Field;
+
+import java.nio.ByteBuffer;
+
 import org.jnbis.api.model.record.MinutiaeData;
 
 /**
@@ -10,49 +14,32 @@ public class MinutiaeDataReader extends RecordReader {
 
     @Override
     public MinutiaeData read(NistHelper.Token token) {
-        if (token.pos >= token.buffer.length) {
-            throw new RuntimeException("T9::NULL pointer to T9 record");
-        }
-
         MinutiaeData minutiaeData = new MinutiaeData();
 
-        int start = token.pos;
+        ByteBuffer buffer = token.buffer;
 
-        NistHelper.Tag tag = getTagInfo(token);
-        if (tag.field != 1) {
-            throw new RuntimeException("T9::Invalid Record type = " + tag.type);
+        while (buffer.hasRemaining()) {
+            Field field = nextField(token);
+
+            String value = field.asString();
+
+            switch (field.fieldNumber) {
+            case 1:
+                minutiaeData.setLogicalRecordLength(field.asInteger());
+                break;
+            case 2:
+                minutiaeData.setIdc(Integer.parseInt(value));
+                break;
+            case 3:
+                minutiaeData.setImpressionType(value);
+                break;
+            case 4:
+                minutiaeData.setMinutiaeFormat(value);
+                break;
+            }
         }
-
-        int length = Integer.parseInt(nextWord(token, NistHelper.TAG_SEP_GSFS, NistHelper.FIELD_MAX_LENGTH - 1, false));
-
-        //while (true) {
-
-        token.pos++;
-
-        tag = getTagInfo(token);
-
-        //if (tag.field == 999) {
-        byte[] data = new byte[length - (token.pos - start)];
-        System.arraycopy(token.buffer, token.pos, data, 0, data.length);
-        token.pos = token.pos + data.length;
-        //facialRecord.setImageData(data);
-        //break;
-        //}
-
-        //String word = nextWord(token, NistHelper.TAG_SEP_GSFS, NistHelper.FIELD_MAX_LENGTH - 1, false);
-
-        //}
-
+        
         return minutiaeData;
-    }
-
-    protected NistHelper.Tag getTagInfo(NistHelper.Token token) {
-        String type = nextWord(token, NistHelper.TAG_SEP_DOT, 2, false);
-        token.pos++;
-        String field = nextWord(token, NistHelper.TAG_SEP_COLN, 10, false);
-        token.pos++;
-
-        return new NistHelper.Tag(Integer.parseInt(type), Integer.parseInt(field));
     }
 
 }

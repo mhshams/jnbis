@@ -53,13 +53,6 @@ public class AnsiReferencesTest {
     };
 
     @Test
-    public void type_3() throws IOException {
-        Nist decoded = decode(FILES[0]);
-        commonAssert(decoded);
-        assertEquals(1, decoded.getLowResGrayscaleFingerprints().size());
-    }
-
-    @Test
     public void type4_14_slaps() throws IOException {
         Nist decoded = decode(FILES[1]);
         commonAssert(decoded);
@@ -79,20 +72,6 @@ public class AnsiReferencesTest {
         Nist decoded = decode(FILES[3]);
         commonAssert(decoded);
         assertEquals(14, decoded.getHiResGrayscaleFingerprints().size());
-    }
-
-    @Test
-    public void type5() throws IOException {
-        Nist decoded = decode(FILES[4]);
-        commonAssert(decoded);
-        assertEquals(1, decoded.getLowResBinaryFingerprints().size());
-    }
-
-    @Test
-    public void type6() throws IOException {
-        Nist decoded = decode(FILES[5]);
-        commonAssert(decoded);
-        assertEquals(1, decoded.getHiResBinaryFingerprints().size());
     }
 
     @Test
@@ -251,7 +230,7 @@ public class AnsiReferencesTest {
     public void type14_amp_nqm_utf8() throws IOException {
         Nist decoded = decode(FILES[26]);
         Map<Integer, String> userDefinedFields = decoded.getUserDefinedTexts().get(0).getUserDefinedFields();
-        assertEquals("55", decoded.getUserDefinedTexts().get(0).getLogicalRecordLength());
+        assertEquals(55, decoded.getUserDefinedTexts().get(0).getLogicalRecordLength());
         assertEquals(new Integer(0), decoded.getUserDefinedTexts().get(0).getIdc());
         assertEquals("two chinese characters: 華裔", userDefinedFields.get(3));
     }
@@ -296,7 +275,7 @@ public class AnsiReferencesTest {
         assertEquals(1, decoded.getUserDefinedTexts().size());
 
         Map<Integer, String> userDefinedFields = decoded.getUserDefinedTexts().get(0).getUserDefinedFields();
-        assertEquals("57", decoded.getUserDefinedTexts().get(0).getLogicalRecordLength());
+        assertEquals(57, decoded.getUserDefinedTexts().get(0).getLogicalRecordLength());
         assertEquals(new Integer(0), decoded.getUserDefinedTexts().get(0).getIdc());
         assertEquals("domain defined text place holder", userDefinedFields.get(3));
     }

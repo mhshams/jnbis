@@ -1,7 +1,9 @@
 package org.jnbis.internal.record.reader;
 
-import org.jnbis.internal.NistHelper;
+import java.nio.ByteBuffer;
+
 import org.jnbis.api.model.record.UserDefinedImage;
+import org.jnbis.internal.NistHelper;
 
 /**
  * @author ericdsoto
@@ -10,29 +12,20 @@ public class UserDefinedImageReader extends RecordReader {
 
     @Override
     public UserDefinedImage read(NistHelper.Token token) {
-        if (token.pos >= token.buffer.length) {
-            throw new RuntimeException("T7::NULL pointer to T7 record");
-        }
-
         UserDefinedImage userDefinedImage = new UserDefinedImage();
 
-        //Assigning t7-Header values
-        Integer length = (int) readInt(token);
-        //int fingerPrintNo = token.buffer[token.pos + 6];
+        ByteBuffer buffer = token.buffer;
+        
+        /* Total length of record, including field 001 */
+        int recordLength = buffer.getInt();
+        userDefinedImage.setLogicalRecordLength(recordLength);
 
-        int dataSize = length - 5;
+        int idc = buffer.get();
+        userDefinedImage.setIdc(idc);
 
-        if (token.pos + dataSize + 4 > token.buffer.length) {
-            dataSize += token.buffer.length - token.pos - 5;
-        }
-
-        byte[] data = new byte[dataSize];
-        System.arraycopy(token.buffer, token.pos + 5, data, 0, data.length + 5 - 5);
-
-        token.pos += length;
-
+        byte[] data = new byte[buffer.remaining()];
+        buffer.get(data);
         userDefinedImage.setImageData(data);
-        userDefinedImage.setLogicalRecordLength(length.toString());
 
         return userDefinedImage;
     }

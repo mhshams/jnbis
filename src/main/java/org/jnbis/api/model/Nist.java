@@ -15,13 +15,7 @@ public abstract class Nist {
 
     public abstract List<UserDefinedDescriptiveText> getUserDefinedTexts();
 
-    public abstract List<LowResolutionGrayscaleFingerprint> getLowResGrayscaleFingerprints();
-
     public abstract List<HighResolutionGrayscaleFingerprint> getHiResGrayscaleFingerprints();
-
-    public abstract List<LowResolutionBinaryFingerprint> getLowResBinaryFingerprints();
-
-    public abstract List<HighResolutionBinaryFingerprint> getHiResBinaryFingerprints();
 
     public abstract List<UserDefinedImage> getUserDefinedImages();
 

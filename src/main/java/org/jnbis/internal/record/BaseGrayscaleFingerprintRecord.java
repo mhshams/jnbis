@@ -6,6 +6,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 /**
  * @author ericdsoto
  */
+@SuppressWarnings("serial")
 @JsonIgnoreProperties(ignoreUnknown = true)
 public abstract class BaseGrayscaleFingerprintRecord extends BaseImageRecord {
     // IMP

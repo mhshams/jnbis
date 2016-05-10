@@ -11,6 +11,7 @@ import org.jnbis.api.model.record.TransactionInformation;
 import org.jnbis.api.model.record.TransactionInformation.InfoDesignation;
 import org.jnbis.api.model.record.TransactionInformation.TransactionContent;
 import org.jnbis.internal.NistHelper;
+import org.jnbis.internal.NistHelper.RecordType;
 
 /**
  * @author argonaut
@@ -18,26 +19,27 @@ import org.jnbis.internal.NistHelper;
 public class TransactionInfoWriter extends RecordWriter<TransactionInformation> {
 
     @Override
+    public RecordType getRecordType() {
+        return RecordType.RT1_TRANSACTION_INFO;
+    }
+
+    @Override
     public void write(OutputStream out, TransactionInformation record) throws IOException {
         ByteArrayOutputStream buffer = new ByteArrayOutputStream();
-        Writer writer = new OutputStreamWriter(buffer, NistHelper.USASCII.charset().newEncoder());
+        Writer writer = new OutputStreamWriter(buffer, NistHelper.USASCII);
 
-        for (int i = 1; i < 16; i++) {
+        //TODO Change to the style of VariableResolutionFingerprintWriter
+        for (int i = 2; i < 16; i++) {
 
-            if (i > 1) {
-                String tag = String.format("%d.%03d:", NistHelper.RT_TRANSACTION_INFO, i);
-                writer.write(tag);
-            }
+            String tag = fieldTag(RecordType.RT1_TRANSACTION_INFO, i);
+            writer.write(tag);
 
             switch (i) {
-            case 1:
-                /* We calculate the length at the end */
-                break;
             case 2:
                 if (record.getVersion() != null) {
                     writer.write(record.getVersion());
                 } else {
-                    writer.write("0400");
+                    writer.write("0500");
                 }
                 break;
             case 3:
@@ -63,7 +65,7 @@ public class TransactionInfoWriter extends RecordWriter<TransactionInformation> 
                 writer.write(record.getTypeOfTransaction());
                 break;
             case 5:
-                writer.write(record.getDate());
+                writer.write(formatDate(record.getDate()));
                 break;
             case 6:
                 /* Optional */
@@ -108,9 +110,9 @@ public class TransactionInfoWriter extends RecordWriter<TransactionInformation> 
                 }
                 break;
             case 15:
-//                writer.write(String.format("%03d", 3));
-//                writer.write(NistHelper.SEP_US);
-//                writer.write(NistHelper.UTF16.charset().name());
+                writer.write(String.format("%03d", 3));
+                writer.write(NistHelper.SEP_US);
+                writer.write(NistHelper.UTF8.name());
                 break;
             }
 
@@ -121,11 +123,9 @@ public class TransactionInfoWriter extends RecordWriter<TransactionInformation> 
         }
 
         writer.flush();
-        int length = buffer.size();
-        String header = String.format("%d.%03d:%d", NistHelper.RT_TRANSACTION_INFO, 1, length + 10);
-        out.write(header.getBytes());
+        buffer.write(NistHelper.SEP_FS);
         
-        out.write(buffer.toByteArray());
+        writeRecord(out, buffer);        
         
         writer.close();
     }

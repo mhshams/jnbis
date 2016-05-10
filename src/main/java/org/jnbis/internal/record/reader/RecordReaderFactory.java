@@ -1,46 +1,36 @@
 package org.jnbis.internal.record.reader;
 
 
+import java.util.HashMap;
+import java.util.Map;
+
 import org.jnbis.internal.NistHelper;
+import org.jnbis.internal.NistHelper.RecordType;
 import org.jnbis.internal.record.BaseRecord;
-import org.jnbis.internal.record.reader.*;
 
 /**
  * @author ericdsoto
  */
 public class RecordReaderFactory {
-    private static final RecordReader NOT_SUPPORTED = new RecordReader() {
-        @Override
-        public BaseRecord read(NistHelper.Token token) {
-            throw new UnsupportedOperationException("record type: " + token.crt + " no supported!");
-        }
-    };
 
-    private static final RecordReader[] READERS = new RecordReader[18];
+    private static final Map<RecordType, RecordReader> READERS = new HashMap<>();
 
     static {
-        READERS[0] = new TransactionInfoReader();
-        READERS[NistHelper.RT_TRANSACTION_INFO] = new TransactionInfoReader();
-        READERS[NistHelper.RT_USER_DEFINED_TEXT] = new UserDefinedTextReader();
-        READERS[NistHelper.RT_LR_GS_FINGERPRINT] = new LowResolutionGrayscaleFingerprintReader();
-        READERS[NistHelper.RT_HR_GS_FINGERPRINT] = new HighResolutionGrayscaleFingerprintReader();
-        READERS[NistHelper.RT_LR_BINARY_FINGERPRINT] = new LowResolutionBinaryFingerprintReader();
-        READERS[NistHelper.RT_HR_BINARY_FINGERPRINT] = new HighResolutionBinaryFingerprintReader();
-        READERS[NistHelper.RT_USER_DEFINED_IMAGE] = new UserDefinedImageReader();
-        READERS[NistHelper.RT_SIGNATURE_IMAGE] = new SignatureImageReader();
-        READERS[NistHelper.RT_MINUTIAE_DATA] = new MinutiaeDataReader();
-        READERS[NistHelper.RT_FACIAL_N_SMT_IMAGE_DATA] = new FacialAndSmtImageReader();
-        READERS[11] = NOT_SUPPORTED;
-        READERS[12] = NOT_SUPPORTED;
-        READERS[NistHelper.RT_VR_LATENT_IMAGE] = new VariableResolutionLatentImageReader();
-        READERS[NistHelper.RT_VR_FINGERPRINT] = new VariableResolutionFingerprintReader();
-        READERS[NistHelper.RT_VR_PALMPRINT] = new VariableResolutionPalmprintReader();
-        READERS[16] = NOT_SUPPORTED;
-        READERS[NistHelper.RT_IRIS_IMAGE] = new IrisImageReader();
+        READERS.put(RecordType.RT1_TRANSACTION_INFO, new TransactionInfoReader());
+        READERS.put(RecordType.RT2_USER_DEFINED_TEXT, new UserDefinedTextReader());
+        READERS.put(RecordType.RT4_HR_GS_FINGERPRINT, new HighResolutionGrayscaleFingerprintReader());
+        READERS.put(RecordType.RT7_USER_DEFINED_IMAGE, new UserDefinedImageReader());
+        READERS.put(RecordType.RT8_SIGNATURE_IMAGE, new SignatureImageReader());
+        READERS.put(RecordType.RT9_MINUTIAE_DATA, new MinutiaeDataReader());
+        READERS.put(RecordType.RT10_FACIAL_N_SMT_IMAGE_DATA, new FacialAndSmtImageReader());
+        READERS.put(RecordType.RT13_VR_LATENT_IMAGE, new VariableResolutionLatentImageReader());
+        READERS.put(RecordType.RT14_VR_FINGERPRINT, new VariableResolutionFingerprintReader());
+        READERS.put(RecordType.RT15_VR_PALMPRINT, new VariableResolutionPalmprintReader());
+        READERS.put(RecordType.RT17_IRIS_IMAGE, new IrisImageReader());
     }
 
     public RecordReader reader(NistHelper.Token token) {
-        return READERS[token.crt];
+        return READERS.get(token.crt);
     }
 
     public BaseRecord read(NistHelper.Token token) {

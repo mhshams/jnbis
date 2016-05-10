@@ -1,7 +1,10 @@
 package org.jnbis.internal.record.reader;
 
-import org.jnbis.internal.NistHelper;
+import java.nio.ByteBuffer;
+
 import org.jnbis.api.model.record.VariableResolutionPalmprint;
+import org.jnbis.internal.NistHelper;
+import org.jnbis.internal.NistHelper.Field;
 
 /**
  * @author ericdsoto
@@ -10,93 +13,73 @@ public class VariableResolutionPalmprintReader extends RecordReader {
 
     @Override
     public VariableResolutionPalmprint read(NistHelper.Token token) {
-        if (token.pos >= token.buffer.length) {
-            throw new RuntimeException("T14::NULL pointer to T14 record");
-        }
-
         VariableResolutionPalmprint palmprint = new VariableResolutionPalmprint();
 
-        int start = token.pos;
+        ByteBuffer buffer = token.buffer;
+        while (buffer.hasRemaining()) {
+            Field field = nextField(token);
 
-        NistHelper.Tag tag = getTagInfo(token);
-        if (tag.field != 1) {
-            throw new RuntimeException("T14::Invalid Record type = " + tag.type);
-        }
-
-        Integer length = Integer.parseInt(nextWord(token, NistHelper.TAG_SEP_GSFS, NistHelper.FIELD_MAX_LENGTH - 1, false));
-        palmprint.setLogicalRecordLength(length.toString());
-
-        while (true) {
-
-            token.pos++;
-
-            tag = getTagInfo(token);
-            if (tag.field == 999) {
-                byte[] data = new byte[length - (token.pos - start)];
-                System.arraycopy(token.buffer, token.pos, data, 0, data.length);
-                token.pos = token.pos + data.length;
-                palmprint.setImageData(data);
+            switch (field.fieldNumber) {
+            case 1:
+                palmprint.setLogicalRecordLength(field.asInteger());
                 break;
-            }
-
-            String word = nextWord(token, NistHelper.TAG_SEP_GSFS, NistHelper.FIELD_MAX_LENGTH - 1, false);
-            switch (tag.field) {
-                case 1:
-                    palmprint.setLogicalRecordLength(word);
-                    break;
-                case 2:
-                    palmprint.setIdc(Integer.parseInt(word));
-                    break;
-                case 3:
-                    palmprint.setImpressionType(word);
-                    break;
-                case 4:
-                    palmprint.setSourceAgency(word);
-                    break;
-                case 5:
-                    palmprint.setCaptureDate(word);
-                    break;
-                case 6:
-                    palmprint.setHorizontalLineLength(Integer.parseInt(word));
-                    break;
-                case 7:
-                    palmprint.setVerticalLineLength(Integer.parseInt(word));
-                    break;
-                case 8:
-                    palmprint.setScaleUnits(word);
-                    break;
-                case 9:
-                    palmprint.setHorizontalPixelScale(word);
-                    break;
-                case 10:
-                    palmprint.setVerticalPixelScale(word);
-                    break;
-                case 11:
-                    palmprint.setCompressionAlgorithm(word);
-                    break;
-                case 12:
-                    palmprint.setBitsPerPixel(word);
-                    break;
-                case 13:
-                    palmprint.setPalmprintPosition(word);
-                    break;
-                case 16:
-                    palmprint.setScannedHorizontalPixelScale(word);
-                    break;
-                case 17:
-                    palmprint.setScannedVerticalPixelScale(word);
-                    break;
-                case 20:
-                    palmprint.setComment(word);
-                    break;
-                case 24:
-                    palmprint.setPalmprintQualityMetric(word);
-                    break;
-                case 30:
-                    palmprint.setDeviceMonitoringMode(word);
-                    break;
-                default:
-                    break;
+            case 2:
+                palmprint.setIdc(field.asInteger());
+                break;
+            case 3:
+                palmprint.setImpressionType(field.asInteger());
+                break;
+            case 4:
+                palmprint.setSourceAgency(field.asString());
+                break;
+            case 5:
+                palmprint.setCaptureDate(parseDate(field.asString()));
+                break;
+            case 6:
+                palmprint.setHorizontalLineLength(field.asInteger());
+                break;
+            case 7:
+                palmprint.setVerticalLineLength(field.asInteger());
+                break;
+            case 8:
+                palmprint.setScaleUnits(field.asInteger());
+                break;
+            case 9:
+                palmprint.setHorizontalPixelScale(field.asInteger());
+                break;
+            case 10:
+                palmprint.setVerticalPixelScale(field.asInteger());
+                break;
+            case 11:
+                palmprint.setCompressionAlgorithm(field.asString());
+                break;
+            case 12:
+                palmprint.setBitsPerPixel(field.asInteger());
+                break;
+            case 13:
+                palmprint.setPalmprintPosition(field.asString());
+                break;
+            case 16:
+                palmprint.setScannedHorizontalPixelScale(field.asInteger());
+                break;
+            case 17:
+                palmprint.setScannedVerticalPixelScale(field.asInteger());
+                break;
+            case 20:
+                palmprint.setComment(field.asString());
+                break;
+            case 24:
+                palmprint.setPalmprintQualityMetric(field.asString());
+                break;
+            case 30:
+                palmprint.setDeviceMonitoringMode(field.asString());
+                break;
+            case 999:
+                byte[] data = new byte[buffer.remaining()];
+                buffer.get(data);
+                break;
+            default:
+                System.err.println("Warning: Found type-14 field that is not handled: " + field.asString());
             }
         }
 
