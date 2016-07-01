@@ -1,6 +1,7 @@
 package org.jnbis.internal.record.reader;
 
 import java.nio.ByteBuffer;
+import java.util.logging.Logger;
 
 import org.jnbis.api.model.record.VariableResolutionFingerprint;
 import org.jnbis.api.model.record.VariableResolutionFingerprint.AMP;
@@ -20,6 +21,8 @@ import org.jnbis.internal.NistHelper.Token;
  */
 public class VariableResolutionFingerprintReader extends RecordReader {
 
+    public static final Logger logger = Logger.getLogger(VariableResolutionFingerprintReader.class.getName());
+    
     @Override
     public VariableResolutionFingerprint read(NistHelper.Token token) {
         VariableResolutionFingerprint fingerprint = new VariableResolutionFingerprint();
@@ -279,7 +282,7 @@ public class VariableResolutionFingerprintReader extends RecordReader {
                 fingerprint.setImageData(data);
                 break;
             default:
-                System.err.println("Warning: Found type-14 field that is not handled: " + field.asString());
+                logger.info(String.format("Found field that is not handled: 14.%d = %s", field.fieldNumber, field.asString()));
             }
         }
 
