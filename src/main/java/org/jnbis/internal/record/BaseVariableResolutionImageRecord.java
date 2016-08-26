@@ -34,10 +34,10 @@ public abstract class BaseVariableResolutionImageRecord extends BaseImageRecord 
     private int bitsPerPixel;
     // X.016 - SHPS
     @JsonProperty("scanned_horizontal_pixel_scale")
-    private int scannedHorizontalPixelScale;
+    private Integer scannedHorizontalPixelScale;
     // X.017 - SVPS
     @JsonProperty("scanned_vertical_pixel_scale")
-    private int scannedVerticalPixelScale;
+    private Integer scannedVerticalPixelScale;
     // X.020 - COM
     @JsonProperty("comment")
     private String comment;
@@ -101,19 +101,19 @@ public abstract class BaseVariableResolutionImageRecord extends BaseImageRecord 
         this.bitsPerPixel = bitsPerPixel;
     }
 
-    public int getScannedHorizontalPixelScale() {
+    public Integer getScannedHorizontalPixelScale() {
         return scannedHorizontalPixelScale;
     }
 
-    public void setScannedHorizontalPixelScale(int scannedHorizontalPixelScale) {
+    public void setScannedHorizontalPixelScale(Integer scannedHorizontalPixelScale) {
         this.scannedHorizontalPixelScale = scannedHorizontalPixelScale;
     }
 
-    public int getScannedVerticalPixelScale() {
+    public Integer getScannedVerticalPixelScale() {
         return scannedVerticalPixelScale;
     }
 
-    public void setScannedVerticalPixelScale(int scannedVerticalPixelScale) {
+    public void setScannedVerticalPixelScale(Integer scannedVerticalPixelScale) {
         this.scannedVerticalPixelScale = scannedVerticalPixelScale;
     }
 

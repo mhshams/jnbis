@@ -112,9 +112,13 @@ public class VariableResolutionFingerprintWriter extends RecordWriter<VariableRe
             }
         }
 
-        writeField(writer, 16, record.getScannedHorizontalPixelScale());
-        writeField(writer, 17, record.getScannedVerticalPixelScale());
-
+        if (record.getScannedHorizontalPixelScale() != null) {
+            writeField(writer, 16, record.getScannedHorizontalPixelScale());
+        }
+        if (record.getScannedVerticalPixelScale() != null) {
+            writeField(writer, 17, record.getScannedVerticalPixelScale());
+        }
+        
         {
             List<AMP> values = record.getAmputatedOrBandaged();
             if (!values.isEmpty()) {
@@ -137,7 +141,9 @@ public class VariableResolutionFingerprintWriter extends RecordWriter<VariableRe
 
         /* 19 Reserved */
         
-        writeField(writer, 20, record.getComment());
+        if (record.getComment() != null) {
+            writeField(writer, 20, record.getComment());
+        }
         
         {
             List<SEG> values = record.getFingerprintSegmentationPosition();
