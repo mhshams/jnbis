@@ -27,6 +27,9 @@ public abstract class NistBuilder {
         
         transactionContent.setContentRecordCount(transactionContent.getContentRecordCount() + 1);
         
+        /* The IDC may be set on the record to link multiple records. If not
+         * then assume that it is to be generated/assigned.
+         */
         Integer recordIdc = record.getIdc();
         if (recordIdc != null) {
             if (currentIdc < recordIdc) {

@@ -31,6 +31,8 @@ public class VariableResolutionFingerprintWriter extends RecordWriter<VariableRe
         ByteArrayOutputStream buffer = new ByteArrayOutputStream();
         Writer writer = new OutputStreamWriter(buffer, NistHelper.UTF8);
 
+        boolean hasImageData = record.getImageData() != null && record.getImageData().length > 0;
+        
         writeField(writer, 2, record.getIdc());
 
         writeField(writer, 3, record.getImpressionType());
@@ -39,20 +41,23 @@ public class VariableResolutionFingerprintWriter extends RecordWriter<VariableRe
 
         writeField(writer, 5, record.getCaptureDate());
 
-        writeField(writer, 6, record.getHorizontalLineLength());
-
-        writeField(writer, 7, record.getVerticalLineLength());
-
-        writeField(writer, 8, record.getScaleUnits());
-
-        writeField(writer, 9, record.getHorizontalPixelScale());
-
-        writeField(writer, 10, record.getVerticalPixelScale());
-
-        writeField(writer, 11, record.getCompressionAlgorithm());
-
-        writeField(writer, 12, record.getBitsPerPixel());
-
+        /* The following are mandatory if an image is present in 14.999. Otherwise they are absent. */
+        if (hasImageData) {
+            writeField(writer, 6, record.getHorizontalLineLength());
+    
+            writeField(writer, 7, record.getVerticalLineLength());
+    
+            writeField(writer, 8, record.getScaleUnits());
+    
+            writeField(writer, 9, record.getHorizontalPixelScale());
+    
+            writeField(writer, 10, record.getVerticalPixelScale());
+    
+            writeField(writer, 11, record.getCompressionAlgorithm());
+    
+            writeField(writer, 12, record.getBitsPerPixel());
+        }
+        
         if (!record.getFingerPosition().isEmpty()) {
             /*
              * In the 2007 and 2008 versions of the standard, this field had a
@@ -261,7 +266,7 @@ public class VariableResolutionFingerprintWriter extends RecordWriter<VariableRe
             }
         }
 
-        if (record.getImageData() != null && record.getImageData().length > 0) {
+        if (hasImageData) {
             writer.write(fieldTag(999));
             writer.flush();
             buffer.write(record.getImageData());
