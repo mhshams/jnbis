@@ -47,15 +47,20 @@ public abstract class RecordWriter<T extends BaseRecord> {
     }
     
     protected void writeRecord(OutputStream out, ByteArrayOutputStream buffer) throws IOException {
+        writeRecord(out, buffer, false);
+    }
+    
+    protected void writeRecord(OutputStream out, ByteArrayOutputStream buffer, boolean removeTrailingSeparator) throws IOException {
         /*
          * The 001 LEN field contains the length of the entire record, including the
          * size of the LEN field itself.
          */
         String header = fieldTag(1);
         
-        /* +1 for NistHelper.SEP_GS inserted after header */
-        int bufferLength = buffer.size() + 1;
-        int intermediateLength = bufferLength + header.length();
+        int bufferLength = removeTrailingSeparator ? buffer.size() - 1 : buffer.size();
+        
+        /* +1 for SEP_GS inserted after header, +1 for SEP_FS at end */
+        int intermediateLength = header.length() + 1 + bufferLength + 1;
         
         /*
          * If the intermediate length is close to pushing the total length to
@@ -76,7 +81,19 @@ public abstract class RecordWriter<T extends BaseRecord> {
 
         out.write(fullHeader.getBytes());
         out.write(NistHelper.SEP_GS);
-        out.write(buffer.toByteArray());
+        
+        /*
+         * In some cases, such as when a Type-14 record doesn't have image data, we need to
+         * drop the GS separator from the previous field so we don't end up with <GS><R
+         */
+        if (!removeTrailingSeparator) {
+            out.write(buffer.toByteArray());
+        } else {
+            byte[] data = buffer.toByteArray();
+            out.write(data, 0, data.length - 1);
+        }
+        
+        out.write(NistHelper.SEP_FS);
     }
     
     protected String formatDate(Date date) {

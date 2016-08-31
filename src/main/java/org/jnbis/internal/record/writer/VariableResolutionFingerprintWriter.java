@@ -105,7 +105,7 @@ public class VariableResolutionFingerprintWriter extends RecordWriter<VariableRe
 
                     writer.write(value.bottomVerticalCoordinate);
                     if (i < values.size() - 1) {
-                        writer.write(NistHelper.SEP_US);
+                        writer.write(NistHelper.SEP_RS);
                     }
                 }
                 writer.write(NistHelper.SEP_GS);
@@ -131,7 +131,7 @@ public class VariableResolutionFingerprintWriter extends RecordWriter<VariableRe
 
                     writer.write(value.amputatedOrBandagedCode);
                     if (i < values.size() - 1) {
-                        writer.write(NistHelper.SEP_US);
+                        writer.write(NistHelper.SEP_RS);
                     }
                 }
                 
@@ -166,7 +166,7 @@ public class VariableResolutionFingerprintWriter extends RecordWriter<VariableRe
 
                     writer.write(String.valueOf(value.bottomVerticalCoordinate));
                     if (i < values.size() - 1) {
-                        writer.write(NistHelper.SEP_US);
+                        writer.write(NistHelper.SEP_RS);
                     }
                 }
                 writer.write(NistHelper.SEP_GS);
@@ -185,7 +185,7 @@ public class VariableResolutionFingerprintWriter extends RecordWriter<VariableRe
 
                     writer.write(String.valueOf(value.nistImageQualityScore));
                     if (i < values.size() - 1) {
-                        writer.write(NistHelper.SEP_US);
+                        writer.write(NistHelper.SEP_RS);
                     }
                 }
                 writer.write(NistHelper.SEP_GS);
@@ -210,7 +210,7 @@ public class VariableResolutionFingerprintWriter extends RecordWriter<VariableRe
 
                     writer.write(String.valueOf(value.algorithmProductId));
                     if (i < values.size() - 1) {
-                        writer.write(NistHelper.SEP_US);
+                        writer.write(NistHelper.SEP_RS);
                     }
                 }
                 writer.write(NistHelper.SEP_GS);
@@ -235,7 +235,7 @@ public class VariableResolutionFingerprintWriter extends RecordWriter<VariableRe
 
                     writer.write(String.valueOf(value.algorithmProductId));
                     if (i < values.size() - 1) {
-                        writer.write(NistHelper.SEP_US);
+                        writer.write(NistHelper.SEP_RS);
                     }
                 }
                 writer.write(NistHelper.SEP_GS);
@@ -253,19 +253,17 @@ public class VariableResolutionFingerprintWriter extends RecordWriter<VariableRe
                     writer.write(NistHelper.SEP_US);
 
                     writer.write(String.valueOf(value.numberOfPoints));
-                    writer.write(NistHelper.SEP_US);
 
                     for (int p = 0; p < value.numberOfPoints; p++) {
+                        writer.write(NistHelper.SEP_US);
+
                         writer.write(String.valueOf(value.points[p][0]));
                         writer.write(NistHelper.SEP_US);
                         
                         writer.write(String.valueOf(value.points[p][1]));
-                        if (p < value.numberOfPoints - 1 || i < values.size() - 1) {
-                            writer.write(NistHelper.SEP_RS);
-                        }
                     }
                     if (i < values.size() - 1) {
-                        writer.write(NistHelper.SEP_US);
+                        writer.write(NistHelper.SEP_RS);
                     }
                 }
                 writer.write(NistHelper.SEP_GS);
@@ -276,12 +274,11 @@ public class VariableResolutionFingerprintWriter extends RecordWriter<VariableRe
             writer.write(fieldTag(999));
             writer.flush();
             buffer.write(record.getImageData());
-        } else {
-            writer.flush();
-            buffer.write(NistHelper.SEP_FS);
         }
         
-        writeRecord(out, buffer);
+        writer.flush();
+
+        writeRecord(out, buffer, !hasImageData);
         
         writer.close();
     }

@@ -23,7 +23,7 @@ public class UserDefinedTextWriter extends RecordWriter<UserDefinedDescriptiveTe
         ByteArrayOutputStream buffer = new ByteArrayOutputStream();
         Writer writer = new OutputStreamWriter(buffer, NistHelper.USASCII);
 
-        String idc = String.format("%d.%03d:%02d", RecordType.RT2_USER_DEFINED_TEXT.type, 2, record.getIdc());
+        String idc = String.format("%d.%03d:%d", RecordType.RT2_USER_DEFINED_TEXT.type, 2, record.getIdc());
         writer.write(idc);
         writer.write(NistHelper.SEP_GS);
 
@@ -45,7 +45,6 @@ public class UserDefinedTextWriter extends RecordWriter<UserDefinedDescriptiveTe
         }
 
         writer.flush();
-        buffer.write(NistHelper.SEP_FS);
         
         writeRecord(out, buffer);
     }
