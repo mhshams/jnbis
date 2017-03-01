@@ -120,6 +120,10 @@ public class VariableResolutionFingerprintReader extends RecordReader {
                 default:
                     break;
             }
+
+            if (token.buffer[token.pos++] == NistHelper.SEP_FS) {
+                break;
+            }
         }
 
         return fingerprint;
