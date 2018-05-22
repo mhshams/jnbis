@@ -41,6 +41,16 @@ public class SampleNistTest {
             String fileName = findFileName(fingerPrint.getImageDesignationCharacter());
 
             Assert.assertArrayEquals(FileUtils.read(new File(fileName)), pngArray);
+            
+            if (fingerPrint.getImageDesignationCharacter().equals("1"))
+            {
+            	Assert.assertEquals("3", fingerPrint.getImpressionType());
+            	Assert.assertEquals("1", fingerPrint.getImageDesignationCharacter());
+            	Assert.assertEquals("0", fingerPrint.getImageScanningResolution());
+            	Assert.assertEquals("1", fingerPrint.getCompressionAlgorithm());
+            	Assert.assertEquals("804", fingerPrint.getHorizontalLineLength());
+            	Assert.assertEquals("752", fingerPrint.getVerticalLineLength());
+            }	
         }
     }
 
