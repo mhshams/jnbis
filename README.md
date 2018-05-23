@@ -1,17 +1,20 @@
-#JNBIS
+# JNBIS
 Java Implementation of NIST Biometric Image Software (NBIS) 
 [![GitHub license](https://img.shields.io/badge/license-Apache%20License%202.0-blue.svg?style=flat)](http://www.apache.org/licenses/LICENSE-2.0)
-[![Build Status](https://travis-ci.org/mhshams/jnbis.svg?branch=master)](https://travis-ci.org/mhshams/jnbis)
 
-###About JNBIS
+* master [![Build Status](https://travis-ci.org/kareez/jnbis.svg?branch=master)](https://travis-ci.org/kareez/jnbis)
+* develop [![Build Status](https://travis-ci.org/kareez/jnbis.svg?branch=develop)](https://travis-ci.org/kareez/jnbis)
+
+
+### About JNBIS
 JNBIS is a library, written in Java, to extract and decode NIST (National Institute of Standards and Technology) compressed files and WSQ (Wavelet Scalar Quantization) images. 
 The code has been converted from NBIS (NIST Biometric Image Software) version 1.1 which is written in C.
 You can find more about NIST Biometric Image Software [here](http://www.nist.gov/itl/iad/ig/nbis.cfm).
 
 > **NOTE:** Version **2.x** is the active development branch, check branch **[version/1.x](https://github.com/mhshams/jnbis/tree/version/1.x)** for the older versions. 
 
-###Quick Start
-#####Build and Install
+### Quick Start
+##### Build and Install
 JNBIS is available in [the maven central repository](http://search.maven.org/#browse), so you just need to download and add it to your project libraries or 
 if you are using maven, add it to project dependencies.
 [![Maven Central](https://maven-badges.herokuapp.com/maven-central/com.github.mhshams/jnbis/badge.svg)](https://maven-badges.herokuapp.com/maven-central/com.github.mhshams/jnbis)
@@ -30,8 +33,8 @@ $ git clone git@github.com:mhshams/jnbis.git
 $ cd jnbis
 $ mvn package
 ```
-###Examples
-#####WSQ Decoding 
+### Examples
+##### WSQ Decoding 
 Convert WSQ image to PNG image and return the result as **File**
 ```Java
 File png = Jnbis.wsq()
@@ -69,7 +72,7 @@ byte[] gifBytes = Jnbis.wsq()
 ```
  
 For more examples check the **SampleWsqTest.java** in the project source. 
-#####NIST Decoding 
+##### NIST Decoding 
 Decode a NIST file with given file name
 ```Java
 Nist nist = Jnbis.nist().decode("/path/to/nist/file"));

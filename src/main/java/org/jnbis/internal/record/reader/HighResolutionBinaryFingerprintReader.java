@@ -17,7 +17,7 @@ public class HighResolutionBinaryFingerprintReader extends RecordReader {
         HighResolutionBinaryFingerprint fingerprint = new HighResolutionBinaryFingerprint();
 
         //Assigning t4-Header values
-        Integer length = (int) readInt(token);
+        int length = (int) read4BytesAsInt(token);
         int fingerPrintNo = token.buffer[token.pos + 6];
 
         int dataSize = length - 18;
@@ -30,9 +30,9 @@ public class HighResolutionBinaryFingerprintReader extends RecordReader {
         System.arraycopy(token.buffer, token.pos + 18, data, 0, data.length + 18 - 18);
 
         token.pos += length;
-        fingerprint.setImageDesignationCharacter(Integer.toString(fingerPrintNo));
+        fingerprint.setImageDesignationCharacter(String.valueOf(fingerPrintNo));
         fingerprint.setImageData(data);
-        fingerprint.setLogicalRecordLength(length.toString());
+        fingerprint.setLogicalRecordLength(String.valueOf(length));
 
         return fingerprint;
     }

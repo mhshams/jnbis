@@ -92,7 +92,8 @@ public class WsqDecoder {
                         && marker != WsqHelper.DQT_WSQ
                         && marker != WsqHelper.DHT_WSQ
                         && marker != WsqHelper.SOF_WSQ
-                        && marker != WsqHelper.COM_WSQ) {
+                        && marker != WsqHelper.COM_WSQ
+                        && marker != WsqHelper.EOI_WSQ) {
                     throw new RuntimeException("ERROR : getc_marker_wsq : No SOF, Table, or comment markers : " + marker);
                 }
 
@@ -103,7 +104,8 @@ public class WsqDecoder {
                         && marker != WsqHelper.DQT_WSQ
                         && marker != WsqHelper.DHT_WSQ
                         && marker != WsqHelper.SOB_WSQ
-                        && marker != WsqHelper.COM_WSQ) {
+                        && marker != WsqHelper.COM_WSQ
+                        && marker != WsqHelper.EOI_WSQ) {
                     throw new RuntimeException("ERROR : getc_marker_wsq : No SOB, Table, or comment markers : " +
                             marker);
                 }
@@ -728,6 +730,12 @@ public class WsqDecoder {
                 while (marker.value != WsqHelper.SOB_WSQ) {
                     getCTableWSQ(token, marker.value);
                     marker.value = getCMarkerWSQ(token, WsqHelper.TBLS_N_SOB);
+                    if (marker.value == WsqHelper.EOI_WSQ) {
+                        break;
+                    }
+                }
+                if (marker.value == WsqHelper.EOI_WSQ) {
+                    break;
                 }
                 hufftableId = getCBlockHeader(token); /* huffman table number */
 
