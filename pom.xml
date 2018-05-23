@@ -15,7 +15,7 @@
 
     <name>JNBIS</name>
     <description>Java implementation of NIST Biometric Image Decoder. Based on NBIS V1.1.0</description>
-    <url>https://github.com/mhshams/jnbis</url>
+    <url>https://github.com/kareez/jnbis</url>
     <licenses>
         <license>
             <name>The Apache Software License, Version 2.0</name>
@@ -25,9 +25,9 @@
         </license>
     </licenses>
     <scm>
-        <connection>scm:git:git@github.com:mhshams/jnbis.git</connection>
-        <developerConnection>scm:git:git@github.com:mhshams/jnbis.git</developerConnection>
-        <url>git@github.com:mhshams/jnbis.git</url>
+        <connection>scm:git:git@github.com:kareez/jnbis.git</connection>
+        <developerConnection>scm:git:git@github.com:kareez/jnbis.git</developerConnection>
+        <url>git@github.com:kareez/jnbis.git</url>
     </scm>
     <developers>
         <developer>
