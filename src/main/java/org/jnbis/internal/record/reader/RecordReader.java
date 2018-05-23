@@ -22,7 +22,7 @@ public abstract class RecordReader {
         return new NistHelper.Tag(Integer.parseInt(type.replace(",","")), Integer.parseInt(field));
     }
 
-    protected String nextWord(NistHelper.Token token, char[] sepList, int maxLen, boolean udd) {
+    String nextWord(NistHelper.Token token, char[] sepList, int maxLen, boolean udd) {
         int i = 0;
         while (i < maxLen &&
                 token.pos < token.buffer.length &&
@@ -44,7 +44,7 @@ public abstract class RecordReader {
         }
     }
 
-    protected long readInt(NistHelper.Token token) {
+    long read4BytesAsInt(NistHelper.Token token) {
         byte byte1 = token.buffer[token.pos];
         byte byte2 = token.buffer[token.pos + 1];
         byte byte3 = token.buffer[token.pos + 2];
@@ -53,4 +53,10 @@ public abstract class RecordReader {
         return (0xffL & byte1) << 24 | (0xffL & byte2) << 16 | (0xffL & byte3) << 8 | (0xffL & byte4);
     }
 
+    long read2BytesAsInt(NistHelper.Token token, int offset) {
+        byte byte1 = token.buffer[token.pos + offset];
+        byte byte2 = token.buffer[token.pos + offset + 1];
+
+        return (0xffL & byte1) << 8 | (0xffL & byte2);
+    }
 }

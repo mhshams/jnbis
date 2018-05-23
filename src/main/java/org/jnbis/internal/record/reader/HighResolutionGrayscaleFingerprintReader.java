@@ -1,7 +1,5 @@
 package org.jnbis.internal.record.reader;
 
-import java.util.Arrays;
-
 import org.jnbis.api.model.record.HighResolutionGrayscaleFingerprint;
 import org.jnbis.internal.NistHelper;
 
@@ -19,48 +17,38 @@ public class HighResolutionGrayscaleFingerprintReader extends RecordReader {
         HighResolutionGrayscaleFingerprint fingerprint = new HighResolutionGrayscaleFingerprint();
 
         //Assigning t4-Header values
-        Integer length = (int) readInt(token);
-        
+        int length = (int) read4BytesAsInt(token);
+
         //Refer to manual for byte positions:
         //https://www.nist.gov/sites/default/files/documents/itl/ansi/sp500-245-a16.pdf
-        
-        // Finger position (FGP)
-        int fingerPrintNo = token.buffer[token.pos + 6];
+
+        //Image designation character (IDC)
+        int idc = token.buffer[token.pos + 4];
+        fingerprint.setImageDesignationCharacter(String.valueOf(idc));
 
         //Impression type (IMP)
         int imp = token.buffer[token.pos + 5];
         fingerprint.setImpressionType(String.valueOf(imp));
-        
-        //Image designation character (IDC)
-        int idc = token.buffer[token.pos + 4];
-        fingerprint.setImageDesignationCharacter(String.valueOf(idc));
-        
+
+        // Finger position (FGP)
+        int fingerPrintNo = token.buffer[token.pos + 6];
+
         // Image scanning resolution (ISR)
         int isr = token.buffer[token.pos + 12];
         fingerprint.setImageScanningResolution(String.valueOf(isr));
-        
+
+        //Horizontal line length (HLL)
+        long hll = read2BytesAsInt(token, 13);
+        fingerprint.setHorizontalLineLength(String.valueOf(hll));
+
+        //Vertical line length (VLL)
+        long vll = read2BytesAsInt(token, 15);
+        fingerprint.setVerticalLineLength(String.valueOf(vll));
+
         //Grayscale compression algorithm (GCA)
         int gca = token.buffer[token.pos + 17];
         fingerprint.setCompressionAlgorithm(String.valueOf(gca));
-        
-        //Horizontal line length (HLL)
-        byte[] slice = Arrays.copyOfRange(token.buffer, token.pos + 13, token.pos + 15);
-        Long hll = byteToInt(slice, 2);
 
-        if (hll != null)
-        {	
-        	fingerprint.setHorizontalLineLength(String.valueOf(hll));
-        }	
-
-        //Vertical line length (VLL)
-        slice = Arrays.copyOfRange(token.buffer, token.pos + 15, token.pos + 17);
-        Long vll = byteToInt(slice, 2);
-        
-        if (vll != null)
-        {	
-        	fingerprint.setVerticalLineLength(String.valueOf(vll));
-        }	
-        	
         int dataSize = length - 18;
 
         if (token.pos + dataSize + 17 > token.buffer.length) {
@@ -71,21 +59,10 @@ public class HighResolutionGrayscaleFingerprintReader extends RecordReader {
         System.arraycopy(token.buffer, token.pos + 18, data, 0, data.length + 18 - 18);
 
         token.pos += length;
-        fingerprint.setImageDesignationCharacter(Integer.toString(fingerPrintNo));
+        fingerprint.setImageDesignationCharacter(String.valueOf(fingerPrintNo));
         fingerprint.setImageData(data);
-        fingerprint.setLogicalRecordLength(length.toString());
+        fingerprint.setLogicalRecordLength(String.valueOf(length));
 
         return fingerprint;
-    }
-    
-    /** length should be less than 4 (for int) **/
-    public long byteToInt(byte[] bytes, int length) {
-            int val = 0;
-            if(length>4) throw new RuntimeException("Too big to fit in int");
-            for (int i = 0; i < length; i++) {
-                val=val<<8;
-                val=val|(bytes[i] & 0xFF);
-            }
-            return val;
     }
 }

@@ -3,7 +3,6 @@ package org.jnbis.internal.record.reader;
 
 import org.jnbis.internal.NistHelper;
 import org.jnbis.internal.record.BaseRecord;
-import org.jnbis.internal.record.reader.*;
 
 /**
  * @author ericdsoto

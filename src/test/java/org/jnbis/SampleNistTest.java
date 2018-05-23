@@ -4,12 +4,14 @@ import org.jnbis.api.Jnbis;
 import org.jnbis.api.model.Nist;
 import org.jnbis.api.model.record.HighResolutionGrayscaleFingerprint;
 import org.jnbis.api.model.record.UserDefinedDescriptiveText;
-import org.junit.Assert;
 import org.junit.Test;
 
 import java.io.File;
 import java.util.List;
 import java.util.Map;
+
+import static org.junit.Assert.assertArrayEquals;
+import static org.junit.Assert.assertEquals;
 
 /**
  * @author <a href="mailto:m.h.shams@gmail.com">M. H. Shamsi</a>
@@ -24,13 +26,13 @@ public class SampleNistTest {
 
         UserDefinedDescriptiveText userDefinedText = nist.getUserDefinedTexts().get(0);
         Map<Integer, String> userDefinedFields = userDefinedText.getUserDefinedFields();
-        Assert.assertEquals("57", userDefinedFields.get(1));
-        Assert.assertEquals("00", userDefinedFields.get(2));
-        Assert.assertEquals("domain defined text place holder", userDefinedFields.get(3));
+        assertEquals("57", userDefinedFields.get(1));
+        assertEquals("00", userDefinedFields.get(2));
+        assertEquals("domain defined text place holder", userDefinedFields.get(3));
 
         List<HighResolutionGrayscaleFingerprint> hiResGrayscaleFingerprints = nist.getHiResGrayscaleFingerprints();
 
-        Assert.assertEquals(14, hiResGrayscaleFingerprints.size());
+        assertEquals(14, hiResGrayscaleFingerprints.size());
 
         for (HighResolutionGrayscaleFingerprint fingerPrint : hiResGrayscaleFingerprints) {
             byte[] pngArray = Jnbis.wsq()
@@ -40,17 +42,16 @@ public class SampleNistTest {
 
             String fileName = findFileName(fingerPrint.getImageDesignationCharacter());
 
-            Assert.assertArrayEquals(FileUtils.read(new File(fileName)), pngArray);
-            
-            if (fingerPrint.getImageDesignationCharacter().equals("1"))
-            {
-            	Assert.assertEquals("3", fingerPrint.getImpressionType());
-            	Assert.assertEquals("1", fingerPrint.getImageDesignationCharacter());
-            	Assert.assertEquals("0", fingerPrint.getImageScanningResolution());
-            	Assert.assertEquals("1", fingerPrint.getCompressionAlgorithm());
-            	Assert.assertEquals("804", fingerPrint.getHorizontalLineLength());
-            	Assert.assertEquals("752", fingerPrint.getVerticalLineLength());
-            }	
+            assertArrayEquals(FileUtils.read(new File(fileName)), pngArray);
+
+            if (fingerPrint.getImageDesignationCharacter().equals("1")) {
+                assertEquals("3", fingerPrint.getImpressionType());
+                assertEquals("1", fingerPrint.getImageDesignationCharacter());
+                assertEquals("0", fingerPrint.getImageScanningResolution());
+                assertEquals("1", fingerPrint.getCompressionAlgorithm());
+                assertEquals("804", fingerPrint.getHorizontalLineLength());
+                assertEquals("752", fingerPrint.getVerticalLineLength());
+            }
         }
     }
 
