@@ -21,7 +21,7 @@ if you are using maven, add it to project dependencies.
 
 ```xml
 <dependency>
-  <groupId>jnbis</groupId>
+  <groupId>com.github.mhshams</groupId>
   <artifactId>jnbis</artifactId>
   <version>2.x.x</version>
 </dependency>
