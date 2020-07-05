@@ -37,5 +37,7 @@ public abstract class Nist {
 
     public abstract List<VariableResolutionPalmprint> getVariableResPalmprints();
 
+    public abstract List<UserDefinedTestingImage> getUserDefinedTestingImages();
+
     public abstract List<IrisImage> getIrisImages();
 }

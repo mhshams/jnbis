@@ -71,6 +71,9 @@ public class NistDecoder {
             } else if (record instanceof VariableResolutionPalmprint) {
                 decoded.addVariableResPalmprint((VariableResolutionPalmprint) record);
 
+            } else if (record instanceof UserDefinedTestingImage) {
+                decoded.addUserDefinedTestingImage((UserDefinedTestingImage) record);
+
             } else if (record instanceof IrisImage) {
                 decoded.addIrisImage((IrisImage) record);
             }
