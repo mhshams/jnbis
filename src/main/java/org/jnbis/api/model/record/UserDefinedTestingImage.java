@@ -3,7 +3,6 @@ package org.jnbis.api.model.record;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import org.jnbis.internal.record.BaseImageRecord;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -13,29 +12,22 @@ import java.util.Map;
 public class UserDefinedTestingImage extends BaseImageRecord {
 
     // 16.003 - 16.005 and 16.013 - 16.998
-    // Key is the field identifier and the data is like a 2D array.
     @JsonProperty("user_defined_fields")
-    private Map<Integer, ArrayList<ArrayList<String>>> userDefinedFields;
+    private Map<Integer, String> userDefinedFields;
 
-    public Map<Integer, ArrayList<ArrayList<String>>> getUserDefinedFields() {
+    public Map<Integer, String> getUserDefinedFields() {
         return userDefinedFields;
     }
 
-    public void setUserDefinedFields(Map<Integer, ArrayList<ArrayList<String>>> userDefinedFields) {
+    public void setUserDefinedFields(Map<Integer, String> userDefinedFields) {
         this.userDefinedFields = userDefinedFields;
     }
 
-    public void addUserDefinedField(Integer key, ArrayList<String> value) {
+    public void addUserDefinedField(int key, String value) {
         if (userDefinedFields == null) {
             userDefinedFields = new HashMap<>();
         }
-
-        if (userDefinedFields.containsKey(key)) {
-            userDefinedFields.get(key).add(value);
-        } else {
-            userDefinedFields.put(key, new ArrayList<ArrayList<String>>());
-            userDefinedFields.get(key).add(value);
-        }
+        userDefinedFields.put(key, value);
     }
 
     // 16.008 - SLC

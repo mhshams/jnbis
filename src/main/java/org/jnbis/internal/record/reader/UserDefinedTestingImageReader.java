@@ -10,10 +10,6 @@ import java.util.Arrays;
  * @author TeeSofteis
  */
 public class UserDefinedTestingImageReader extends RecordReader {
-
-    static final char SEP_US = 31;
-    static final char SEP_RS = 30;
-
     @Override
     public UserDefinedTestingImage read(NistHelper.Token token) {
         if (token.pos >= token.buffer.length) {
@@ -77,12 +73,9 @@ public class UserDefinedTestingImageReader extends RecordReader {
                     if ((2 < tag.field && tag.field < 6) || (12 < tag.field && tag.field < 999)) {
                         // User defined fields could be found at tag 3-5 and 13-998. As the name implies,
                         // it is not obvious which format the data has. From my point of view, the best
-                        // solution is to handle the data as an array of text. Split data into sub fields and items.
-                        ArrayList<String> subFields = new ArrayList<>(Arrays.asList(word.split(String.valueOf(SEP_RS))));
-                        for (String subField : subFields) {
-                            ArrayList<String> items = new ArrayList<>(Arrays.asList(subField.split(String.valueOf(SEP_US))));
-                            userDefinedTestingImage.addUserDefinedField(tag.field, items);
-                        }
+                        // solution is to handle the data as an array of text, therefore split data into
+                        // sub fields and items as you need.
+                        userDefinedTestingImage.addUserDefinedField(tag.field, word);
                     }
                     break;
             }
