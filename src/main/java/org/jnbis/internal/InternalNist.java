@@ -42,8 +42,8 @@ public class InternalNist extends Nist {
         variableResolutionLatentImages = new ArrayList<>();
         variableResolutionFingerprints = new ArrayList<>();
         variableResolutionPalmprints = new ArrayList<>();
-        irisImages = new ArrayList<>();
         userDefinedTestingImages = new ArrayList<>();
+        irisImages = new ArrayList<>();
     }
 
     void setTransactionInfo(TransactionInformation transactionInfo) {
