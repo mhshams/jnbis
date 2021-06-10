@@ -80,7 +80,7 @@ Nist nist = Jnbis.nist().decode("/path/to/nist/file"));
 
 Decode a NIST file with given **File** instance
 ```Java
-Nist nist = Jnbis.nist().decode(new File("/path/to/nist/file")));
+Nist nist = Jnbis.nist().decode(new File("/path/to/nist/file"));
 ```
 
 Decode a NIST file with given **InputStream** instance
@@ -91,7 +91,7 @@ Nist nist = Jnbis.nist().decode(nistInputStream));
 **Nist** instance contains different types of data, depending on file type. 
 Here is a sample code that extract all fingerprints and save them in individual files. 
 ```Java
-Nist nist = Jnbis.nist().decode(new File("/path/to/nist/file")));
+Nist nist = Jnbis.nist().decode(new File("/path/to/nist/file"));
 
 for (HighResolutionGrayscaleFingerprint fp : nist.getHiResGrayscaleFingerprints()) {
     Jnbis.wsq()
