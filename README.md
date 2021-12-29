@@ -2,8 +2,8 @@
 Java Implementation of NIST Biometric Image Software (NBIS) 
 [![GitHub license](https://img.shields.io/badge/license-Apache%20License%202.0-blue.svg?style=flat)](http://www.apache.org/licenses/LICENSE-2.0)
 
-* master [![Build Status](https://travis-ci.org/kareez/jnbis.svg?branch=master)](https://travis-ci.org/kareez/jnbis)
-* develop [![Build Status](https://travis-ci.org/kareez/jnbis.svg?branch=develop)](https://travis-ci.org/kareez/jnbis)
+* master [![Build Status](https://travis-ci.org/mhshams/jnbis.svg?branch=master)](https://travis-ci.org/mhshams/jnbis)
+* develop [![Build Status](https://travis-ci.org/mhshams/jnbis.svg?branch=develop)](https://travis-ci.org/mhshams/jnbis)
 
 
 ### About JNBIS
