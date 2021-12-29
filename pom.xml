@@ -46,7 +46,7 @@
     <properties>
         <jdk.version>1.8</jdk.version>
         <junit.version>4.12</junit.version>
-        <jackson.version>2.9.7</jackson.version>
+        <jackson.version>2.13.1</jackson.version>
         <maven.compiler.verison>3.3</maven.compiler.verison>
         <maven.source.verison>2.4</maven.source.verison>
         <maven.javadoc.verison>2.10.3</maven.javadoc.verison>
