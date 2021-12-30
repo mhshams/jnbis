@@ -1,0 +1,35 @@
+name: Release
+on:
+  release:
+    types: 
+      - created
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - uses: actions/checkout@v2
+    - name: Set up JDK
+      uses: actions/setup-java@v2
+      with:
+        java-version: '8'
+        distribution: 'adopt'
+    - name: Build
+      run: mvn -B package --file pom.xml
+    - name: Set up Apache Maven Central
+      uses: actions/setup-java@v2
+      with: 
+        java-version: '8'
+        distribution: 'adopt'
+        server-id: ossrh
+        server-username: MVN_USER
+        server-password: MVN_TOKEN
+        gpg-private-key: ${{ secrets.GPG_KEY }}
+        gpg-passphrase: GPG_PASS 
+    - name: Publish
+      run: mvn --batch-mode deploy
+      env:
+        MVN_USER: ${{ secrets.MVN_USER }}
+        MVN_TOKEN: ${{ secrets.MVN_TOKEN }} 
+        GPG_PASS: ${{ secrets.GPG_PASS }}
