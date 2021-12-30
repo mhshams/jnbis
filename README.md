@@ -1,9 +1,9 @@
 # JNBIS
 Java Implementation of NIST Biometric Image Software (NBIS) 
-[![GitHub license](https://img.shields.io/badge/license-Apache%20License%202.0-blue.svg?style=flat)](http://www.apache.org/licenses/LICENSE-2.0)
 
-* master [![Build Status](https://travis-ci.org/kareez/jnbis.svg?branch=master)](https://travis-ci.org/kareez/jnbis)
-* develop [![Build Status](https://travis-ci.org/kareez/jnbis.svg?branch=develop)](https://travis-ci.org/kareez/jnbis)
+![CI](https://github.com/mhshams/jnbis/actions/workflows/ci.yaml/badge.svg)
+[![Maven Central](https://maven-badges.herokuapp.com/maven-central/com.github.mhshams/jnbis/badge.svg)](https://maven-badges.herokuapp.com/maven-central/com.github.mhshams/jnbis)
+[![GitHub license](https://img.shields.io/badge/license-Apache%20License%202.0-blue.svg?style=flat)](http://www.apache.org/licenses/LICENSE-2.0)
 
 
 ### About JNBIS
@@ -21,7 +21,7 @@ if you are using maven, add it to project dependencies.
 
 ```xml
 <dependency>
-  <groupId>jnbis</groupId>
+  <groupId>com.github.mhshams</groupId>
   <artifactId>jnbis</artifactId>
   <version>2.x.x</version>
 </dependency>
@@ -80,7 +80,7 @@ Nist nist = Jnbis.nist().decode("/path/to/nist/file"));
 
 Decode a NIST file with given **File** instance
 ```Java
-Nist nist = Jnbis.nist().decode(new File("/path/to/nist/file")));
+Nist nist = Jnbis.nist().decode(new File("/path/to/nist/file"));
 ```
 
 Decode a NIST file with given **InputStream** instance
@@ -91,7 +91,7 @@ Nist nist = Jnbis.nist().decode(nistInputStream));
 **Nist** instance contains different types of data, depending on file type. 
 Here is a sample code that extract all fingerprints and save them in individual files. 
 ```Java
-Nist nist = Jnbis.nist().decode(new File("/path/to/nist/file")));
+Nist nist = Jnbis.nist().decode(new File("/path/to/nist/file"));
 
 for (HighResolutionGrayscaleFingerprint fp : nist.getHiResGrayscaleFingerprints()) {
     Jnbis.wsq()

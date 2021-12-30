@@ -1,6 +1,7 @@
 package org.jnbis.internal.record.reader;
 
 
+import org.jnbis.api.model.record.UserDefinedTestingImage;
 import org.jnbis.internal.NistHelper;
 import org.jnbis.internal.record.BaseRecord;
 
@@ -34,7 +35,7 @@ public class RecordReaderFactory {
         READERS[NistHelper.RT_VR_LATENT_IMAGE] = new VariableResolutionLatentImageReader();
         READERS[NistHelper.RT_VR_FINGERPRINT] = new VariableResolutionFingerprintReader();
         READERS[NistHelper.RT_VR_PALMPRINT] = new VariableResolutionPalmprintReader();
-        READERS[16] = NOT_SUPPORTED;
+        READERS[NistHelper.RT_USER_DEFINED_TESTING_IMAGE] = new UserDefinedTestingImageReader();
         READERS[NistHelper.RT_IRIS_IMAGE] = new IrisImageReader();
     }
 

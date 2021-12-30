@@ -28,6 +28,7 @@ public class NistHelper {
     public static final int RT_VR_LATENT_IMAGE = 13;
     public static final int RT_VR_FINGERPRINT = 14;
     public static final int RT_VR_PALMPRINT = 15;
+    public static final int RT_USER_DEFINED_TESTING_IMAGE = 16;
     public static final int RT_IRIS_IMAGE = 17;
 
     // Information separators

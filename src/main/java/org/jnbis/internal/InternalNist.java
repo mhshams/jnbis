@@ -26,6 +26,7 @@ public class InternalNist extends Nist {
     private final List<VariableResolutionLatentImage> variableResolutionLatentImages;
     private final List<VariableResolutionFingerprint> variableResolutionFingerprints;
     private final List<VariableResolutionPalmprint> variableResolutionPalmprints;
+    private final List<UserDefinedTestingImage> userDefinedTestingImages;
     private final List<IrisImage> irisImages;
 
     public InternalNist() {
@@ -41,6 +42,7 @@ public class InternalNist extends Nist {
         variableResolutionLatentImages = new ArrayList<>();
         variableResolutionFingerprints = new ArrayList<>();
         variableResolutionPalmprints = new ArrayList<>();
+        userDefinedTestingImages = new ArrayList<>();
         irisImages = new ArrayList<>();
     }
 
@@ -96,6 +98,9 @@ public class InternalNist extends Nist {
         variableResolutionPalmprints.add(palmprint);
     }
 
+    void addUserDefinedTestingImage(UserDefinedTestingImage image) {
+        userDefinedTestingImages.add(image);
+    }
     void addIrisImage(IrisImage image) {
         irisImages.add(image);
     }
@@ -150,6 +155,10 @@ public class InternalNist extends Nist {
 
     public List<VariableResolutionPalmprint> getVariableResPalmprints() {
         return variableResolutionPalmprints;
+    }
+
+    public List<UserDefinedTestingImage> getUserDefinedTestingImages() {
+        return userDefinedTestingImages;
     }
 
     public List<IrisImage> getIrisImages() {
