@@ -16,7 +16,7 @@ jobs:
         java-version: '8'
         distribution: 'adopt'
     - name: Version
-        run: mvn versions:set "-DnewVersion=${{ github.ref_name}}"
+      run: mvn versions:set "-DnewVersion=${{ github.ref_name}}"
     - name: Build
       run: mvn -B package --file pom.xml
     - name: Set up Apache Maven Central
