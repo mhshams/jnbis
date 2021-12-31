@@ -13,7 +13,7 @@ jobs:
     - name: Set up JDK
       uses: actions/setup-java@v2
       with:
-        java-version: '8'
+        java-version: '9'
         distribution: 'adopt'
     - name: Version
       run: mvn versions:set "-DnewVersion=${{ github.ref_name }}"
@@ -22,7 +22,7 @@ jobs:
     - name: Set up Apache Maven Central
       uses: actions/setup-java@v2
       with: 
-        java-version: '8'
+        java-version: '9'
         distribution: 'adopt'
         server-id: ossrh
         server-username: MVN_USER
