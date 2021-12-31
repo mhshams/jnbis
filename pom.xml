@@ -113,7 +113,7 @@
             <id>sign-release-artifacts</id>
             <activation>
                 <property>
-                    <name>gpg.passphrase</name>
+                    <name>gpg.sign</name>
                 </property>
             </activation>
             <build>

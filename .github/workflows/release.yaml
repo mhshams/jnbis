@@ -30,7 +30,7 @@ jobs:
         gpg-private-key: ${{ secrets.GPG_KEY }}
         gpg-passphrase: GPG_PASS 
     - name: Publish
-      run: mvn --batch-mode deploy -DskipTests
+      run: mvn --batch-mode deploy -DskipTests -Dgpg.sign
       env:
         MVN_USER: ${{ secrets.MVN_USER }}
         MVN_TOKEN: ${{ secrets.MVN_TOKEN }} 
