@@ -51,7 +51,6 @@
         <maven.source.verison>2.4</maven.source.verison>
         <maven.javadoc.verison>2.10.3</maven.javadoc.verison>
         <maven.gpg.verison>1.6</maven.gpg.verison>
-        <jgitflow.version>1.0-m5.1</jgitflow.version>
     </properties>
 
     <dependencies>
@@ -111,15 +110,10 @@
     </build>
     <profiles>
         <profile>
-            <!--
-            - mvn -Ddnr jgitflow:release-start
-            - mvn -Ddnr jgitflow:release-finish
-            - git push tags, master and develop
-            -->
-            <id>deploy-new-release</id>
+            <id>sign-release-artifacts</id>
             <activation>
                 <property>
-                    <name>dnr</name>
+                    <name>gpg.passphrase</name>
                 </property>
             </activation>
             <build>
@@ -137,18 +131,6 @@
                                 </goals>
                             </execution>
                         </executions>
-                    </plugin>
-                    <plugin>
-                        <groupId>external.atlassian.jgitflow</groupId>
-                        <artifactId>jgitflow-maven-plugin</artifactId>
-                        <version>${jgitflow.version}</version>
-                        <dependencies>
-                            <dependency>
-                                <groupId>com.jcraft</groupId>
-                                <artifactId>jsch</artifactId>
-                                <version>0.1.54</version>
-                            </dependency>
-                        </dependencies>
                     </plugin>
                 </plugins>
             </build>
