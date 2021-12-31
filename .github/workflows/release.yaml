@@ -18,7 +18,7 @@ jobs:
     - name: Version
       run: mvn versions:set "-DnewVersion=${{ github.ref_name }}"
     - name: Build
-      run: mvn -B package --file pom.xml
+      run: mvn --batch-mode package --file pom.xml
     - name: Set up Apache Maven Central
       uses: actions/setup-java@v2
       with: 
