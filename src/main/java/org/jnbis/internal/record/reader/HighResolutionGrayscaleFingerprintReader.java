@@ -32,6 +32,7 @@ public class HighResolutionGrayscaleFingerprintReader extends RecordReader {
 
         // Finger position (FGP)
         int fingerPrintNo = token.buffer[token.pos + 6];
+        fingerprint.setFingerPosition(String.valueOf(fingerPrintNo));
 
         // Image scanning resolution (ISR)
         int isr = token.buffer[token.pos + 12];

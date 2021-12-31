@@ -44,6 +44,7 @@ public class SampleNistTest {
             ImageAssert.assertImagesEquals(new File(fileName), pngArray);
 
             if (fingerPrint.getImageDesignationCharacter().equals("1")) {
+                assertEquals("1", fingerPrint.getFingerPosition());
                 assertEquals("3", fingerPrint.getImpressionType());
                 assertEquals("1", fingerPrint.getImageDesignationCharacter());
                 assertEquals("0", fingerPrint.getImageScanningResolution());
