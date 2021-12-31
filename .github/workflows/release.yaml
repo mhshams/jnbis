@@ -15,6 +15,8 @@ jobs:
       with:
         java-version: '8'
         distribution: 'adopt'
+    - name: Version
+        run: mvn versions:set "-DnewVersion=${{ github.ref_name}}"
     - name: Build
       run: mvn -B package --file pom.xml
     - name: Set up Apache Maven Central
@@ -28,7 +30,7 @@ jobs:
         gpg-private-key: ${{ secrets.GPG_KEY }}
         gpg-passphrase: GPG_PASS 
     - name: Publish
-      run: mvn --batch-mode deploy
+      run: mvn --batch-mode deploy -DskipTests
       env:
         MVN_USER: ${{ secrets.MVN_USER }}
         MVN_TOKEN: ${{ secrets.MVN_TOKEN }} 
