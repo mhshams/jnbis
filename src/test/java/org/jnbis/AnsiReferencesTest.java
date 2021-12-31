@@ -4,7 +4,6 @@ import org.jnbis.api.Jnbis;
 import org.jnbis.api.model.Nist;
 import org.junit.Test;
 
-import java.io.IOException;
 import java.util.Map;
 
 import static org.junit.Assert.assertEquals;
@@ -53,14 +52,14 @@ public class AnsiReferencesTest {
     };
 
     @Test
-    public void type_3() throws IOException {
+    public void type_3() {
         Nist decoded = decode(FILES[0]);
         commonAssert(decoded);
         assertEquals(1, decoded.getLowResGrayscaleFingerprints().size());
     }
 
     @Test
-    public void type4_14_slaps() throws IOException {
+    public void type4_14_slaps() {
         Nist decoded = decode(FILES[1]);
         commonAssert(decoded);
         assertEquals(2, decoded.getHiResGrayscaleFingerprints().size());
@@ -68,63 +67,63 @@ public class AnsiReferencesTest {
     }
 
     @Test
-    public void type4_slaps() throws IOException {
+    public void type4_slaps() {
         Nist decoded = decode(FILES[2]);
         commonAssert(decoded);
         assertEquals(4, decoded.getHiResGrayscaleFingerprints().size());
     }
 
     @Test
-    public void type4_tpcard() throws IOException {
+    public void type4_tpcard() {
         Nist decoded = decode(FILES[3]);
         commonAssert(decoded);
         assertEquals(14, decoded.getHiResGrayscaleFingerprints().size());
     }
 
     @Test
-    public void type5() throws IOException {
+    public void type5() {
         Nist decoded = decode(FILES[4]);
         commonAssert(decoded);
         assertEquals(1, decoded.getLowResBinaryFingerprints().size());
     }
 
     @Test
-    public void type6() throws IOException {
+    public void type6() {
         Nist decoded = decode(FILES[5]);
         commonAssert(decoded);
         assertEquals(1, decoded.getHiResBinaryFingerprints().size());
     }
 
     @Test
-    public void type7_latent() throws IOException {
+    public void type7_latent() {
         Nist decoded = decode(FILES[6]);
         commonAssert(decoded);
         assertEquals(1, decoded.getUserDefinedImages().size());
     }
 
     @Test
-    public void type8_sig() throws IOException {
+    public void type8_sig() {
         Nist decoded = decode(FILES[7]);
         commonAssert(decoded);
         assertEquals(1, decoded.getSignatures().size());
     }
 
     @Test
-    public void type8_sig_fax() throws IOException {
+    public void type8_sig_fax() {
         Nist decoded = decode(FILES[8]);
         commonAssert(decoded);
         assertEquals(1, decoded.getSignatures().size());
     }
 
     @Test
-    public void type8_sig_raw() throws IOException {
+    public void type8_sig_raw() {
         Nist decoded = decode(FILES[9]);
         commonAssert(decoded);
         assertEquals(1, decoded.getSignatures().size());
     }
 
     @Test
-    public void type9_4_iafis() throws IOException {
+    public void type9_4_iafis() {
         Nist decoded = decode(FILES[10]);
         commonAssert(decoded);
         assertEquals(1, decoded.getHiResGrayscaleFingerprints().size());
@@ -132,7 +131,7 @@ public class AnsiReferencesTest {
     }
 
     @Test
-    public void type9_10_14() throws IOException {
+    public void type9_10_14() {
         Nist decoded = decode(FILES[11]);
         commonAssert(decoded);
         assertEquals(1, decoded.getMinutiaeData().size());
@@ -141,7 +140,7 @@ public class AnsiReferencesTest {
     }
 
     @Test
-    public void type9_13_9_14_m1() throws IOException {
+    public void type9_13_9_14_m1() {
         Nist decoded = decode(FILES[12]);
         commonAssert(decoded);
         assertEquals(2, decoded.getMinutiaeData().size());
@@ -150,7 +149,7 @@ public class AnsiReferencesTest {
     }
 
     @Test
-    public void type9_13_m1() throws IOException {
+    public void type9_13_m1() {
         Nist decoded = decode(FILES[13]);
         commonAssert(decoded);
         assertEquals(1, decoded.getMinutiaeData().size());
@@ -158,7 +157,7 @@ public class AnsiReferencesTest {
     }
 
     @Test
-    public void type9_13_std() throws IOException {
+    public void type9_13_std() {
         Nist decoded = decode(FILES[14]);
         commonAssert(decoded);
         assertEquals(1, decoded.getMinutiaeData().size());
@@ -166,7 +165,7 @@ public class AnsiReferencesTest {
     }
 
     @Test
-    public void type9_14_m1() throws IOException {
+    public void type9_14_m1() {
         Nist decoded = decode(FILES[15]);
         commonAssert(decoded);
         assertEquals(1, decoded.getMinutiaeData().size());
@@ -174,7 +173,7 @@ public class AnsiReferencesTest {
     }
 
     @Test
-    public void type9_14_std() throws IOException {
+    public void type9_14_std() {
         Nist decoded = decode(FILES[16]);
         commonAssert(decoded);
         assertEquals(1, decoded.getMinutiaeData().size());
@@ -182,7 +181,7 @@ public class AnsiReferencesTest {
     }
 
     @Test
-    public void type10_14_17_piv_index_iris() throws IOException {
+    public void type10_14_17_piv_index_iris() {
         Nist decoded = decode(FILES[17]);
         commonAssert(decoded);
         assertEquals(1, decoded.getFacialAndSmtImages().size());
@@ -191,42 +190,42 @@ public class AnsiReferencesTest {
     }
 
     @Test
-    public void type10_branded_tattoo_mark() throws IOException {
+    public void type10_branded_tattoo_mark() {
         Nist decoded = decode(FILES[18]);
         commonAssert(decoded);
         assertEquals(2, decoded.getFacialAndSmtImages().size());
     }
 
     @Test
-    public void type10_sap10() throws IOException {
+    public void type10_sap10() {
         Nist decoded = decode(FILES[19]);
         commonAssert(decoded);
         assertEquals(1, decoded.getFacialAndSmtImages().size());
     }
 
     @Test
-    public void type10_scar_face_sap50() throws IOException {
+    public void type10_scar_face_sap50() {
         Nist decoded = decode(FILES[20]);
         commonAssert(decoded);
         assertEquals(6, decoded.getFacialAndSmtImages().size());
     }
 
     @Test
-    public void type10_tattoo_face_sap20() throws IOException {
+    public void type10_tattoo_face_sap20() {
         Nist decoded = decode(FILES[21]);
         commonAssert(decoded);
         assertEquals(2, decoded.getFacialAndSmtImages().size());
     }
 
     @Test
-    public void type10_tattoo_zoom() throws IOException {
+    public void type10_tattoo_zoom() {
         Nist decoded = decode(FILES[22]);
         commonAssert(decoded);
         assertEquals(2, decoded.getFacialAndSmtImages().size());
     }
 
     @Test
-    public void type13_14_latent_match() throws IOException {
+    public void type13_14_latent_match() {
         Nist decoded = decode(FILES[23]);
         commonAssert(decoded);
         assertEquals(1, decoded.getVariableResLatentImages().size());
@@ -234,21 +233,21 @@ public class AnsiReferencesTest {
     }
 
     @Test
-    public void type13_tip_eji_j2l() throws IOException {
+    public void type13_tip_eji_j2l() {
         Nist decoded = decode(FILES[24]);
         commonAssert(decoded);
         assertEquals(5, decoded.getVariableResLatentImages().size());
     }
 
     @Test
-    public void type13_tip_eji_wsq() throws IOException {
+    public void type13_tip_eji_wsq() {
         Nist decoded = decode(FILES[25]);
         commonAssert(decoded);
         assertEquals(5, decoded.getVariableResLatentImages().size());
     }
 
     @Test
-    public void type14_amp_nqm_utf8() throws IOException {
+    public void type14_amp_nqm_utf8() {
         Nist decoded = decode(FILES[26]);
         Map<Integer, String> userDefinedFields = decoded.getUserDefinedTexts().get(0).getUserDefinedFields();
         assertEquals("55", userDefinedFields.get(1));
@@ -257,35 +256,35 @@ public class AnsiReferencesTest {
     }
 
     @Test
-    public void type14_tip_eji_j2l() throws IOException {
+    public void type14_tip_eji_j2l() {
         Nist decoded = decode(FILES[27]);
         commonAssert(decoded);
         assertEquals(5, decoded.getVariableResFingerprints().size());
     }
 
     @Test
-    public void type14_tip_eji_wsq() throws IOException {
+    public void type14_tip_eji_wsq() {
         Nist decoded = decode(FILES[28]);
         commonAssert(decoded);
         assertEquals(5, decoded.getVariableResFingerprints().size());
     }
 
     @Test
-    public void type14_tpcard_nqm() throws IOException {
+    public void type14_tpcard_nqm() {
         Nist decoded = decode(FILES[29]);
         commonAssert(decoded);
         assertEquals(14, decoded.getVariableResFingerprints().size());
     }
 
     @Test
-    public void type15_palms() throws IOException {
+    public void type15_palms() {
         Nist decoded = decode(FILES[30]);
         commonAssert(decoded);
         assertEquals(2, decoded.getVariableResPalmprints().size());
     }
 
     @Test
-    public void type17_iris() throws IOException {
+    public void type17_iris() {
         Nist decoded = decode(FILES[31]);
         commonAssert(decoded);
         assertEquals(1, decoded.getIrisImages().size());
@@ -301,7 +300,7 @@ public class AnsiReferencesTest {
         assertEquals("domain defined text place holder", userDefinedFields.get(3));
     }
 
-    private Nist decode(String name) throws IOException {
+    private Nist decode(String name) {
         String fileName = FileUtils.absolute(String.format(FILE_PATH, name));
         Nist nist = Jnbis.nist().decode(fileName);
         assertNotNull(nist);

@@ -83,7 +83,6 @@ public final class BitmapHandler {
 
         try (ByteArrayOutputStream outputStream = new ByteArrayOutputStream()) {
             ImageIO.write(bufferedImage, format, outputStream);
-            outputStream.close();
             return outputStream.toByteArray();
         } catch (IOException e) {
             throw new RuntimeException(e);

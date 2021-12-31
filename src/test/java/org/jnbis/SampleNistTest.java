@@ -10,7 +10,6 @@ import java.io.File;
 import java.util.List;
 import java.util.Map;
 
-import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertEquals;
 
 /**
@@ -42,7 +41,7 @@ public class SampleNistTest {
 
             String fileName = findFileName(fingerPrint.getImageDesignationCharacter());
 
-            assertArrayEquals(FileUtils.read(new File(fileName)), pngArray);
+            ImageAssert.assertImagesEquals(new File(fileName), pngArray);
 
             if (fingerPrint.getImageDesignationCharacter().equals("1")) {
                 assertEquals("3", fingerPrint.getImpressionType());
