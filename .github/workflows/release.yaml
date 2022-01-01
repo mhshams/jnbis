@@ -13,7 +13,7 @@ jobs:
     - name: Set up JDK
       uses: actions/setup-java@v2
       with:
-        java-version: '9'
+        java-version: '11'
         distribution: 'temurin'
     - name: Version
       run: mvn versions:set "-DnewVersion=${{ github.ref_name }}"
@@ -22,7 +22,7 @@ jobs:
     - name: Set up Apache Maven Central
       uses: actions/setup-java@v2
       with: 
-        java-version: '9'
+        java-version: '11'
         distribution: 'temurin'
         server-id: ossrh
         server-username: MVN_USER
