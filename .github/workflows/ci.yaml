@@ -18,6 +18,6 @@ jobs:
         uses: actions/setup-java@v2
         with:
           java-version: '9'
-          distribution: 'adopt'
+          distribution: 'temurin'
       - name: Build
         run: mvn --batch-mode --update-snapshots verify

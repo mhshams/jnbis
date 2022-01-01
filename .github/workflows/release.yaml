@@ -14,7 +14,7 @@ jobs:
       uses: actions/setup-java@v2
       with:
         java-version: '9'
-        distribution: 'adopt'
+        distribution: 'temurin'
     - name: Version
       run: mvn versions:set "-DnewVersion=${{ github.ref_name }}"
     - name: Build
@@ -23,7 +23,7 @@ jobs:
       uses: actions/setup-java@v2
       with: 
         java-version: '9'
-        distribution: 'adopt'
+        distribution: 'temurin'
         server-id: ossrh
         server-username: MVN_USER
         server-password: MVN_TOKEN
