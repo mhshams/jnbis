@@ -124,7 +124,11 @@
                             <jvmVersion>9</jvmVersion>
                             <module>
                                 <moduleInfo>
-                                    <exports>org.jnbis.api.*;</exports>
+                                    <name>com.github.mhshams.jnbis</name>
+                                    <exports>
+                                        org.jnbis.api;
+                                        org.jnbis.api.*;
+                                    </exports>
                                 </moduleInfo>
                             </module>
                             <jdepsExtraArgs>
