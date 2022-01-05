@@ -1,5 +1,6 @@
-package org.jnbis;
+package org.jnbis.records;
 
+import org.jnbis.FileUtils;
 import org.jnbis.api.Jnbis;
 import org.jnbis.api.model.Nist;
 import org.jnbis.api.model.record.UserDefinedTestingImage;
