@@ -45,14 +45,19 @@
     </distributionManagement>
 
     <properties>
-        <maven.compiler.verison>3.8.1</maven.compiler.verison>
-        <maven.source.verison>3.2.0</maven.source.verison>
-        <maven.javadoc.verison>3.3.1</maven.javadoc.verison>
-        <maven.gpg.verison>3.0.1</maven.gpg.verison>
-        <moditect.version>1.0.0.RC2</moditect.version>
-        <junit.version>4.13.2</junit.version>
-        <assertj.version>3.23.1</assertj.version>
+        <!-- Main -->
         <jackson.version>2.14.0-rc2</jackson.version>
+        <!-- Test -->
+        <junit.version>5.10.1</junit.version>
+        <assertj.version>3.24.2</assertj.version>
+
+        <!--Plugin -->
+        <maven.compiler.version>3.8.1</maven.compiler.version>
+        <maven.source.version>3.2.0</maven.source.version>
+        <maven.javadoc.version>3.3.1</maven.javadoc.version>
+        <maven.gpg.version>3.0.1</maven.gpg.version>
+        <moditect.version>1.0.0.RC2</moditect.version>
+
     </properties>
 
     <dependencies>
@@ -61,9 +66,17 @@
             <artifactId>jackson-databind</artifactId>
             <version>${jackson.version}</version>
         </dependency>
+
+        <!-- Test -->
         <dependency>
-            <groupId>junit</groupId>
-            <artifactId>junit</artifactId>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter-engine</artifactId>
+            <version>${junit.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter-params</artifactId>
             <version>${junit.version}</version>
             <scope>test</scope>
         </dependency>
@@ -81,7 +94,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
-                <version>${maven.compiler.verison}</version>
+                <version>${maven.compiler.version}</version>
                 <configuration>
                     <source>8</source>
                     <target>8</target>
@@ -90,7 +103,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-source-plugin</artifactId>
-                <version>${maven.source.verison}</version>
+                <version>${maven.source.version}</version>
                 <executions>
                     <execution>
                         <id>attach-sources</id>
@@ -103,7 +116,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-javadoc-plugin</artifactId>
-                <version>${maven.javadoc.verison}</version>
+                <version>${maven.javadoc.version}</version>
                 <executions>
                     <execution>
                         <id>attach-javadocs</id>
@@ -160,7 +173,7 @@
                     <plugin>
                         <groupId>org.apache.maven.plugins</groupId>
                         <artifactId>maven-gpg-plugin</artifactId>
-                        <version>${maven.gpg.verison}</version>
+                        <version>${maven.gpg.version}</version>
                         <executions>
                             <execution>
                                 <id>sign-artifacts</id>

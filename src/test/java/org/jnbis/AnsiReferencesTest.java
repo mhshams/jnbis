@@ -1,19 +1,25 @@
 package org.jnbis;
 
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Named.named;
+
+import java.util.stream.Stream;
 import org.jnbis.api.Jnbis;
 import org.jnbis.api.model.Nist;
-import org.junit.Test;
 
 import java.util.Map;
-
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
+import org.junit.jupiter.api.Named;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.Arguments;
+import org.junit.jupiter.params.provider.CsvSource;
+import org.junit.jupiter.params.provider.ValueSource;
 
 /**
  * @author <a href="mailto:m.h.shams@gmail.com">M. H. Shamsi</a>
  */
 
-public class AnsiReferencesTest {
+class AnsiReferencesTest {
     private static final String FILE_PATH = "ansi/references/type-%s.an2";
 
     private static final String[] FILES = {
@@ -52,258 +58,212 @@ public class AnsiReferencesTest {
     };
 
     @Test
-    public void type_3() {
+    void type_3() {
         Nist decoded = decode(FILES[0]);
         commonAssert(decoded);
-        assertEquals(1, decoded.getLowResGrayscaleFingerprints().size());
+        assertThat(decoded.getLowResGrayscaleFingerprints()).hasSize(1);
     }
 
     @Test
-    public void type4_14_slaps() {
+    void type4_14_slaps() {
         Nist decoded = decode(FILES[1]);
         commonAssert(decoded);
-        assertEquals(2, decoded.getHiResGrayscaleFingerprints().size());
-        assertEquals(1, decoded.getVariableResFingerprints().size());
+        assertThat(decoded.getHiResGrayscaleFingerprints()).hasSize(2);
+        assertThat(decoded.getVariableResFingerprints()).hasSize(1);
     }
 
     @Test
-    public void type4_slaps() {
+    void type4_slaps() {
         Nist decoded = decode(FILES[2]);
         commonAssert(decoded);
-        assertEquals(4, decoded.getHiResGrayscaleFingerprints().size());
+        assertThat(decoded.getHiResGrayscaleFingerprints()).hasSize(4);
     }
 
     @Test
-    public void type4_tpcard() {
+    void type4_tpcard() {
         Nist decoded = decode(FILES[3]);
         commonAssert(decoded);
-        assertEquals(14, decoded.getHiResGrayscaleFingerprints().size());
+        assertThat( decoded.getHiResGrayscaleFingerprints()).hasSize(14);
     }
 
     @Test
-    public void type5() {
+    void type5() {
         Nist decoded = decode(FILES[4]);
         commonAssert(decoded);
-        assertEquals(1, decoded.getLowResBinaryFingerprints().size());
+        assertThat(decoded.getLowResBinaryFingerprints()).hasSize(1);
     }
 
     @Test
-    public void type6() {
+    void type6() {
         Nist decoded = decode(FILES[5]);
         commonAssert(decoded);
-        assertEquals(1, decoded.getHiResBinaryFingerprints().size());
+        assertThat(decoded.getHiResBinaryFingerprints()).hasSize(1);
     }
 
     @Test
-    public void type7_latent() {
+    void type7_latent() {
         Nist decoded = decode(FILES[6]);
         commonAssert(decoded);
-        assertEquals(1, decoded.getUserDefinedImages().size());
+        assertThat(decoded.getUserDefinedImages()).hasSize(1);
     }
 
-    @Test
-    public void type8_sig() {
-        Nist decoded = decode(FILES[7]);
+
+    // 7: Sig, 8: Sig_fax, 9: sig_raw
+    @ParameterizedTest
+    @ValueSource(ints= {7, 8, 9})
+    void type8(final int filePosition) {
+        Nist decoded = decode(FILES[filePosition]);
         commonAssert(decoded);
-        assertEquals(1, decoded.getSignatures().size());
+        assertThat(decoded.getSignatures()).hasSize(1);
     }
 
     @Test
-    public void type8_sig_fax() {
-        Nist decoded = decode(FILES[8]);
-        commonAssert(decoded);
-        assertEquals(1, decoded.getSignatures().size());
-    }
-
-    @Test
-    public void type8_sig_raw() {
-        Nist decoded = decode(FILES[9]);
-        commonAssert(decoded);
-        assertEquals(1, decoded.getSignatures().size());
-    }
-
-    @Test
-    public void type9_4_iafis() {
+    void type9_4_iafis() {
         Nist decoded = decode(FILES[10]);
         commonAssert(decoded);
-        assertEquals(1, decoded.getHiResGrayscaleFingerprints().size());
-        assertEquals(1, decoded.getMinutiaeData().size());
+        assertThat(decoded.getHiResGrayscaleFingerprints()).hasSize(1);
+        assertThat(decoded.getMinutiaeData()).hasSize(1);
     }
 
     @Test
-    public void type9_10_14() {
+    void type9_10_14() {
         Nist decoded = decode(FILES[11]);
         commonAssert(decoded);
-        assertEquals(1, decoded.getMinutiaeData().size());
-        assertEquals(1, decoded.getFacialAndSmtImages().size());
-        assertEquals(1, decoded.getVariableResFingerprints().size());
+        assertThat(decoded.getMinutiaeData()).hasSize(1);
+        assertThat(decoded.getFacialAndSmtImages()).hasSize(1);
+        assertThat(decoded.getVariableResFingerprints()).hasSize(1);
     }
 
     @Test
-    public void type9_13_9_14_m1() {
+    void type9_13_9_14_m1() {
         Nist decoded = decode(FILES[12]);
         commonAssert(decoded);
-        assertEquals(2, decoded.getMinutiaeData().size());
-        assertEquals(1, decoded.getVariableResLatentImages().size());
-        assertEquals(1, decoded.getVariableResFingerprints().size());
+        assertThat(decoded.getMinutiaeData()).hasSize(2);
+        assertThat(decoded.getVariableResLatentImages()).hasSize(1);
+        assertThat(decoded.getVariableResFingerprints()).hasSize(1);
     }
 
     @Test
-    public void type9_13_m1() {
+    void type9_13_m1() {
         Nist decoded = decode(FILES[13]);
         commonAssert(decoded);
-        assertEquals(1, decoded.getMinutiaeData().size());
-        assertEquals(1, decoded.getVariableResLatentImages().size());
+        assertThat(decoded.getMinutiaeData()).hasSize(1);
+        assertThat(decoded.getVariableResLatentImages()).hasSize(1);
     }
 
     @Test
-    public void type9_13_std() {
+    void type9_13_std() {
         Nist decoded = decode(FILES[14]);
         commonAssert(decoded);
-        assertEquals(1, decoded.getMinutiaeData().size());
-        assertEquals(1, decoded.getVariableResLatentImages().size());
+        assertThat(decoded.getMinutiaeData()).hasSize(1);
+        assertThat(decoded.getVariableResLatentImages()).hasSize(1);
     }
 
     @Test
-    public void type9_14_m1() {
+    void type9_14_m1() {
         Nist decoded = decode(FILES[15]);
         commonAssert(decoded);
-        assertEquals(1, decoded.getMinutiaeData().size());
-        assertEquals(1, decoded.getVariableResFingerprints().size());
+        assertThat(decoded.getMinutiaeData()).hasSize(1);
+        assertThat(decoded.getVariableResFingerprints()).hasSize(1);
     }
 
     @Test
-    public void type9_14_std() {
+    void type9_14_std() {
         Nist decoded = decode(FILES[16]);
         commonAssert(decoded);
-        assertEquals(1, decoded.getMinutiaeData().size());
-        assertEquals(1, decoded.getVariableResFingerprints().size());
+        assertThat(decoded.getMinutiaeData()).hasSize(1);
+        assertThat(decoded.getVariableResFingerprints()).hasSize(1);
     }
 
     @Test
-    public void type10_14_17_piv_index_iris() {
+    void type10_14_17_piv_index_iris() {
         Nist decoded = decode(FILES[17]);
         commonAssert(decoded);
-        assertEquals(1, decoded.getFacialAndSmtImages().size());
-        assertEquals(2, decoded.getVariableResFingerprints().size());
-        assertEquals(1, decoded.getIrisImages().size());
+        assertThat(decoded.getFacialAndSmtImages()).hasSize(1);
+        assertThat(decoded.getVariableResFingerprints()).hasSize(2);
+        assertThat(decoded.getIrisImages()).hasSize(1);
     }
 
-    @Test
-    public void type10_branded_tattoo_mark() {
-        Nist decoded = decode(FILES[18]);
+    // 18: branded_tattoo_mark, 19: sap10, 20: scar_face_sap_50
+    // 21: tattoo_face_sap_20, 22: tattoo_zom
+    @ParameterizedTest
+    @CsvSource({"18,2", "19,1", "20,6", "21,2", "22,2"})
+    void type10(final int filePosition, final int size) {
+        Nist decoded = decode(FILES[filePosition]);
         commonAssert(decoded);
-        assertEquals(2, decoded.getFacialAndSmtImages().size());
+        assertThat(decoded.getFacialAndSmtImages()).hasSize(size);
     }
 
     @Test
-    public void type10_sap10() {
-        Nist decoded = decode(FILES[19]);
-        commonAssert(decoded);
-        assertEquals(1, decoded.getFacialAndSmtImages().size());
-    }
-
-    @Test
-    public void type10_scar_face_sap50() {
-        Nist decoded = decode(FILES[20]);
-        commonAssert(decoded);
-        assertEquals(6, decoded.getFacialAndSmtImages().size());
-    }
-
-    @Test
-    public void type10_tattoo_face_sap20() {
-        Nist decoded = decode(FILES[21]);
-        commonAssert(decoded);
-        assertEquals(2, decoded.getFacialAndSmtImages().size());
-    }
-
-    @Test
-    public void type10_tattoo_zoom() {
-        Nist decoded = decode(FILES[22]);
-        commonAssert(decoded);
-        assertEquals(2, decoded.getFacialAndSmtImages().size());
-    }
-
-    @Test
-    public void type13_14_latent_match() {
+    void type13_14_latent_match() {
         Nist decoded = decode(FILES[23]);
         commonAssert(decoded);
-        assertEquals(1, decoded.getVariableResLatentImages().size());
-        assertEquals(1, decoded.getVariableResFingerprints().size());
+        assertThat(decoded.getVariableResLatentImages()).hasSize(1);
+        assertThat(decoded.getVariableResFingerprints()).hasSize(1);
     }
 
     @Test
-    public void type13_tip_eji_j2l() {
+    void type13_tip_eji_j2l() {
         Nist decoded = decode(FILES[24]);
         commonAssert(decoded);
-        assertEquals(5, decoded.getVariableResLatentImages().size());
+        assertThat(decoded.getVariableResLatentImages()).hasSize(5);
     }
 
     @Test
-    public void type13_tip_eji_wsq() {
+    void type13_tip_eji_wsq() {
         Nist decoded = decode(FILES[25]);
         commonAssert(decoded);
-        assertEquals(5, decoded.getVariableResLatentImages().size());
+        assertThat(decoded.getVariableResLatentImages()).hasSize(5);
     }
 
     @Test
-    public void type14_amp_nqm_utf8() {
+    void type14_amp_nqm_utf8() {
         Nist decoded = decode(FILES[26]);
         Map<Integer, String> userDefinedFields = decoded.getUserDefinedTexts().get(0).getUserDefinedFields();
-        assertEquals("55", userDefinedFields.get(1));
-        assertEquals("00", userDefinedFields.get(2));
-        assertEquals("two chinese characters: 華裔", userDefinedFields.get(3));
+        assertThat(userDefinedFields)
+            .containsEntry(1, "55")
+            .containsEntry(2, "00")
+            .containsEntry(3, "two chinese characters: 華裔");
     }
 
-    @Test
-    public void type14_tip_eji_j2l() {
-        Nist decoded = decode(FILES[27]);
+    //27: tip_ejij_j2l, 28: tip_eji_wsq, 29: tpcard_nqm
+    @ParameterizedTest
+    @CsvSource({"27,5", "28,5", "29,14"})
+    void type14(final int filePosition, final int size) {
+        Nist decoded = decode(FILES[filePosition]);
         commonAssert(decoded);
-        assertEquals(5, decoded.getVariableResFingerprints().size());
+        assertThat(decoded.getVariableResFingerprints()).hasSize(size);
     }
 
     @Test
-    public void type14_tip_eji_wsq() {
-        Nist decoded = decode(FILES[28]);
-        commonAssert(decoded);
-        assertEquals(5, decoded.getVariableResFingerprints().size());
-    }
-
-    @Test
-    public void type14_tpcard_nqm() {
-        Nist decoded = decode(FILES[29]);
-        commonAssert(decoded);
-        assertEquals(14, decoded.getVariableResFingerprints().size());
-    }
-
-    @Test
-    public void type15_palms() {
+    void type15_palms() {
         Nist decoded = decode(FILES[30]);
         commonAssert(decoded);
-        assertEquals(2, decoded.getVariableResPalmprints().size());
+        assertThat(decoded.getVariableResPalmprints()).hasSize(2);
     }
 
     @Test
-    public void type17_iris() {
+    void type17_iris() {
         Nist decoded = decode(FILES[31]);
         commonAssert(decoded);
-        assertEquals(1, decoded.getIrisImages().size());
+        assertThat(decoded.getIrisImages()).hasSize(1);
     }
 
     private void commonAssert(Nist decoded) {
-        assertNotNull(decoded.getTransactionInfo());
-        assertEquals(1, decoded.getUserDefinedTexts().size());
+        assertThat(decoded.getTransactionInfo()).isNotNull();
+        assertThat(decoded.getUserDefinedTexts()).hasSize(1);
 
         Map<Integer, String> userDefinedFields = decoded.getUserDefinedTexts().get(0).getUserDefinedFields();
-        assertEquals("57", userDefinedFields.get(1));
-        assertEquals("00", userDefinedFields.get(2));
-        assertEquals("domain defined text place holder", userDefinedFields.get(3));
+        assertThat(userDefinedFields)
+            .containsEntry(1, "57")
+            .containsEntry(2, "00")
+            .containsEntry(3, "domain defined text place holder");
     }
 
     private Nist decode(String name) {
         String fileName = FileUtils.absolute(String.format(FILE_PATH, name));
         Nist nist = Jnbis.nist().decode(fileName);
-        assertNotNull(nist);
+        assertThat(nist).isNotNull();
         return nist;
     }
 }

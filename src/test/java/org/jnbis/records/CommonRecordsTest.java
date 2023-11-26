@@ -1,47 +1,37 @@
 package org.jnbis.records;
 
+import static org.assertj.core.api.Assertions.assertThat;
+
+import java.io.File;
+import java.util.List;
+import java.util.Map;
+import java.util.stream.Stream;
 import org.jnbis.FileUtils;
 import org.jnbis.api.Jnbis;
 import org.jnbis.api.model.Nist;
 import org.jnbis.api.model.record.SignatureImage;
 import org.jnbis.api.model.record.TransactionInformation;
 import org.jnbis.api.model.record.UserDefinedTestingImage;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.junit.runners.Parameterized;
-
-import java.io.File;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.List;
-import java.util.Map;
-
-import static org.assertj.core.api.Assertions.assertThat;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.MethodSource;
 
 /**
  * @author TeeSofteis
  */
 
-@RunWith(Parameterized.class)
-public class CommonRecordsTest {
+class CommonRecordsTest {
 
-    @Parameterized.Parameters(name = "{index}: {0}")
-    public static Collection<File> data() {
+    private static Stream<File> data() {
         File[] files = new File(FileUtils.absolute("ansi/references"))
                 .listFiles((f, name) -> name.endsWith(".an2"));
 
         assert files != null;
-        return Arrays.asList(files);
+        return Stream.of(files);
     }
 
-    private final File file;
-
-    public CommonRecordsTest(File file) {
-        this.file = file;
-    }
-
-    @Test
-    public void verify() {
+    @ParameterizedTest
+    @MethodSource("data")
+    void verify(final File file) {
         Nist decoded = Jnbis.nist().decode(file);
 
         verifyUserDefinedFields(decoded);
@@ -59,7 +49,7 @@ public class CommonRecordsTest {
 
         assertThat(fields.get(0)).isNull();
         assertThat(fields.get(1)).isIn("55", "57");
-        assertThat(fields.get(2)).isEqualTo("00");
+        assertThat(fields).containsEntry(2, "00");
         assertThat(fields.get(3)).isIn(
                 "two chinese characters: 華裔",
                 "domain defined text place holder");
@@ -119,15 +109,15 @@ public class CommonRecordsTest {
         assertThat(userDefinedFields).hasSize(4);
 
         // Tag 16.003
-        assertThat(userDefinedFields.get(3)).isEqualTo("Wallace\u001FGromit\u001FMcGraw");
+        assertThat(userDefinedFields).containsEntry(3, "Wallace\u001FGromit\u001FMcGraw");
 
         // Tag 16.004
-        assertThat(userDefinedFields.get(4)).isEqualTo("Shaun\u001EPreston\u001EPiella Backleicht");
+        assertThat(userDefinedFields).containsEntry(4, "Shaun\u001EPreston\u001EPiella Backleicht");
 
         // Tag 16.005
-        assertThat(userDefinedFields.get(5)).isEqualTo("single value");
+        assertThat(userDefinedFields).containsEntry(5, "single value");
 
         // Tag 16.013
-        assertThat(userDefinedFields.get(13)).isEqualTo("A1\u001FB1\u001FC1\u001EA2\u001FB2\u001FC2\u001EA3\u001FB3\u001FC3");
+        assertThat(userDefinedFields).containsEntry(13, "A1\u001FB1\u001FC1\u001EA2\u001FB2\u001FC2\u001EA3\u001FB3\u001FC3");
     }
 }

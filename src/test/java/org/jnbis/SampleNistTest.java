@@ -1,23 +1,23 @@
 package org.jnbis;
 
-import org.jnbis.api.Jnbis;
-import org.jnbis.api.model.Nist;
-import org.jnbis.api.model.record.HighResolutionGrayscaleFingerprint;
-import org.junit.BeforeClass;
-import org.junit.Test;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.io.File;
 import java.util.List;
 import java.util.Map;
-
-import static org.junit.Assert.assertEquals;
+import org.jnbis.api.Jnbis;
+import org.jnbis.api.model.Nist;
+import org.jnbis.api.model.record.HighResolutionGrayscaleFingerprint;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Test;
 
 /**
  * @author <a href="mailto:m.h.shams@gmail.com">M. H. Shamsi</a>
  * @version 1.0.0
  * @since Oct 31, 2007
  */
-public class SampleNistTest {
+class SampleNistTest {
     // Impression-type, horizontal-length, vertical-length
     private static final String[][] IMAGES_PROPERTIES = {
             {"3", "804", "752"},
@@ -38,26 +38,27 @@ public class SampleNistTest {
 
     private static Nist nist;
 
-    @BeforeClass
+
+    @BeforeAll
     public static void setup() {
         nist = Jnbis.nist().decode(FileUtils.absolute("samples/nist/sample.an2"));
     }
 
     @Test
-    public void userDefinedTexts() {
+    void userDefinedTexts() {
         Map<Integer, String> userDefinedFields = nist.getUserDefinedTexts().get(0).getUserDefinedFields();
 
-        assertEquals("57", userDefinedFields.get(1));
-        assertEquals("00", userDefinedFields.get(2));
-        assertEquals("domain defined text place holder", userDefinedFields.get(3));
-
+        assertThat(userDefinedFields)
+            .containsEntry(1, "57")
+            .containsEntry(2, "00")
+            .containsEntry(3, "domain defined text place holder");
     }
 
     @Test
-    public void fingerPrints() throws Exception {
+    void fingerPrints() throws Exception {
         List<HighResolutionGrayscaleFingerprint> fingerprints = nist.getHiResGrayscaleFingerprints();
 
-        assertEquals(14, fingerprints.size());
+        assertThat(fingerprints).hasSize(14);
 
         for (HighResolutionGrayscaleFingerprint fingerPrint : fingerprints) {
 
@@ -66,14 +67,14 @@ public class SampleNistTest {
 
             String message = "For '" + idcValue + "' : ";
 
-            assertEquals(message, idcValue, fingerPrint.getFingerPosition());
+            assertThat(fingerPrint.getFingerPosition()).as(message).isEqualTo(idcValue);
 
-            assertEquals(message, "0", fingerPrint.getImageScanningResolution());
-            assertEquals(message, "1", fingerPrint.getCompressionAlgorithm());
+            assertThat(fingerPrint.getImageScanningResolution()).as(message).isEqualTo("0");
+            assertThat( fingerPrint.getCompressionAlgorithm()).as(message).isEqualTo("1");
 
-            assertEquals(message, IMAGES_PROPERTIES[idcIntValue - 1][0], fingerPrint.getImpressionType());
-            assertEquals(message, IMAGES_PROPERTIES[idcIntValue - 1][1], fingerPrint.getHorizontalLineLength());
-            assertEquals(message, IMAGES_PROPERTIES[idcIntValue - 1][2], fingerPrint.getVerticalLineLength());
+            assertThat(fingerPrint.getImpressionType()).as(message).isEqualTo(IMAGES_PROPERTIES[idcIntValue - 1][0]);
+            assertThat(fingerPrint.getHorizontalLineLength()).as(message).isEqualTo(IMAGES_PROPERTIES[idcIntValue - 1][1]);
+            assertThat(fingerPrint.getVerticalLineLength()).as(message).isEqualTo(IMAGES_PROPERTIES[idcIntValue - 1][2]);
 
             byte[] bytes = Jnbis.wsq()
                     .decode(fingerPrint.getImageData())

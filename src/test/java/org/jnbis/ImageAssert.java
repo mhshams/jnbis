@@ -1,13 +1,13 @@
 package org.jnbis;
 
-import javax.imageio.ImageIO;
+import static org.assertj.core.api.Assertions.assertThat;
+
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
-
-import static org.junit.Assert.assertEquals;
+import javax.imageio.ImageIO;
 
 public class ImageAssert {
 
@@ -24,12 +24,12 @@ public class ImageAssert {
     }
 
     private static void assertImagesEquals(BufferedImage expected, BufferedImage actual) {
-        assertEquals(expected.getWidth(), actual.getWidth());
-        assertEquals(expected.getHeight(), actual.getHeight());
+        assertThat(actual.getWidth()).isEqualTo(expected.getWidth());
+        assertThat(actual.getHeight()).isEqualTo(expected.getHeight());
 
         for (int y = 0; y < expected.getHeight(); y++) {
             for (int x = 0; x < expected.getWidth(); x++) {
-                assertEquals(expected.getRGB(x, y), actual.getRGB(x, y));
+                assertThat(actual.getRGB(x, y)).isEqualTo(expected.getRGB(x, y));
             }
         }
     }
