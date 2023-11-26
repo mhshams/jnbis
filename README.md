@@ -5,7 +5,8 @@ Java Implementation of NIST Biometric Image Software (NBIS)
 [![Maven Central](https://maven-badges.herokuapp.com/maven-central/com.github.mhshams/jnbis/badge.svg)](https://maven-badges.herokuapp.com/maven-central/com.github.mhshams/jnbis)
 [![GitHub license](https://img.shields.io/badge/license-Apache%20License%202.0-blue.svg?style=flat)](http://www.apache.org/licenses/LICENSE-2.0)
 
-> 🛠️ **NOTE:** Due to lack of time, this project is in maintenance mode. Only critical bugs will be fixed. Pull requests are always welcome!
+> NOTE: This version is a fork of the original JNBIS library [mhsmams](https://github.com/mhshams/jnbis) used as a source of inspiration to test refactoring techniques, update it and add improvements.
+
 
 ### About JNBIS
 JNBIS is a library, written in Java, to extract and decode NIST (National Institute of Standards and Technology) compressed files and WSQ (Wavelet Scalar Quantization) images. 
