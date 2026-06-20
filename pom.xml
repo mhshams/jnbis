@@ -51,13 +51,13 @@
         <maven.gpg.verison>3.0.1</maven.gpg.verison>
         <moditect.version>1.0.0.RC2</moditect.version>
         <junit.version>4.13.2</junit.version>
-        <assertj.version>3.23.1</assertj.version>
-        <jackson.version>2.14.0-rc2</jackson.version>
+        <assertj.version>3.27.7</assertj.version>
+        <jackson.version>3.2.0</jackson.version>
     </properties>
 
     <dependencies>
         <dependency>
-            <groupId>com.fasterxml.jackson.core</groupId>
+            <groupId>tools.jackson.core</groupId>
             <artifactId>jackson-databind</artifactId>
             <version>${jackson.version}</version>
         </dependency>
